@@ -6,19 +6,32 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/jogging.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
         padding: EdgeInsets.all(20),
         alignment: Alignment.center,
-        color: Colors.black,
+        //color: Colors.black,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Bienvenue sur Yorgo',
+              'Bienvenue sur YORGO',
               style: TextStyle(
-                fontSize: 35,
+                fontSize: 37,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
+                shadows: [
+                  Shadow(
+                    color: Colors.black.withOpacity(1),
+                    offset: Offset(3, 2),
+                    blurRadius: 5,
+                  ),
+                ],
               ),
               textAlign: TextAlign.center,
             ),
