@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_options.dart';
 
 import '../auth/signin_view.dart';
@@ -15,7 +14,7 @@ final List imgList = [
 ];
 
 double height = 0;
-
+double width = 0;
 List<Widget> imageSliders = imgList
     .map((item) => Container(
           child: Container(
@@ -26,6 +25,7 @@ List<Widget> imageSliders = imgList
                   item['image'],
                   fit: BoxFit.cover,
                   height: height,
+                  width: width,
                 ),
                 Positioned(
                   top: 50.0,
@@ -61,6 +61,8 @@ List<Widget> imageSliders = imgList
     .toList();
 
 class HomeView extends StatefulWidget {
+  static String routeName = '/home';
+
   @override
   State<StatefulWidget> createState() {
     return HomeViewState();
@@ -68,15 +70,17 @@ class HomeView extends StatefulWidget {
 }
 
 class HomeViewState extends State<HomeView> {
-  static String routeName = '/home';
   int _current = 0;
 
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Column(children: [
         Stack(
+          alignment: Alignment.center,
           children: <Widget>[
             CarouselSlider(
               items: imageSliders,
@@ -88,7 +92,6 @@ class HomeViewState extends State<HomeView> {
                   onPageChanged: (index, reason) {
                     setState(() {
                       _current = index;
-                      imgList.remove(0);
                     });
                   }),
             ),
@@ -119,21 +122,45 @@ class HomeViewState extends State<HomeView> {
             ),
             Positioned(
               bottom: 0,
-              left: 0,
-              right: 0.0,
               child: Container(
-                alignment: Alignment.center,
+                constraints: BoxConstraints(minWidth: 100, maxWidth: 500),
                 margin: const EdgeInsets.symmetric(vertical: 40),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    textStyle: const TextStyle(fontSize: 30),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 70, vertical: 10),
+                    padding: EdgeInsets.zero,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0)),
                   ),
                   onPressed: () {
                     Navigator.pushNamed(context, SigninView.routeName);
                   },
-                  child: const Text('Connexion'),
+                  child: Ink(
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Color(0xff65C5F8), Color(0xff2D93CC)],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                        borderRadius: BorderRadius.circular(15.0)),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 0, vertical: 20),
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Connexion',
+                        style: TextStyle(
+                          fontSize: 20,
+                          shadows: [
+                            Shadow(
+                              color: Colors.black.withOpacity(0.3),
+                              offset: Offset(3, 2),
+                              blurRadius: 5,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
