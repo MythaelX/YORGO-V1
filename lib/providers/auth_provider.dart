@@ -8,17 +8,20 @@ import 'dart:convert';
 import 'package:yorgo/models/user_model.dart';
 
 class AuthProvider with ChangeNotifier {
-  final String host = 'http://10.0.2.2';
+  final String host = 'http://10.0.2.2:8000';
   String token;
   bool isLoading = false;
 
   Future<dynamic> signup(SignupForm signupForm) async {
     try {
       isLoading = true;
-      Uri url = Uri.parse("$host/api/user");
+      Uri url = Uri.parse("$host/users/");
       http.Response response = await http.post(
         url,
-        headers: {'Content-type': 'application/json'},
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': 'Basic YWRtaW46YWRtaW4=',
+        },
         body: json.encode(signupForm.toJson()),
       );
       isLoading = false;
@@ -28,7 +31,7 @@ class AuthProvider with ChangeNotifier {
       return null;
     } catch (e) {
       isLoading = false;
-      rethrow;
+      return "error";
     }
   }
 

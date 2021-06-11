@@ -14,8 +14,8 @@ class BackButtonHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: 10,
-      left: 20,
+      top: 30,
+      left: 10,
       child: Container(
         child: IconButton(
           padding: EdgeInsets.zero,

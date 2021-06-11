@@ -60,7 +60,7 @@ class _SignupViewState extends State<SignupView> {
       'Inscription',
       textAlign: TextAlign.center,
       style: TextStyle(
-        fontSize: 70,
+        fontSize: 60,
         color: Colors.white,
         fontWeight: FontWeight.bold,
         shadows: [
@@ -93,7 +93,7 @@ class _SignupViewState extends State<SignupView> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 60),
+              padding: EdgeInsets.symmetric(vertical: 0),
             ),
             _title(),
             Padding(

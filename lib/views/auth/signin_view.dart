@@ -65,7 +65,7 @@ class _SigninViewState extends State<SigninView> {
     return Text(
       'Yorgo',
       style: TextStyle(
-        fontSize: 70,
+        fontSize: 60,
         color: Colors.white,
         fontWeight: FontWeight.bold,
         shadows: [
@@ -97,7 +97,7 @@ class _SigninViewState extends State<SigninView> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 60),
+              padding: EdgeInsets.symmetric(vertical: 0),
             ),
             _title(),
             Padding(

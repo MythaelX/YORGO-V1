@@ -121,10 +121,12 @@ class HomeViewState extends State<HomeView> {
               ),
             ),
             Positioned(
+              width: MediaQuery.of(context).size.width,
               bottom: 0,
               child: Container(
                 constraints: BoxConstraints(minWidth: 100, maxWidth: 500),
-                margin: const EdgeInsets.symmetric(vertical: 40),
+                margin:
+                    const EdgeInsets.symmetric(vertical: 40, horizontal: 10),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.zero,
