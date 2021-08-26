@@ -1,14 +1,14 @@
 import 'package:flutter/widgets.dart';
 
 class SigninForm {
-  String email;
+  String username;
   String password;
   SigninForm({
-    @required this.email,
+    @required this.username,
     @required this.password,
   });
 
   Map<String, dynamic> toJson() {
-    return {'email': email, 'password': password};
+    return {'username': username, 'password': password};
   }
 }

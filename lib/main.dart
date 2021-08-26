@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yorgo/providers/auth_provider.dart';
+import 'package:yorgo/providers/user_provider.dart';
 import 'package:yorgo/views/not_found_view.dart';
+import 'package:yorgo/views/splash_view.dart';
 
 //Page Import :
 import 'views/home/home_views.dart';
@@ -20,11 +22,24 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final AuthProvider authProvider = AuthProvider();
+
+  @override
+  void initState() {
+    authProvider.initAuth();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: authProvider),
+        ChangeNotifierProxyProvider<AuthProvider, UserProvider>(
+            create: (_) => UserProvider(),
+            update: (_, authProvider, oldUserProvider) {
+              oldUserProvider.update(authProvider);
+              return oldUserProvider;
+            }),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -32,7 +47,7 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: HomeView(),
+        home: SplashView(),
         onGenerateRoute: (settings) {
           if (settings.name == SigninView.routeName) {
             return MaterialPageRoute(builder: (_) => SigninView());

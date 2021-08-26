@@ -25,7 +25,7 @@ class _SigninViewState extends State<SigninView> {
 
   @override
   void initState() {
-    signinForm = SigninForm(email: null, password: null);
+    signinForm = SigninForm(username: null, password: null);
     super.initState();
   }
 
@@ -34,10 +34,16 @@ class _SigninViewState extends State<SigninView> {
       form.save();
       final response = await Provider.of<AuthProvider>(context, listen: false)
           .signin(signinForm);
-      if (response is User) {
+      if (response != "error" && response != "errorAuth") {
         Navigator.pushNamed(context, ProfileView.routeName);
       } else {
-        Navigator.pop(context);
+        final snackBar = SnackBar(
+            content: const Text('Erreur de connexion'),
+            );
+          // Find the ScaffoldMessenger in the widget tree
+          // and use it to show a SnackBar.
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          
       }
     }
   }
@@ -47,6 +53,8 @@ class _SigninViewState extends State<SigninView> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      extendBody: true,
+      extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
       body: _body(height, width, context),
     );
@@ -79,13 +87,26 @@ class _SigninViewState extends State<SigninView> {
     );
   }
 
-  Stack _body(double height, double width, BuildContext context) {
-    return Stack(
-      children: [
-        _background(height, width),
-        BackButtonHome(),
-        _signInContains(context),
-      ],
+  SingleChildScrollView _body(double height, double width, BuildContext context) {
+    double heightResponsive = 0;
+    if(height < 670){
+      heightResponsive = 670;
+    }else{
+      heightResponsive = height;
+    }
+    return SingleChildScrollView(
+      child: Container(
+        
+        height: heightResponsive,
+        child: Stack(
+          children: [
+            _background(heightResponsive, width),
+            BackButtonHome(),
+            _signInContains(context),
+           
+          ],
+        ),
+      ),
     );
   }
 
@@ -116,6 +137,7 @@ class _SigninViewState extends State<SigninView> {
               },
               child: Text(
                 "Je n'ai pas de compte",
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
                   decoration: TextDecoration.underline,
@@ -149,7 +171,7 @@ class _SigninViewState extends State<SigninView> {
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.white, width: 2.0),
               ),
-              hintText: 'Email',
+              hintText: 'Username',
               hintStyle: TextStyle(
                 color: Colors.white,
               ),
@@ -165,7 +187,7 @@ class _SigninViewState extends State<SigninView> {
               ],
             ),
             onSaved: (newValue) {
-              signinForm.email = newValue;
+              signinForm.username = newValue;
             },
           ),
           Padding(
@@ -229,9 +251,9 @@ class _SigninViewState extends State<SigninView> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               ),
-              onPressed: () {
+             /* onPressed: () {
                 Navigator.pushNamed(context, SignupView.routeName);
-              },
+              }, */
               child: Text(
                 "Mot de passe oublié ?",
                 textAlign: TextAlign.right,
@@ -289,7 +311,7 @@ class _SigninViewState extends State<SigninView> {
           padding: EdgeInsets.symmetric(vertical: 5),
         ),
         GradientElevatedButton(
-          submitForm: submitForm,
+          //submitForm: submitForm,
           text: "Connexion avec facebook",
           colors: [Color(0x18ACFE), Color(0xff0062E0)],
           padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 15),
@@ -299,9 +321,12 @@ class _SigninViewState extends State<SigninView> {
         ),
         BasicElevatedButton(
           text: "Connexion avec Google",
-          submitForm: submitForm,
+          //submitForm: submitForm,
         ),
       ],
     );
   }
+}
+
+class Int {
 }

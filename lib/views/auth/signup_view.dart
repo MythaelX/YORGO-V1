@@ -29,10 +29,16 @@ class _SignupViewState extends State<SignupView> {
   Future<void> submitForm() async {
     if (form.validate()) {
       form.save();
-      Provider.of<AuthProvider>(context, listen: false).signup(signupForm);
-      final error = null;
+      final error = await Provider.of<AuthProvider>(context, listen: false).signup(signupForm);
       if (error == null) {
         Navigator.pushNamed(context, SigninView.routeName);
+      }else{
+        final snackBar = SnackBar(
+            content: const Text("Erreur d'inscription"),
+            );
+          // Find the ScaffoldMessenger in the widget tree
+          // and use it to show a SnackBar.
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     }
   }
@@ -42,6 +48,9 @@ class _SignupViewState extends State<SignupView> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: false,
       body: _body(height, width, context),
     );
   }
@@ -60,7 +69,7 @@ class _SignupViewState extends State<SignupView> {
       'Inscription',
       textAlign: TextAlign.center,
       style: TextStyle(
-        fontSize: 60,
+        fontSize: 54,
         color: Colors.white,
         fontWeight: FontWeight.bold,
         shadows: [
@@ -74,13 +83,24 @@ class _SignupViewState extends State<SignupView> {
     );
   }
 
-  Stack _body(double height, double width, BuildContext context) {
-    return Stack(
-      children: [
-        _background(height, width),
-        BackButtonHome(),
-        _signUpContains(context),
-      ],
+  SingleChildScrollView _body(double height, double width, BuildContext context) {
+     double heightResponsive = 0;
+    if(height < 650){
+      heightResponsive = 650;
+    }else{
+      heightResponsive = height;
+    }
+    return SingleChildScrollView(
+      child: Container(
+        height: heightResponsive,
+        child: Stack(
+          children: [
+            _background(heightResponsive, width),
+            BackButtonHome(),
+            _signUpContains(context),
+          ],
+        ),
+      ),
     );
   }
 
@@ -92,29 +112,28 @@ class _SignupViewState extends State<SignupView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 0),
-            ),
-            _title(),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 15),
-            ),
+            
+            _title(),           
             _formSignUp(context),
             Expanded(child: Container()),
             Text(
-              "En continuant vous acceptez notre Termes et Politique de confidentialité ",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-                shadows: [
-                  Shadow(
-                    color: Colors.black.withOpacity(1),
-                    offset: Offset(3, 2),
-                    blurRadius: 5,
-                  ),
-                ],
-              ),
+                "En continuant vous acceptez notre Termes et Politique de confidentialité ",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                  shadows: [
+                    Shadow(
+                      color: Colors.black.withOpacity(1),
+                      offset: Offset(3, 2),
+                      blurRadius: 5,
+                    ),
+                  ],
+                ),
+              
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 5),
             ),
           ],
         ),
@@ -248,7 +267,7 @@ class _SignupViewState extends State<SignupView> {
           padding: EdgeInsets.symmetric(vertical: 5),
         ),
         GradientElevatedButton(
-          submitForm: submitForm,
+          //submitForm: submitForm,
           text: "S'inscrire avec facebook",
           colors: [Color(0x18ACFE), Color(0xff0062E0)],
           padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 15),
@@ -258,7 +277,7 @@ class _SignupViewState extends State<SignupView> {
         ),
         BasicElevatedButton(
           text: "S'inscrire avec Google",
-          submitForm: submitForm,
+          //submitForm: submitForm,
         ),
       ],
     );
