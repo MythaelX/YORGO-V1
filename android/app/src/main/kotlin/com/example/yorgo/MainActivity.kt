@@ -1,4 +1,4 @@
-package com.example.yorgo
+package com.bzh.yorgo.yorgo
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,16 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:carousel_slider/carousel_options.dart';
-
+import 'package:video_player/video_player.dart';
 import '../auth/signin_view.dart';
 
 final List imgList = [
-  {'image': 'assets/images/jogging.jpg', 'title':"", 'text': "Bienvenue sur Yorgo"},
-  {'image': 'assets/images/escalade.jpg', 'title': "C’est quoi YORGO ?", 'text': [" YORGO, c’est faire du sport à plusieurs."," Booster sa motivation !","Challenger ses performances !"," Saisir les opportunités !"]},
-  {'image': 'assets/images/escalade.jpg', 'title': "Mais également", 'text':["Partager sa passion à l’aise d’un réseau social innovant !"]},
+  {
+    'image': 'assets/images/jogging.jpg',
+    'title': "",
+    'text': "Bienvenue sur Yorgo"
+  },
+  {
+    'image': 'assets/images/escalade.jpg',
+    'title': "C’est quoi YORGO ?",
+    'text': [
+      " YORGO, c’est faire du sport à plusieurs, booster sa motivation et challenger ses performances.",
+      "",
+      " Le tout, en 1 application !",
+    ]
+  },
+  {
+    'image': 'assets/images/escalade.jpg',
+    'title': "Mais également",
+    'text': ["Video Introduction"]
+  },
   {
     'image': 'assets/images/swimmer.jpg',
-    'title':"",
+    'title': "",
     'text': "À vous de jouer !"
   },
 ];
@@ -33,85 +49,80 @@ List<Widget> imageSliders = imgList
                   child: Container(
                     padding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                    child: (item['title'] == "" ) ?
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                          item['text'],
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 36.0,
-                            fontWeight: FontWeight.bold,
-                            
-                            shadows: [
-                              Shadow(
-                                color: Colors.black.withOpacity(1),
-                                offset: Offset(3, 2),
-                                blurRadius: 5,
-                              ),
-                            ],
-                          ),
-                                              ),
-                        ): Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          
-                          children: [
-                            
-                             Padding(
-                               padding: EdgeInsets.symmetric(vertical: (height/30), horizontal: 0),
-                               child: FittedBox(
-                                 fit: BoxFit.fitWidth,
-                                 child: Text(        
-                                                         item['title'],
-                                                         textAlign: TextAlign.center,
-                                                         style: TextStyle(
-                                                           color: Colors.white,
-                                                           fontSize: height/18,
-                                                           fontWeight: FontWeight.bold,
-                                                           shadows: [
+                    child: (item['title'] == "")
+                        ? Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              item['text'],
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 36.0,
+                                fontWeight: FontWeight.bold,
+                                shadows: [
                                   Shadow(
                                     color: Colors.black.withOpacity(1),
                                     offset: Offset(3, 2),
                                     blurRadius: 5,
                                   ),
-                                                           ],
-                                                         ),
-                                 ),
-                               ),
-                             ),
-                             
-                             for (var item in item['text']) 
-                               Expanded(
-                                 flex: 2,
-                                 
-                                 child: Text(
-                          item,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: height/25,
-                            fontWeight: FontWeight.w500,
-                            
-                            shadows: [
-                              Shadow(
-                                  color: Colors.black.withOpacity(1),
-                                  offset: Offset(3, 2),
-                                  blurRadius: 5,
+                                ],
                               ),
-                            ],
+                            ),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: (height / 30), horizontal: 0),
+                                  child: FittedBox(
+                                    fit: BoxFit.fitWidth,
+                                    child: Text(
+                                      item['title'],
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: height / 18,
+                                        fontWeight: FontWeight.bold,
+                                        shadows: [
+                                          Shadow(
+                                            color: Colors.black.withOpacity(1),
+                                            offset: Offset(3, 2),
+                                            blurRadius: 5,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(flex: 3, child: Container()),
+                                for (var item in item['text'])
+                                  Expanded(
+                                    flex: 2,
+                                    child: Text(
+                                      item,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: height / 28,
+                                        fontWeight: FontWeight.w500,
+                                        shadows: [
+                                          Shadow(
+                                            color: Colors.black.withOpacity(1),
+                                            offset: Offset(3, 2),
+                                            blurRadius: 5,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                Expanded(flex: 2, child: Container()),
+                              ],
+                            ),
                           ),
-                             ),
-                               ),
-                             Expanded(flex: 2,child: Container())
-                          ],
-                          
-                        ),
-                      )                    
-                    ),
                   ),
-                
+                ),
               ],
             )),
           ),

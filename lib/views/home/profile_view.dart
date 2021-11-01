@@ -11,7 +11,7 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final User user = null;//Provider.of<UserProvider>(context).user;
+    final User user = null; //Provider.of<UserProvider>(context).user;
     return Scaffold(
       appBar: AppBar(),
       drawer: Drawer(
