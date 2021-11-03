@@ -6,7 +6,7 @@ import 'package:yorgo/models/signin_form_model.dart';
 import 'package:yorgo/models/signup_form_model.dart';
 import 'dart:convert';
 
-import 'package:yorgo/models/user_model.dart';
+// import 'package:yorgo/models/user_model.dart';
 
 class AuthProvider with ChangeNotifier {
   //final String host = 'http://10.0.2.2:8000';
@@ -18,7 +18,7 @@ class AuthProvider with ChangeNotifier {
   bool isLoggedin;
   Timer timer;
 
-    Future<void> initAuth() async {
+  Future<void> initAuth() async {
     try {
       String oldtokenRefresh = await storage.read(key: 'tokenRefresh');
       if (oldtokenRefresh == null) {
@@ -38,11 +38,12 @@ class AuthProvider with ChangeNotifier {
       return "error init Auth";
     }
   }
+
   //a changer
   Future<void> refreshToken() async {
     Uri url = Uri.parse("$host/refresh-token/");
     Map bodyData = {
-    'refresh' : tokenRefresh,
+      'refresh': tokenRefresh,
     };
     try {
       http.Response response = await http.post(
@@ -104,7 +105,7 @@ class AuthProvider with ChangeNotifier {
         storage.write(key: 'tokenAccess', value: tokenAccess);
         storage.write(key: 'tokenRefresh', value: tokenRefresh);
         //On set un Timer pour refresh le token Access
-        initTimer();  
+        initTimer();
         return "OK";
       } else {
         return "errorAuth";
@@ -123,7 +124,7 @@ class AuthProvider with ChangeNotifier {
     storage.delete(key: 'tokenRefresh');
   }
 
-    void initTimer() {
+  void initTimer() {
     timer = Timer.periodic(Duration(minutes: 5), (timer) {
       refreshToken();
     });

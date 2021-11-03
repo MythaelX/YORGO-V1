@@ -29,16 +29,17 @@ class _SignupViewState extends State<SignupView> {
   Future<void> submitForm() async {
     if (form.validate()) {
       form.save();
-      final error = await Provider.of<AuthProvider>(context, listen: false).signup(signupForm);
+      final error = await Provider.of<AuthProvider>(context, listen: false)
+          .signup(signupForm);
       if (error == null) {
         Navigator.pushNamed(context, SigninView.routeName);
-      }else{
+      } else {
         final snackBar = SnackBar(
-            content: const Text("Erreur d'inscription"),
-            );
-          // Find the ScaffoldMessenger in the widget tree
-          // and use it to show a SnackBar.
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          content: const Text("Erreur d'inscription"),
+        );
+        // Find the ScaffoldMessenger in the widget tree
+        // and use it to show a SnackBar.
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     }
   }
@@ -83,11 +84,12 @@ class _SignupViewState extends State<SignupView> {
     );
   }
 
-  SingleChildScrollView _body(double height, double width, BuildContext context) {
-     double heightResponsive = 0;
-    if(height < 650){
+  SingleChildScrollView _body(
+      double height, double width, BuildContext context) {
+    double heightResponsive = 0;
+    if (height < 650) {
       heightResponsive = 650;
-    }else{
+    } else {
       heightResponsive = height;
     }
     return SingleChildScrollView(
@@ -112,25 +114,26 @@ class _SignupViewState extends State<SignupView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            
-            _title(),           
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+            ),
+            _title(),
             _formSignUp(context),
             Expanded(child: Container()),
             Text(
-                "En continuant vous acceptez notre Termes et Politique de confidentialité ",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                  shadows: [
-                    Shadow(
-                      color: Colors.black.withOpacity(1),
-                      offset: Offset(3, 2),
-                      blurRadius: 5,
-                    ),
-                  ],
-                ),
-              
+              "En continuant vous acceptez notre Termes et Politique de confidentialité ",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                shadows: [
+                  Shadow(
+                    color: Colors.black.withOpacity(1),
+                    offset: Offset(3, 2),
+                    blurRadius: 5,
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 5),

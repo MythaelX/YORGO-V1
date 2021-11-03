@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yorgo/models/signin_form_model.dart';
-import 'package:yorgo/models/user_model.dart';
+/* import 'package:yorgo/models/user_model.dart'; */
 import 'package:yorgo/providers/auth_provider.dart';
 import 'package:yorgo/views/auth/signup_view.dart';
 import 'package:yorgo/views/auth/widgets/BackButton.dart';
 import 'package:yorgo/views/auth/widgets/BasicElevatedButton.dart';
 import 'package:yorgo/views/auth/widgets/GradientElevatedButton.dart';
-import 'package:yorgo/views/home/profile_view.dart';
+/* import 'package:yorgo/views/Profile/profile_view.dart'; */
+import 'package:yorgo/views/flux/flux_view.dart';
 
 class SigninView extends StatefulWidget {
   static String routeName = '/signin';
@@ -35,15 +36,18 @@ class _SigninViewState extends State<SigninView> {
       final response = await Provider.of<AuthProvider>(context, listen: false)
           .signin(signinForm);
       if (response != "error" && response != "errorAuth") {
-        Navigator.pushNamed(context, ProfileView.routeName);
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => FluxView()),
+          (route) => false,
+        );
       } else {
         final snackBar = SnackBar(
-            content: const Text('Erreur de connexion'),
-            );
-          // Find the ScaffoldMessenger in the widget tree
-          // and use it to show a SnackBar.
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          
+          content: const Text('Erreur de connexion'),
+        );
+        // Find the ScaffoldMessenger in the widget tree
+        // and use it to show a SnackBar.
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     }
   }
@@ -87,23 +91,22 @@ class _SigninViewState extends State<SigninView> {
     );
   }
 
-  SingleChildScrollView _body(double height, double width, BuildContext context) {
+  SingleChildScrollView _body(
+      double height, double width, BuildContext context) {
     double heightResponsive = 0;
-    if(height < 670){
+    if (height < 670) {
       heightResponsive = 670;
-    }else{
+    } else {
       heightResponsive = height;
     }
     return SingleChildScrollView(
       child: Container(
-        
         height: heightResponsive,
         child: Stack(
           children: [
             _background(heightResponsive, width),
             BackButtonHome(),
             _signInContains(context),
-           
           ],
         ),
       ),
@@ -118,7 +121,7 @@ class _SigninViewState extends State<SigninView> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 0),
+              padding: EdgeInsets.symmetric(vertical: 10),
             ),
             _title(),
             Padding(
@@ -251,9 +254,9 @@ class _SigninViewState extends State<SigninView> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               ),
-             /* onPressed: () {
-                Navigator.pushNamed(context, SignupView.routeName);
-              }, */
+              onPressed: () {
+                /* Navigator.pushNamed(context, SignupView.routeName); */
+              },
               child: Text(
                 "Mot de passe oublié ?",
                 textAlign: TextAlign.right,
@@ -328,5 +331,4 @@ class _SigninViewState extends State<SigninView> {
   }
 }
 
-class Int {
-}
+class Int {}

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:yorgo/providers/auth_provider.dart';
+import 'package:yorgo/views/flux/flux_view.dart';
 import 'package:yorgo/views/home/home_views.dart';
-import 'package:yorgo/views/home/profile_view.dart';
 
 class SplashView extends StatelessWidget {
   static String routeName = '/splash';
@@ -15,7 +15,7 @@ class SplashView extends StatelessWidget {
         if (isLogggedin == false) {
           Navigator.pushReplacementNamed(context, HomeView.routeName);
         } else if (isLogggedin == true) {
-          Navigator.pushReplacementNamed(context, ProfileView.routeName);
+          Navigator.pushReplacementNamed(context, FluxView.routeName);
         }
       });
     }

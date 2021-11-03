@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:yorgo/providers/auth_provider.dart';
 import 'package:yorgo/providers/user_provider.dart';
+import 'package:yorgo/views/flux/flux_view.dart';
 import 'package:yorgo/views/not_found_view.dart';
 import 'package:yorgo/views/splash_view.dart';
 
@@ -10,7 +11,7 @@ import 'package:yorgo/views/splash_view.dart';
 import 'views/home/home_views.dart';
 import 'views/auth/signin_view.dart';
 import 'views/auth/signup_view.dart';
-import 'views/home/profile_view.dart';
+import 'views/Profile/profile_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -61,6 +62,8 @@ class _MyAppState extends State<MyApp> {
             return MaterialPageRoute(builder: (_) => ProfileView());
           } else if (settings.name == HomeView.routeName) {
             return MaterialPageRoute(builder: (_) => HomeView());
+          } else if (settings.name == FluxView.routeName) {
+            return MaterialPageRoute(builder: (_) => FluxView());
           } else {
             return MaterialPageRoute(builder: (_) => NotFoundView());
           }
