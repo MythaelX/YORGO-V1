@@ -3,7 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:yorgo/providers/auth_provider.dart';
 import 'package:yorgo/views/flux/flux_view.dart';
-import 'package:yorgo/views/home/home_views.dart';
+import 'package:yorgo/views/home/Home_main_view.dart';
 
 class SplashView extends StatelessWidget {
   static String routeName = '/splash';
@@ -13,7 +13,7 @@ class SplashView extends StatelessWidget {
     if (isLogggedin != null) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         if (isLogggedin == false) {
-          Navigator.pushReplacementNamed(context, HomeView.routeName);
+          Navigator.pushReplacementNamed(context, HomeMainView.routeName);
         } else if (isLogggedin == true) {
           Navigator.pushReplacementNamed(context, FluxView.routeName);
         }
