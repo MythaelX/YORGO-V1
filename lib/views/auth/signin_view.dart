@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yorgo/models/signin_form_model.dart';
@@ -5,8 +6,8 @@ import 'package:yorgo/models/signin_form_model.dart';
 import 'package:yorgo/providers/auth_provider.dart';
 import 'package:yorgo/views/auth/signup_view.dart';
 import 'package:yorgo/views/auth/widgets/BackButton.dart';
-import 'package:yorgo/views/auth/widgets/BasicElevatedButton.dart';
-import 'package:yorgo/views/auth/widgets/GradientElevatedButton.dart';
+import 'package:yorgo/widgets/Buttons/BasicElevatedButton.dart';
+import 'package:yorgo/widgets/Buttons/GradientElevatedButton.dart';
 /* import 'package:yorgo/views/Profile/profile_view.dart'; */
 import 'package:yorgo/views/flux/flux_view.dart';
 
@@ -19,20 +20,20 @@ class SigninView extends StatefulWidget {
 
 class _SigninViewState extends State<SigninView> {
   final GlobalKey<FormState> key = GlobalKey<FormState>();
-  SigninForm signinForm;
-  FormState get form => key.currentState;
+  late SigninForm signinForm;
+  FormState? get form => key.currentState;
   bool hidePassword = true;
-  String error;
+  late String? error;
 
   @override
   void initState() {
-    signinForm = SigninForm(username: null, password: null);
+    signinForm = SigninForm(username: "", password: "");
     super.initState();
   }
 
   Future<void> submitForm() async {
-    if (form.validate()) {
-      form.save();
+    if (form!.validate()) {
+      form!.save();
       final response = await Provider.of<AuthProvider>(context, listen: false)
           .signin(signinForm);
       if (response != "error" && response != "errorAuth") {
@@ -94,8 +95,8 @@ class _SigninViewState extends State<SigninView> {
   SingleChildScrollView _body(
       double height, double width, BuildContext context) {
     double heightResponsive = 0;
-    if (height < 670) {
-      heightResponsive = 670;
+    if (height < 690) {
+      heightResponsive = 690;
     } else {
       heightResponsive = height;
     }
@@ -138,8 +139,9 @@ class _SigninViewState extends State<SigninView> {
               onPressed: () {
                 Navigator.pushNamed(context, SignupView.routeName);
               },
-              child: Text(
+              child: AutoSizeText(
                 "Je n'ai pas de compte",
+                maxLines: 1,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -190,7 +192,7 @@ class _SigninViewState extends State<SigninView> {
               ],
             ),
             onSaved: (newValue) {
-              signinForm.username = newValue;
+              signinForm.username = newValue!;
             },
           ),
           Padding(
@@ -233,14 +235,14 @@ class _SigninViewState extends State<SigninView> {
               ],
             ),
             onSaved: (newValue) {
-              signinForm.password = newValue;
+              signinForm.password = newValue!;
             },
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 5),
             child: error != null
                 ? Text(
-                    error,
+                    error!,
                     style: TextStyle(
                       color: Colors.red,
                     ),
@@ -330,5 +332,3 @@ class _SigninViewState extends State<SigninView> {
     );
   }
 }
-
-class Int {}

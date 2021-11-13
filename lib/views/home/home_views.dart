@@ -39,7 +39,7 @@ final List imgList = [
 //Varriables Globales
 double height = 0;
 double width = 0;
-VideoPlayerController _controller;
+VideoPlayerController? _controller;
 
 //initialisation du Slider
 List<Widget> imageSliders = imgList.map((item) {
@@ -70,7 +70,7 @@ List<Widget> imageSliders = imgList.map((item) {
   // style d'affichage 2 (le titre en Haut) + texte au centre :
   var format2 = [
     Padding(
-      padding: const EdgeInsets.symmetric(vertical: 150, horizontal: 0),
+      padding: EdgeInsets.symmetric(vertical: height / 4, horizontal: 0),
       child: Column(
         children: [
           Padding(
@@ -150,15 +150,15 @@ List<Widget> imageSliders = imgList.map((item) {
           ),
           Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 55),
+              padding: EdgeInsets.symmetric(horizontal: 48),
               child: AspectRatio(
-                aspectRatio: 11 / 20,
+                aspectRatio: width / height,
                 child: Stack(
                   alignment: Alignment.bottomCenter,
                   children: <Widget>[
-                    VideoPlayer(_controller),
-                    ClosedCaption(text: _controller.value.caption.text),
-                    VideoProgressIndicator(_controller, allowScrubbing: true),
+                    VideoPlayer(_controller!),
+                    ClosedCaption(text: _controller!.value.caption.text),
+                    VideoProgressIndicator(_controller!, allowScrubbing: true),
                   ],
                 ),
               ),
@@ -215,18 +215,18 @@ class HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     _controller = VideoPlayerController.asset('assets/videos/video_intro.mp4');
-    _controller.addListener(() {
+    _controller!.addListener(() {
       setState(() {});
     });
-    _controller.setLooping(true);
-    _controller.initialize().then((_) => setState(() {}));
+    _controller!.setLooping(true);
+    _controller!.initialize().then((_) => setState(() {}));
   }
 
   //dispose pour le slider
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
+    _controller!.dispose();
   }
 
   //Creation de la page en Stack
@@ -252,9 +252,9 @@ class HomeViewState extends State<HomeView> {
                     setState(() {
                       _current = index;
                       if (_current == 2) {
-                        _controller.play();
+                        _controller!.play();
                       } else {
-                        _controller.pause();
+                        _controller!.pause();
                       }
                     });
                   }),

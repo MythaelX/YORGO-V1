@@ -89,15 +89,15 @@ class NavigationDrawerWidget extends StatelessWidget {
   }
 
   Widget buildMenuItem({
-    String text,
-    IconData icon,
-    VoidCallback onClicked,
+    String? text,
+    IconData? icon,
+    VoidCallback? onClicked,
   }) {
     final color = Colors.white;
     final hoverColor = Colors.white70;
     return ListTile(
       title: Text(
-        text,
+        text!,
         style: TextStyle(
           fontSize: 18,
           color: Colors.white,
@@ -120,7 +120,7 @@ class NavigationDrawerWidget extends StatelessWidget {
   }
 
   void navigateMenu(BuildContext context, String routeName) {
-    String route = ModalRoute.of(context).settings.name;
+    String? route = ModalRoute.of(context)!.settings.name;
     if (route != routeName) {
       Navigator.pop(context);
       Navigator.pushNamed(context, routeName);

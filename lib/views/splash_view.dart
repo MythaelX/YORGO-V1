@@ -3,22 +3,14 @@ import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:yorgo/providers/auth_provider.dart';
 import 'package:yorgo/views/flux/flux_view.dart';
-import 'package:yorgo/views/home/Home_main_view.dart';
+import 'package:yorgo/views/profile/profile_create_view.dart';
 
 class SplashView extends StatelessWidget {
   static String routeName = '/splash';
+
   @override
   Widget build(BuildContext context) {
-    final bool isLogggedin = Provider.of<AuthProvider>(context).isLoggedin;
-    if (isLogggedin != null) {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        if (isLogggedin == false) {
-          Navigator.pushReplacementNamed(context, HomeMainView.routeName);
-        } else if (isLogggedin == true) {
-          Navigator.pushReplacementNamed(context, FluxView.routeName);
-        }
-      });
-    }
+    getLogged(context);
     return Scaffold(
       body: Container(
         color: Theme.of(context).primaryColor,
@@ -33,5 +25,16 @@ class SplashView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  getLogged(BuildContext context) {
+    final bool isLogggedin = Provider.of<AuthProvider>(context).isLoggedin;
+    SchedulerBinding.instance!.addPostFrameCallback((_) {
+      if (isLogggedin == false) {
+        Navigator.pushReplacementNamed(context, ProfileCreateView.routeName);
+      } else {
+        Navigator.pushReplacementNamed(context, FluxView.routeName);
+      }
+    });
   }
 }

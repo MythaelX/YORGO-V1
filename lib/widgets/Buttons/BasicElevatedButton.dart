@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class BasicElevatedButton extends StatelessWidget {
-  final Future<void> Function() submitForm;
-  final String text;
+  final Future<void> Function()? submitForm;
+  final String? text;
   final double textFontsize;
   final EdgeInsetsGeometry padding;
   final Color colorPrimary;
   final Color colorOnPrimary;
   final Color colorOnSurface;
   const BasicElevatedButton({
-    Key key,
+    Key? key,
     this.submitForm,
     this.text,
     this.textFontsize = 20,
@@ -38,7 +38,7 @@ class BasicElevatedButton extends StatelessWidget {
         padding: padding,
         alignment: Alignment.center,
         child: Text(
-          text,
+          text!,
           style: TextStyle(
             fontSize: 20,
             color: Colors.black,

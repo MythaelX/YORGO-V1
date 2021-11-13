@@ -4,7 +4,7 @@ import 'package:yorgo/views/home/home_views.dart';
 class BackButtonHome extends StatelessWidget {
   final Icon icon;
   const BackButtonHome({
-    Key key,
+    Key? key,
     this.icon = const Icon(
       Icons.arrow_back,
       size: 30,

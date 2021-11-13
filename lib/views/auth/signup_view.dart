@@ -1,9 +1,10 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
 import 'package:yorgo/providers/auth_provider.dart';
 import 'package:yorgo/views/auth/signin_view.dart';
 import 'package:yorgo/views/auth/widgets/BackButton.dart';
-import 'package:yorgo/views/auth/widgets/BasicElevatedButton.dart';
-import 'package:yorgo/views/auth/widgets/GradientElevatedButton.dart';
+import 'package:yorgo/widgets/Buttons/BasicElevatedButton.dart';
+import 'package:yorgo/widgets/Buttons/GradientElevatedButton.dart';
 
 import '../../models/signup_form_model.dart';
 import 'package:flutter/material.dart';
@@ -17,18 +18,18 @@ class SignupView extends StatefulWidget {
 
 class _SignupViewState extends State<SignupView> {
   final GlobalKey<FormState> key = GlobalKey<FormState>();
-  SignupForm signupForm;
-  FormState get form => key.currentState;
+  late SignupForm signupForm;
+  FormState? get form => key.currentState;
 
   @override
   void initState() {
-    signupForm = SignupForm(email: null, username: null, password: null);
+    signupForm = SignupForm(email: "", username: "", password: "");
     super.initState();
   }
 
   Future<void> submitForm() async {
-    if (form.validate()) {
-      form.save();
+    if (form!.validate()) {
+      form!.save();
       final error = await Provider.of<AuthProvider>(context, listen: false)
           .signup(signupForm);
       if (error == null) {
@@ -87,8 +88,8 @@ class _SignupViewState extends State<SignupView> {
   SingleChildScrollView _body(
       double height, double width, BuildContext context) {
     double heightResponsive = 0;
-    if (height < 650) {
-      heightResponsive = 650;
+    if (height < 645) {
+      heightResponsive = 645;
     } else {
       heightResponsive = height;
     }
@@ -115,13 +116,14 @@ class _SignupViewState extends State<SignupView> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding: EdgeInsets.symmetric(vertical: 15),
             ),
             _title(),
             _formSignUp(context),
             Expanded(child: Container()),
-            Text(
+            AutoSizeText(
               "En continuant vous acceptez notre Termes et Politique de confidentialité ",
+              maxLines: 2,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 20,
@@ -174,7 +176,7 @@ class _SignupViewState extends State<SignupView> {
               ],
             ),
             onSaved: (newValue) {
-              signupForm.email = newValue;
+              signupForm.email = newValue!;
             },
           ),
           Padding(
@@ -201,7 +203,7 @@ class _SignupViewState extends State<SignupView> {
               ],
             ),
             onSaved: (newValue) {
-              signupForm.username = newValue;
+              signupForm.username = newValue!;
             },
           ),
           Padding(
@@ -228,7 +230,7 @@ class _SignupViewState extends State<SignupView> {
               ],
             ),
             onSaved: (newValue) {
-              signupForm.password = newValue;
+              signupForm.password = newValue!;
             },
           ),
           Padding(

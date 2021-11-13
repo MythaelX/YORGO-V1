@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:yorgo/providers/auth_provider.dart';
 import 'package:yorgo/providers/user_provider.dart';
@@ -36,16 +37,33 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProxyProvider<AuthProvider, UserProvider>(
             create: (_) => UserProvider(),
             update: (_, authProvider, oldUserProvider) {
-              oldUserProvider.update(authProvider);
+              oldUserProvider!.update(authProvider);
               return oldUserProvider;
             }),
       ],
       child: MaterialApp(
+        localizationsDelegates: [GlobalMaterialLocalizations.delegate],
+        supportedLocales: [const Locale('en'), const Locale('fr')],
+        theme: new ThemeData(
+          brightness: Brightness.light,
+          primarySwatch: MaterialColor(0xFF49A5D8, <int, Color>{
+            50: Color.fromRGBO(73, 165, 216, .1),
+            100: Color.fromRGBO(73, 165, 216, .2),
+            200: Color.fromRGBO(73, 165, 216, .3),
+            300: Color.fromRGBO(73, 165, 216, .4),
+            400: Color.fromRGBO(73, 165, 216, .5),
+            500: Color.fromRGBO(73, 165, 216, .6),
+            600: Color.fromRGBO(73, 165, 216, .7),
+            700: Color.fromRGBO(73, 165, 216, .8),
+            800: Color.fromRGBO(73, 165, 216, .9),
+            900: Color.fromRGBO(73, 165, 216, 1),
+          }),
+          primaryColor: Color.fromRGBO(73, 165, 216, 1),
+          secondaryHeaderColor: Colors.pink,
+          splashColor: Colors.black26,
+        ),
         debugShowCheckedModeBanner: false,
         title: 'YORGO',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
         home: SplashView(),
         onGenerateRoute: routes,
         onUnknownRoute: (settings) =>

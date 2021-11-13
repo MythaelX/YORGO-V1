@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:yorgo/widgets/navigation_bottom-bar_widget.dart';
 import 'package:yorgo/widgets/navigation_drawer_widget.dart';
 
 class ActivitySearchView extends StatelessWidget {

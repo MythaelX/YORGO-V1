@@ -6,8 +6,8 @@ import 'dart:convert';
 
 class UserProvider with ChangeNotifier {
   final String host = 'https://yorgoapi.herokuapp.com';
-  User user;
-  AuthProvider authProvider;
+  late User? user;
+  late AuthProvider authProvider;
 
   update(AuthProvider newAuthProvider) {
     authProvider = newAuthProvider;

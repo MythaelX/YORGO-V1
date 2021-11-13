@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:yorgo/models/user_model.dart';
 import 'package:yorgo/providers/auth_provider.dart';
+import 'package:yorgo/widgets/header_app_bar_widget.dart';
 
 import '../home/home_views.dart';
 
 class ProfileView extends StatelessWidget {
-  static String routeName = '/profile';
+  static String routeName = '/profil';
 
   @override
   Widget build(BuildContext context) {
-    final User user = null; //Provider.of<UserProvider>(context).user;
+    //Provider.of<UserProvider>(context).user;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: HeaderAppBar(texte: "Yorgo"),
       drawer: Drawer(
         child: ListView(
           reverse: true,
@@ -35,15 +35,7 @@ class ProfileView extends StatelessWidget {
       ),
       body: Container(
         alignment: Alignment.center,
-        child: user != null
-            ? Text(
-                '${user.username}',
-                style: TextStyle(
-                  fontSize: 35,
-                  fontWeight: FontWeight.bold,
-                ),
-              )
-            : CircularProgressIndicator(),
+        child: CircularProgressIndicator(),
       ),
     );
   }

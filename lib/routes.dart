@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 //Page Import :
-import 'package:yorgo/views/Profile/profile_view.dart';
+
 import 'package:yorgo/views/activity/activity_search_view.dart';
 import 'package:yorgo/views/activity/activity_view.dart';
 import 'package:yorgo/views/auth/signin_view.dart';
@@ -13,6 +13,10 @@ import 'package:yorgo/views/home/Home_main_view.dart';
 import 'package:yorgo/views/home/home_views.dart';
 import 'package:yorgo/views/local_sportmen/local_sportmen_view.dart';
 import 'package:yorgo/views/not_found_view.dart';
+import 'package:yorgo/views/profile/profile_sport_create.dart';
+import 'package:yorgo/views/profile/profile_view.dart';
+import 'package:yorgo/views/profile/profile_create_view.dart';
+import 'package:yorgo/widgets/map/map_search_input.dart';
 
 Route<dynamic> routes(settings) {
   if (settings.name == SigninView.routeName) {
@@ -24,11 +28,24 @@ Route<dynamic> routes(settings) {
     return MaterialPageRoute(
         builder: (_) => SignupView(),
         settings: RouteSettings(name: SignupView.routeName));
+    //////////////////////// Profile /////////////////////////////////
   } else if (settings.name == ProfileView.routeName) {
     return MaterialPageRoute(
         builder: (_) => ProfileView(),
         settings: RouteSettings(name: ProfileView.routeName));
-  } else if (settings.name == HomeView.routeName) {
+  } else if (settings.name == ProfileCreateView.routeName) {
+    return MaterialPageRoute(
+      builder: (_) => ProfileCreateView(),
+      settings: RouteSettings(name: ProfileCreateView.routeName),
+    );
+  } else if (settings.name == ProfileSportCreateView.routeName) {
+    return MaterialPageRoute(
+      builder: (_) => ProfileSportCreateView(),
+      settings: RouteSettings(name: ProfileSportCreateView.routeName),
+    );
+  }
+  ///////////////////////////////////////////////////////////////
+  else if (settings.name == HomeView.routeName) {
     return MaterialPageRoute(
         builder: (_) => HomeView(),
         settings: RouteSettings(name: HomeView.routeName));
@@ -70,6 +87,11 @@ Route<dynamic> routes(settings) {
     return MaterialPageRoute(
       builder: (_) => HomeMainView(),
       settings: RouteSettings(name: HomeMainView.routeName),
+    );
+  } else if (settings.name == "/search") {
+    return MaterialPageRoute(
+      builder: (_) => SearchPage(),
+      settings: RouteSettings(name: "/search"),
     );
   } else {
     return MaterialPageRoute(builder: (_) => NotFoundView());

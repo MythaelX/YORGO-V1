@@ -12,15 +12,15 @@ class AuthProvider with ChangeNotifier {
   //final String host = 'http://10.0.2.2:8000';
   final String host = 'https://yorgoapi.herokuapp.com';
   final FlutterSecureStorage storage = FlutterSecureStorage();
-  String tokenAccess;
-  String tokenRefresh;
+  late String? tokenAccess;
+  late String tokenRefresh;
   bool isLoading = false;
-  bool isLoggedin;
-  Timer timer;
+  late bool isLoggedin = false;
+  late Timer timer;
 
-  Future<void> initAuth() async {
+  Future initAuth() async {
     try {
-      String oldtokenRefresh = await storage.read(key: 'tokenRefresh');
+      String? oldtokenRefresh = await storage.read(key: 'tokenRefresh');
       if (oldtokenRefresh == null) {
         isLoggedin = false;
       } else {
@@ -118,8 +118,8 @@ class AuthProvider with ChangeNotifier {
 
   void signout() {
     isLoggedin = false;
-    tokenAccess = null;
-    tokenRefresh = null;
+    tokenAccess = "";
+    tokenRefresh = "";
     storage.delete(key: 'tokenAccess');
     storage.delete(key: 'tokenRefresh');
   }

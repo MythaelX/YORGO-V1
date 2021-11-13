@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class NavigationBottomBarWidget extends StatelessWidget {
   final selectedIndex;
-  ValueChanged<int> onClicked;
+  ValueChanged<int>? onClicked;
   NavigationBottomBarWidget({this.selectedIndex, this.onClicked});
 
   @override
@@ -36,7 +36,7 @@ class NavigationBottomBarWidget extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
-          label: 'Profile',
+          label: 'Profil',
         ),
       ],
       currentIndex: selectedIndex,
