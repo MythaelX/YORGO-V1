@@ -9,8 +9,6 @@ import 'package:yorgo/views/auth/widgets/BackButton.dart';
 import 'package:yorgo/views/splash_view.dart';
 import 'package:yorgo/widgets/Buttons/BasicElevatedButton.dart';
 import 'package:yorgo/widgets/Buttons/GradientElevatedButton.dart';
-/* import 'package:yorgo/views/Profile/profile_view.dart'; */
-import 'package:yorgo/views/flux/flux_view.dart';
 import 'package:yorgo/widgets/waitProgressor/dialog_progressor.dart';
 
 class SigninView extends StatefulWidget {

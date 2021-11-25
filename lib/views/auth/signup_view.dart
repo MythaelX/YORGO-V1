@@ -2,7 +2,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
 import 'package:yorgo/models/signin_form_model.dart';
 import 'package:yorgo/providers/auth_provider.dart';
-import 'package:yorgo/views/auth/signin_view.dart';
 import 'package:yorgo/views/auth/widgets/BackButton.dart';
 import 'package:yorgo/views/profile/profile_create_view.dart';
 import 'package:yorgo/widgets/Buttons/BasicElevatedButton.dart';
@@ -38,8 +37,8 @@ class _SignupViewState extends State<SignupView> {
           .signup(signupForm);
 
       if (error == null) {
-        final response = await Provider.of<AuthProvider>(context, listen: false)
-            .signin(SigninForm(
+        await Provider.of<AuthProvider>(context, listen: false).signin(
+            SigninForm(
                 username: signupForm.username, password: signupForm.password));
         DialogBuilder(context).hideOpenDialog();
         Navigator.pushAndRemoveUntil(

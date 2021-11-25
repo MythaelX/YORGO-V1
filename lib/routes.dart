@@ -14,7 +14,6 @@ import 'package:yorgo/views/home/home_views.dart';
 import 'package:yorgo/views/local_sportmen/local_sportmen_view.dart';
 import 'package:yorgo/views/not_found_view.dart';
 import 'package:yorgo/views/profile/profile_sport_create.dart';
-import 'package:yorgo/views/profile/profile_view.dart';
 import 'package:yorgo/views/profile/profile_create_view.dart';
 import 'package:yorgo/widgets/map/map_search_input.dart';
 

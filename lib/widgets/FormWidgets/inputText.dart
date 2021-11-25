@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:yorgo/models/profile_form_model.dart';
 
 class TextInput1 extends StatelessWidget {
   final String? texte;
