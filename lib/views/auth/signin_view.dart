@@ -6,10 +6,12 @@ import 'package:yorgo/models/signin_form_model.dart';
 import 'package:yorgo/providers/auth_provider.dart';
 import 'package:yorgo/views/auth/signup_view.dart';
 import 'package:yorgo/views/auth/widgets/BackButton.dart';
+import 'package:yorgo/views/splash_view.dart';
 import 'package:yorgo/widgets/Buttons/BasicElevatedButton.dart';
 import 'package:yorgo/widgets/Buttons/GradientElevatedButton.dart';
 /* import 'package:yorgo/views/Profile/profile_view.dart'; */
 import 'package:yorgo/views/flux/flux_view.dart';
+import 'package:yorgo/widgets/waitProgressor/dialog_progressor.dart';
 
 class SigninView extends StatefulWidget {
   static String routeName = '/signin';
@@ -23,7 +25,7 @@ class _SigninViewState extends State<SigninView> {
   late SigninForm signinForm;
   FormState? get form => key.currentState;
   bool hidePassword = true;
-  late String? error;
+  String? error;
 
   @override
   void initState() {
@@ -34,12 +36,14 @@ class _SigninViewState extends State<SigninView> {
   Future<void> submitForm() async {
     if (form!.validate()) {
       form!.save();
+      DialogBuilder(context).showLoadingIndicator('Connexion en cours ...');
       final response = await Provider.of<AuthProvider>(context, listen: false)
           .signin(signinForm);
+      DialogBuilder(context).hideOpenDialog();
       if (response != "error" && response != "errorAuth") {
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => FluxView()),
+          MaterialPageRoute(builder: (context) => SplashView()),
           (route) => false,
         );
       } else {

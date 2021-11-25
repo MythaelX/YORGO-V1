@@ -4,12 +4,9 @@ import 'package:intl/intl.dart';
 class DateInput1 extends StatefulWidget {
   final String? texte;
   final Icon? icon;
-
-  const DateInput1({
-    Key? key,
-    this.texte,
-    this.icon,
-  }) : super(key: key);
+  final void Function(String?)? onSaved;
+  const DateInput1({Key? key, this.texte, this.icon, this.onSaved})
+      : super(key: key);
 
   @override
   State<DateInput1> createState() => _DateInput1State();
@@ -18,6 +15,7 @@ class DateInput1 extends StatefulWidget {
 class _DateInput1State extends State<DateInput1> {
   DateTime? date;
   final f = new DateFormat('yyyy / MM / dd');
+  var txtController = TextEditingController();
 
   String? getText() {
     if (date == null) {
@@ -30,11 +28,12 @@ class _DateInput1State extends State<DateInput1> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+        controller: txtController,
         decoration: InputDecoration(
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.white, width: 2.0),
           ),
-          hintText: getText(),
+          hintText: widget.texte,
           hintStyle: TextStyle(
             color: Colors.white,
           ),
@@ -55,7 +54,7 @@ class _DateInput1State extends State<DateInput1> {
             ),
           ],
         ),
-        onSaved: (newValue) {},
+        onSaved: widget.onSaved,
         onTap: () {
           FocusScope.of(context).requestFocus(new FocusNode());
           pickDate(context);
@@ -75,5 +74,7 @@ class _DateInput1State extends State<DateInput1> {
     if (newDate == null) return;
 
     setState(() => date = newDate);
+
+    txtController.text = getText()!;
   }
 }

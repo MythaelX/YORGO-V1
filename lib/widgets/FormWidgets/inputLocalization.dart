@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:yorgo/models/profile_form_model.dart';
 /* ValueNotifier<GeoPoint> notifier = ValueNotifier(null); */
 
 class LocalizationInput1 extends StatefulWidget {
   final String? texte;
   final Icon? icon;
+  final void Function(String?, double?, double?)? onSaved;
+
   const LocalizationInput1({
     Key? key,
     this.texte,
     this.icon,
+    this.onSaved,
   }) : super(key: key);
 
   @override
@@ -18,6 +22,7 @@ class LocalizationInput1 extends StatefulWidget {
 
 class _LocalizationInput1State extends State<LocalizationInput1> {
   String? address;
+  GeoPoint? localization;
 
   @override
   Widget build(BuildContext context) {
@@ -47,15 +52,21 @@ class _LocalizationInput1State extends State<LocalizationInput1> {
             ),
           ],
         ),
-        onSaved: (newValue) {},
+        onSaved: (newValue) => {
+              if (localization != null)
+                {
+                  widget.onSaved!(
+                      address, localization!.latitude, localization!.longitude)
+                }
+            },
         onTap: () async {
           FocusScope.of(context).requestFocus(new FocusNode());
           var position = await Navigator.pushNamed(context, "/search");
           if (position != null) {
-            GeoPoint localization = position as GeoPoint;
+            localization = position as GeoPoint;
             List<Placemark> placemarks = await placemarkFromCoordinates(
-                localization.latitude, localization.longitude);
-            address = placemarks.first.locality.toString();
+                localization!.latitude, localization!.longitude);
+            setState(() => address = placemarks.first.locality.toString());
           }
         });
   }

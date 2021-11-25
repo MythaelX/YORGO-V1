@@ -29,10 +29,6 @@ Route<dynamic> routes(settings) {
         builder: (_) => SignupView(),
         settings: RouteSettings(name: SignupView.routeName));
     //////////////////////// Profile /////////////////////////////////
-  } else if (settings.name == ProfileView.routeName) {
-    return MaterialPageRoute(
-        builder: (_) => ProfileView(),
-        settings: RouteSettings(name: ProfileView.routeName));
   } else if (settings.name == ProfileCreateView.routeName) {
     return MaterialPageRoute(
       builder: (_) => ProfileCreateView(),

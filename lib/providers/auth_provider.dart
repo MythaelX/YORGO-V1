@@ -41,7 +41,7 @@ class AuthProvider with ChangeNotifier {
 
   //a changer
   Future<void> refreshToken() async {
-    Uri url = Uri.parse("$host/refresh-token/");
+    Uri url = Uri.parse("$host/api/token/refresh/");
     Map bodyData = {
       'refresh': tokenRefresh,
     };
@@ -90,7 +90,7 @@ class AuthProvider with ChangeNotifier {
   Future<dynamic> signin(SigninForm signinForm) async {
     try {
       isLoading = true;
-      Uri url = Uri.parse("$host/get-token/");
+      Uri url = Uri.parse("$host/api/token/");
       http.Response response = await http.post(
         url,
         headers: {'Content-type': 'application/json'},
@@ -104,6 +104,7 @@ class AuthProvider with ChangeNotifier {
         tokenRefresh = body['refresh'];
         storage.write(key: 'tokenAccess', value: tokenAccess);
         storage.write(key: 'tokenRefresh', value: tokenRefresh);
+        isLoggedin = true;
         //On set un Timer pour refresh le token Access
         initTimer();
         return "OK";

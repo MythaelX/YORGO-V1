@@ -1,42 +1,61 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:yorgo/providers/auth_provider.dart';
-import 'package:yorgo/widgets/header_app_bar_widget.dart';
-
-import '../home/home_views.dart';
+import 'package:yorgo/models/user_model.dart';
+import 'package:yorgo/providers/user_provider.dart';
 
 class ProfileView extends StatelessWidget {
-  static String routeName = '/profil';
+  const ProfileView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    //Provider.of<UserProvider>(context).user;
-    return Scaffold(
-      appBar: HeaderAppBar(texte: "Yorgo"),
-      drawer: Drawer(
-        child: ListView(
-          reverse: true,
-          children: [
-            ListTile(
-              tileColor: Theme.of(context).primaryColor,
-              title: Text(
-                'Deconnexion',
-                style: TextStyle(
-                  color: Colors.white,
+    final User? user = Provider.of<UserProvider>(context).user;
+    return Container(
+      alignment: Alignment.center,
+      child: user != null
+          ? Column(
+              children: [
+                Container(
+                  height: 30,
                 ),
-              ),
-              onTap: () {
-                Provider.of<AuthProvider>(context, listen: false).signout();
-                Navigator.pushNamed(context, HomeView.routeName);
-              },
+                Container(height: 200, child: user.profile_image),
+                Container(
+                  height: 30,
+                ),
+                Text(
+                  'Pseudo : ${user.username}',
+                  style: TextStyle(
+                    fontSize: 35,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'Email : ${user.email}',
+                  style: TextStyle(
+                    fontSize: 35,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'Prénom : ${user.firstname}',
+                  style: TextStyle(
+                    fontSize: 35,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'Nom : ${user.lastname}',
+                  style: TextStyle(
+                    fontSize: 35,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             )
-          ],
-        ),
-      ),
-      body: Container(
-        alignment: Alignment.center,
-        child: CircularProgressIndicator(),
-      ),
+          : CircularProgressIndicator(),
     );
   }
 }

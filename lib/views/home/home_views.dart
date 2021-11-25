@@ -213,20 +213,20 @@ class HomeViewState extends State<HomeView> {
   //Init de la vidéo sur le slider
   @override
   void initState() {
-    super.initState();
     _controller = VideoPlayerController.asset('assets/videos/video_intro.mp4');
     _controller!.addListener(() {
       setState(() {});
     });
     _controller!.setLooping(true);
     _controller!.initialize().then((_) => setState(() {}));
+    super.initState(); //Super should be called at the very end of dispose
   }
 
   //dispose pour le slider
   @override
   void dispose() {
-    super.dispose();
     _controller!.dispose();
+    super.dispose(); //Super should be called at the very end of dispose
   }
 
   //Creation de la page en Stack
@@ -250,12 +250,12 @@ class HomeViewState extends State<HomeView> {
                   enableInfiniteScroll: false,
                   onPageChanged: (index, reason) {
                     setState(() {
-                      _current = index;
-                      if (_current == 2) {
+                      if (index == 2) {
                         _controller!.play();
-                      } else {
+                      } else if (_current == 2) {
                         _controller!.pause();
                       }
+                      _current = index;
                     });
                   }),
             ),

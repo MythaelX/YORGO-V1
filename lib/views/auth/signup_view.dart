@@ -1,10 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
+import 'package:yorgo/models/signin_form_model.dart';
 import 'package:yorgo/providers/auth_provider.dart';
 import 'package:yorgo/views/auth/signin_view.dart';
 import 'package:yorgo/views/auth/widgets/BackButton.dart';
+import 'package:yorgo/views/profile/profile_create_view.dart';
 import 'package:yorgo/widgets/Buttons/BasicElevatedButton.dart';
 import 'package:yorgo/widgets/Buttons/GradientElevatedButton.dart';
+import 'package:yorgo/widgets/waitProgressor/dialog_progressor.dart';
 
 import '../../models/signup_form_model.dart';
 import 'package:flutter/material.dart';
@@ -30,11 +33,22 @@ class _SignupViewState extends State<SignupView> {
   Future<void> submitForm() async {
     if (form!.validate()) {
       form!.save();
+      DialogBuilder(context).showLoadingIndicator('Inscription en cours ...');
       final error = await Provider.of<AuthProvider>(context, listen: false)
           .signup(signupForm);
+
       if (error == null) {
-        Navigator.pushNamed(context, SigninView.routeName);
+        final response = await Provider.of<AuthProvider>(context, listen: false)
+            .signin(SigninForm(
+                username: signupForm.username, password: signupForm.password));
+        DialogBuilder(context).hideOpenDialog();
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => ProfileCreateView()),
+          (route) => false,
+        );
       } else {
+        DialogBuilder(context).hideOpenDialog();
         final snackBar = SnackBar(
           content: const Text("Erreur d'inscription"),
         );

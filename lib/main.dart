@@ -21,8 +21,10 @@ class _MyAppState extends State<MyApp> {
   final AuthProvider authProvider = AuthProvider();
 
   @override
-  void initState() {
-    authProvider.initAuth();
+  initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      authProvider.initAuth();
+    });
     super.initState();
   }
 

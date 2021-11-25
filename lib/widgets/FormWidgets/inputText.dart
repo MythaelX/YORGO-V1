@@ -1,12 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:yorgo/models/profile_form_model.dart';
 
 class TextInput1 extends StatelessWidget {
   final String? texte;
   final Icon? icon;
+  final void Function(String?)? onSaved;
+
   const TextInput1({
     Key? key,
     this.texte,
     this.icon,
+    this.onSaved,
   }) : super(key: key);
 
   @override
@@ -39,14 +45,17 @@ class TextInput1 extends StatelessWidget {
           ),
         ],
       ),
-      onSaved: (newValue) {},
+      onSaved: onSaved,
     );
   }
 }
 
 class TextInput2 extends StatefulWidget {
+  final void Function(String?)? onSaved;
+
   const TextInput2({
     Key? key,
+    this.onSaved,
   }) : super(key: key);
 
   @override
@@ -63,7 +72,7 @@ class _TextInput2State extends State<TextInput2> {
       padding: const EdgeInsets.only(top: 5),
       child: Stack(
         children: [
-          TextField(
+          TextFormField(
             decoration: InputDecoration(
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 15, horizontal: 15),
@@ -91,6 +100,7 @@ class _TextInput2State extends State<TextInput2> {
                 textLength = value.length;
               });
             },
+            onSaved: widget.onSaved,
           ),
           Positioned(
               right: 5,

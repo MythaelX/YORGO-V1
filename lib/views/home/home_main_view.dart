@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yorgo/views/profile/profile_view.dart';
 import 'package:yorgo/widgets/header_app_bar_widget.dart';
 import 'package:yorgo/widgets/navigation_bottom-bar_widget.dart';
 import 'package:yorgo/widgets/navigation_drawer_widget.dart';
@@ -18,7 +19,7 @@ class _HomeMainViewState extends State<HomeMainView> {
     Center(child: Text('Message')),
     Center(child: Text('Flux')),
     Center(child: Text('Notif')),
-    Center(child: Text('Profile')),
+    ProfileView(),
   ];
 
   void onClicked(int index) {

@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class NumberInput1 extends StatelessWidget {
   final String? texte;
   final Icon? icon;
+  final void Function(String?)? onSaved;
   const NumberInput1({
     Key? key,
     this.texte,
     this.icon,
+    this.onSaved,
   }) : super(key: key);
 
   @override
@@ -36,7 +38,7 @@ class NumberInput1 extends StatelessWidget {
           ),
         ],
       ),
-      onSaved: (newValue) {},
+      onSaved: this.onSaved,
     );
   }
 }
