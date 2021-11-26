@@ -157,7 +157,6 @@ List<Widget> imageSliders = imgList.map((item) {
                   alignment: Alignment.bottomCenter,
                   children: <Widget>[
                     VideoPlayer(_controller!),
-                    ClosedCaption(text: _controller!.value.caption.text),
                     VideoProgressIndicator(_controller!, allowScrubbing: true),
                   ],
                 ),
@@ -213,13 +212,13 @@ class HomeViewState extends State<HomeView> {
   //Init de la vidéo sur le slider
   @override
   void initState() {
+    super.initState(); //Super should be called at the very beginning of init
     _controller = VideoPlayerController.asset('assets/videos/video_intro.mp4');
     _controller!.addListener(() {
       setState(() {});
     });
     _controller!.setLooping(true);
     _controller!.initialize().then((_) => setState(() {}));
-    super.initState(); //Super should be called at the very end of dispose
   }
 
   //dispose pour le slider

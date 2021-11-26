@@ -26,28 +26,28 @@ class ProfileView extends StatelessWidget {
                 Text(
                   'Pseudo : ${user.username}',
                   style: TextStyle(
-                    fontSize: 35,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
                   'Email : ${user.email}',
                   style: TextStyle(
-                    fontSize: 35,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
                   'Prénom : ${user.firstname}',
                   style: TextStyle(
-                    fontSize: 35,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
                   'Nom : ${user.lastname}',
                   style: TextStyle(
-                    fontSize: 35,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

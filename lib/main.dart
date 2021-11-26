@@ -18,13 +18,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final AuthProvider authProvider = AuthProvider();
+  AuthProvider authProvider = AuthProvider();
 
   @override
   initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      authProvider.initAuth();
-    });
+    authProvider.initAuth();
     super.initState();
   }
 

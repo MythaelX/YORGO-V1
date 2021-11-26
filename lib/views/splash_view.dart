@@ -30,24 +30,30 @@ class SplashView extends StatelessWidget {
     );
   }
 
-  Future<void> getUser(BuildContext context) async {
-    await Provider.of<UserProvider>(context, listen: false).fetchCurrentUser();
-    final User? user = Provider.of<UserProvider>(context, listen: false).user;
-    if (user!.is_profile_complete == true) {
-      Navigator.pushReplacementNamed(context, HomeMainView.routeName);
-    } else {
-      Navigator.pushReplacementNamed(context, ProfileCreateView.routeName);
+  getUser(BuildContext context, User? user) {
+    //on attend init de User
+    if (user != null) {
+      if (user.is_profile_complete == true) {
+        Navigator.pushReplacementNamed(context, HomeMainView.routeName);
+      } else {
+        Navigator.pushReplacementNamed(context, ProfileCreateView.routeName);
+      }
     }
   }
 
   getLogged(BuildContext context) {
-    final bool isLogggedin = Provider.of<AuthProvider>(context).isLoggedin;
-    SchedulerBinding.instance!.addPostFrameCallback((_) async {
-      if (isLogggedin == false) {
-        Navigator.pushReplacementNamed(context, HomeView.routeName);
-      } else {
-        getUser(context);
-      }
-    });
+    //on get user et les token
+    final bool? isLogggedin = Provider.of<AuthProvider>(context).isLoggedin;
+    final User? user = Provider.of<UserProvider>(context).user;
+    //on attend init de auth
+    if (isLogggedin != null) {
+      SchedulerBinding.instance!.addPostFrameCallback((_) {
+        if (isLogggedin == false) {
+          Navigator.pushReplacementNamed(context, HomeView.routeName);
+        } else {
+          getUser(context, user);
+        }
+      });
+    }
   }
 }

@@ -6,16 +6,18 @@ import 'package:yorgo/models/signin_form_model.dart';
 import 'package:yorgo/models/signup_form_model.dart';
 import 'dart:convert';
 
+import 'package:yorgo/providers/user_provider.dart';
+
 // import 'package:yorgo/models/user_model.dart';
 
 class AuthProvider with ChangeNotifier {
   //final String host = 'http://10.0.2.2:8000';
   final String host = 'https://yorgoapi.herokuapp.com';
   final FlutterSecureStorage storage = FlutterSecureStorage();
-  late String? tokenAccess;
-  late String tokenRefresh;
+  late String? tokenAccess = null;
+  late String? tokenRefresh = null;
   bool isLoading = false;
-  late bool isLoggedin = false;
+  late bool? isLoggedin = null;
   late Timer timer;
 
   Future initAuth() async {

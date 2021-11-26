@@ -6,7 +6,7 @@ import 'package:yorgo/views/auth/widgets/BackButton.dart';
 import 'package:yorgo/views/profile/profile_create_view.dart';
 import 'package:yorgo/widgets/Buttons/BasicElevatedButton.dart';
 import 'package:yorgo/widgets/Buttons/GradientElevatedButton.dart';
-import 'package:yorgo/widgets/waitProgressor/dialog_progressor.dart';
+import 'package:yorgo/widgets/progressor/dialog_progressor.dart';
 
 import '../../models/signup_form_model.dart';
 import 'package:flutter/material.dart';

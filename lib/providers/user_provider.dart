@@ -13,8 +13,10 @@ class UserProvider with ChangeNotifier {
 
   update(AuthProvider newAuthProvider) {
     authProvider = newAuthProvider;
-    if (user == null && authProvider.isLoggedin) {
-      fetchCurrentUser();
+    if (authProvider.isLoggedin != null) {
+      if (user == null && authProvider.isLoggedin!) {
+        fetchCurrentUser();
+      }
     }
   }
 
@@ -30,8 +32,10 @@ class UserProvider with ChangeNotifier {
           json.decode(response.body),
         ),
       );
+
       return response.body;
     }
+    authProvider.isLoggedin = false;
     return null;
   }
 

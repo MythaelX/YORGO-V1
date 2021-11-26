@@ -12,7 +12,7 @@ import 'package:yorgo/widgets/FormWidgets/inputText.dart';
 import 'package:yorgo/widgets/Buttons/GradientElevatedButton.dart';
 import 'package:yorgo/widgets/FormWidgets/InputRadioButton.dart';
 import 'package:yorgo/widgets/header_app_bar_widget.dart';
-import 'package:yorgo/widgets/waitProgressor/dialog_progressor.dart';
+import 'package:yorgo/widgets/progressor/dialog_progressor.dart';
 
 class ProfileCreateView extends StatefulWidget {
   static String routeName = '/profil_create';
