@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class GradientElevatedButton extends StatelessWidget {
-  final Future<void> Function()? submitForm;
+  final Future<void> Function()? onPressed;
   final String text;
   final List<Color> colors;
   final double textFontsize;
   final EdgeInsetsGeometry padding;
   const GradientElevatedButton({
     Key? key,
-    this.submitForm,
+    this.onPressed,
     this.text = "",
     this.textFontsize = 20,
     this.padding = const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
@@ -25,7 +25,7 @@ class GradientElevatedButton extends StatelessWidget {
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
       ),
-      onPressed: submitForm,
+      onPressed: onPressed,
       child: Ink(
         decoration: BoxDecoration(
             gradient: LinearGradient(

@@ -109,3 +109,95 @@ class _TextInput2State extends State<TextInput2> {
     );
   }
 }
+
+class TextInput3 extends StatelessWidget {
+  final String? text;
+  final Icon? icon;
+  final void Function(String?)? onSaved;
+
+  const TextInput3({
+    Key? key,
+    this.text,
+    this.icon,
+    this.onSaved,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      decoration: InputDecoration(
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.white, width: 2.0),
+        ),
+        hintText: text,
+        hintStyle: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      style: TextStyle(
+        color: Colors.white,
+        shadows: [
+          Shadow(
+            color: Colors.black.withOpacity(0.8),
+            offset: Offset(3, 2),
+            blurRadius: 5,
+          ),
+        ],
+      ),
+      onSaved: onSaved,
+    );
+  }
+}
+
+class TextInputPassword extends StatelessWidget {
+  final String? texte;
+  final void Function(String?)? onSaved;
+  final void Function()? onPressed;
+  final bool? hidePassword;
+
+  const TextInputPassword({
+    Key? key,
+    this.texte,
+    this.onSaved,
+    this.onPressed,
+    this.hidePassword,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      obscureText: hidePassword == true ? true : false,
+      decoration: InputDecoration(
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.white, width: 2.0),
+          ),
+          hintText: texte,
+          hintStyle: TextStyle(
+            color: Colors.white,
+          ),
+          suffixIcon: IconButton(
+            icon: hidePassword == true
+                ? Icon(
+                    Icons.visibility,
+                    color: Colors.white,
+                  )
+                : Icon(
+                    Icons.visibility_off,
+                    color: Colors.white,
+                  ),
+            onPressed: onPressed,
+          )),
+      style: TextStyle(
+        color: Colors.white,
+        shadows: [
+          Shadow(
+            color: Colors.black.withOpacity(0.8),
+            offset: Offset(3, 2),
+            blurRadius: 5,
+          ),
+        ],
+      ),
+      onSaved: onSaved,
+    );
+  }
+}

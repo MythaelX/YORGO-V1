@@ -20,7 +20,7 @@ class RadiosButtons extends StatelessWidget {
       buttonTextStyle: ButtonTextStyle(
         selectedColor: Colors.white,
         unSelectedColor: Colors.white,
-        textStyle: TextStyle(fontSize: 16, color: Colors.pinkAccent),
+        textStyle: TextStyle(fontSize: 20, color: Colors.pinkAccent),
       ),
       buttonLables: [
         "Homme",
@@ -36,13 +36,13 @@ class RadiosButtons extends StatelessWidget {
         print(value);
         formTosave!.gender = value as int?;
       },
+      autoWidth: true,
       spacing: 0,
       defaultSelected: 0,
       horizontal: false,
       enableButtonWrap: false,
-      width: 110,
       absoluteZeroSpacing: false,
-      padding: 5,
+      padding: 8,
       enableShape: true,
     );
   }

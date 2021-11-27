@@ -6,9 +6,11 @@ import 'package:yorgo/models/signin_form_model.dart';
 import 'package:yorgo/providers/auth_provider.dart';
 import 'package:yorgo/views/auth/signup_view.dart';
 import 'package:yorgo/views/auth/widgets/BackButton.dart';
+import 'package:yorgo/views/auth/widgets/background.dart';
 import 'package:yorgo/views/splash_view.dart';
 import 'package:yorgo/widgets/Buttons/BasicElevatedButton.dart';
 import 'package:yorgo/widgets/Buttons/GradientElevatedButton.dart';
+import 'package:yorgo/widgets/FormWidgets/inputText.dart';
 import 'package:yorgo/widgets/progressor/dialog_progressor.dart';
 
 class SigninView extends StatefulWidget {
@@ -67,15 +69,6 @@ class _SigninViewState extends State<SigninView> {
     );
   }
 
-  Image _background(double height, double width) {
-    return Image.asset(
-      'assets/images/jogging.jpg',
-      fit: BoxFit.cover,
-      height: height,
-      width: width,
-    );
-  }
-
   Text _title() {
     return Text(
       'Yorgo',
@@ -107,7 +100,11 @@ class _SigninViewState extends State<SigninView> {
         height: heightResponsive,
         child: Stack(
           children: [
-            _background(heightResponsive, width),
+            Background(
+              height: heightResponsive,
+              width: width,
+              path: 'assets/images/jogging.jpg',
+            ),
             BackButtonHome(),
             _signInContains(context),
           ],
@@ -173,26 +170,8 @@ class _SigninViewState extends State<SigninView> {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 3),
           ),
-          TextFormField(
-            decoration: InputDecoration(
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white, width: 2.0),
-              ),
-              hintText: 'Username',
-              hintStyle: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-            style: TextStyle(
-              color: Colors.white,
-              shadows: [
-                Shadow(
-                  color: Colors.black.withOpacity(0.8),
-                  offset: Offset(3, 2),
-                  blurRadius: 5,
-                ),
-              ],
-            ),
+          TextInput3(
+            text: 'Username',
             onSaved: (newValue) {
               signinForm.username = newValue!;
             },
@@ -200,42 +179,14 @@ class _SigninViewState extends State<SigninView> {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
           ),
-          TextFormField(
-            obscureText: hidePassword == true ? true : false,
-            decoration: InputDecoration(
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white, width: 2.0),
-                ),
-                hintText: 'Mot de passe',
-                hintStyle: TextStyle(
-                  color: Colors.white,
-                ),
-                suffixIcon: IconButton(
-                  icon: hidePassword == true
-                      ? Icon(
-                          Icons.visibility,
-                          color: Colors.white,
-                        )
-                      : Icon(
-                          Icons.visibility_off,
-                          color: Colors.white,
-                        ),
-                  onPressed: () {
-                    setState(() {
-                      hidePassword = !hidePassword;
-                    });
-                  },
-                )),
-            style: TextStyle(
-              color: Colors.white,
-              shadows: [
-                Shadow(
-                  color: Colors.black.withOpacity(0.8),
-                  offset: Offset(3, 2),
-                  blurRadius: 5,
-                ),
-              ],
-            ),
+          TextInputPassword(
+            texte: "Mot de passe",
+            hidePassword: hidePassword,
+            onPressed: () {
+              setState(() {
+                hidePassword = !hidePassword;
+              });
+            },
             onSaved: (newValue) {
               signinForm.password = newValue!;
             },
@@ -292,7 +243,7 @@ class _SigninViewState extends State<SigninView> {
     return Column(
       children: [
         GradientElevatedButton(
-          submitForm: submitForm,
+          onPressed: submitForm,
           text: "Se connecter",
           colors: [Color(0xff65C5F8), Color(0xff2D93CC)],
         ),

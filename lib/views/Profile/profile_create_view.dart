@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+//model and form
 import 'package:yorgo/models/profile_form_model.dart';
 import 'package:yorgo/providers/user_provider.dart';
+//View
 import 'package:yorgo/views/profile/profile_sport_create.dart';
+//Widget common
+import 'package:yorgo/widgets/header_app_bar_widget.dart';
+import 'package:yorgo/widgets/progressor/dialog_progressor.dart';
+//Widget Form
+import 'package:yorgo/widgets/FormWidgets/InputRadioButton.dart';
 import 'package:yorgo/widgets/FormWidgets/inputDate.dart';
 import 'package:yorgo/widgets/FormWidgets/inputImage.dart';
 import 'package:yorgo/widgets/FormWidgets/inputLocalization.dart';
 import 'package:yorgo/widgets/FormWidgets/inputNum.dart';
 import 'package:yorgo/widgets/FormWidgets/inputText.dart';
+//Widget Bouton
 import 'package:yorgo/widgets/Buttons/GradientElevatedButton.dart';
-import 'package:yorgo/widgets/FormWidgets/InputRadioButton.dart';
-import 'package:yorgo/widgets/header_app_bar_widget.dart';
-import 'package:yorgo/widgets/progressor/dialog_progressor.dart';
 
 class ProfileCreateView extends StatefulWidget {
   static String routeName = '/profil_create';

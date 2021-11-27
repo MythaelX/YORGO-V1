@@ -3,9 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:yorgo/models/signin_form_model.dart';
 import 'package:yorgo/providers/auth_provider.dart';
 import 'package:yorgo/views/auth/widgets/BackButton.dart';
+import 'package:yorgo/views/auth/widgets/background.dart';
 import 'package:yorgo/views/profile/profile_create_view.dart';
 import 'package:yorgo/widgets/Buttons/BasicElevatedButton.dart';
 import 'package:yorgo/widgets/Buttons/GradientElevatedButton.dart';
+import 'package:yorgo/widgets/FormWidgets/inputText.dart';
 import 'package:yorgo/widgets/progressor/dialog_progressor.dart';
 
 import '../../models/signup_form_model.dart';
@@ -70,15 +72,6 @@ class _SignupViewState extends State<SignupView> {
     );
   }
 
-  Image _background(double height, double width) {
-    return Image.asset(
-      'assets/images/escalade.jpg',
-      fit: BoxFit.cover,
-      height: height,
-      width: width,
-    );
-  }
-
   Text _title() {
     return Text(
       'Inscription',
@@ -111,7 +104,10 @@ class _SignupViewState extends State<SignupView> {
         height: heightResponsive,
         child: Stack(
           children: [
-            _background(heightResponsive, width),
+            Background(
+                height: heightResponsive,
+                width: width,
+                path: 'assets/images/jogging.jpg'),
             BackButtonHome(),
             _signUpContains(context),
           ],
@@ -168,26 +164,8 @@ class _SignupViewState extends State<SignupView> {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 3),
           ),
-          TextFormField(
-            decoration: InputDecoration(
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white, width: 2.0),
-              ),
-              hintText: 'Email',
-              hintStyle: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-            style: TextStyle(
-              color: Colors.white,
-              shadows: [
-                Shadow(
-                  color: Colors.black.withOpacity(0.8),
-                  offset: Offset(3, 2),
-                  blurRadius: 5,
-                ),
-              ],
-            ),
+          TextInput3(
+            text: 'Email',
             onSaved: (newValue) {
               signupForm.email = newValue!;
             },
@@ -195,26 +173,8 @@ class _SignupViewState extends State<SignupView> {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
           ),
-          TextFormField(
-            decoration: InputDecoration(
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white, width: 2.0),
-              ),
-              hintText: 'username',
-              hintStyle: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-            style: TextStyle(
-              color: Colors.white,
-              shadows: [
-                Shadow(
-                  color: Colors.black.withOpacity(0.8),
-                  offset: Offset(3, 2),
-                  blurRadius: 5,
-                ),
-              ],
-            ),
+          TextInput3(
+            text: 'username',
             onSaved: (newValue) {
               signupForm.username = newValue!;
             },
@@ -222,26 +182,8 @@ class _SignupViewState extends State<SignupView> {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
           ),
-          TextFormField(
-            decoration: InputDecoration(
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white, width: 2.0),
-              ),
-              hintText: 'password',
-              hintStyle: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-            style: TextStyle(
-              color: Colors.white,
-              shadows: [
-                Shadow(
-                  color: Colors.black.withOpacity(0.8),
-                  offset: Offset(3, 2),
-                  blurRadius: 5,
-                ),
-              ],
-            ),
+          TextInput3(
+            text: 'password',
             onSaved: (newValue) {
               signupForm.password = newValue!;
             },
@@ -259,7 +201,7 @@ class _SignupViewState extends State<SignupView> {
     return Column(
       children: [
         GradientElevatedButton(
-          submitForm: submitForm,
+          onPressed: submitForm,
           text: "S'inscrire",
           colors: [Color(0xff65C5F8), Color(0xff2D93CC)],
         ),
