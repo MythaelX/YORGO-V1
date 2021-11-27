@@ -39,7 +39,8 @@ final List imgList = [
 //Varriables Globales
 double height = 0;
 double width = 0;
-VideoPlayerController? _controller;
+late VideoPlayerController? _controller;
+late Future<void> _initializeVideoPlayerFuture;
 
 //initialisation du Slider
 List<Widget> imageSliders = imgList.map((item) {
@@ -153,12 +154,28 @@ List<Widget> imageSliders = imgList.map((item) {
               padding: EdgeInsets.symmetric(horizontal: 48),
               child: AspectRatio(
                 aspectRatio: width / height,
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: <Widget>[
-                    VideoPlayer(_controller!),
-                    VideoProgressIndicator(_controller!, allowScrubbing: true),
-                  ],
+                child: FutureBuilder(
+                  future: _initializeVideoPlayerFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      // If the VideoPlayerController has finished initialization, use
+                      // the data it provides to limit the aspect ratio of the video.
+                      return Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: <Widget>[
+                          VideoPlayer(_controller!),
+                          VideoProgressIndicator(_controller!,
+                              allowScrubbing: true),
+                        ],
+                      );
+                    } else {
+                      // If the VideoPlayerController is still initializing, show a
+                      // loading spinner.
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
                 ),
               ),
             ),
@@ -212,19 +229,17 @@ class HomeViewState extends State<HomeView> {
   //Init de la vidéo sur le slider
   @override
   void initState() {
-    super.initState(); //Super should be called at the very beginning of init
     _controller = VideoPlayerController.asset('assets/videos/video_intro.mp4');
-    _controller!.addListener(() {
-      setState(() {});
-    });
+    _initializeVideoPlayerFuture = _controller!.initialize();
     _controller!.setLooping(true);
-    _controller!.initialize().then((_) => setState(() {}));
+    super.initState();
   }
 
   //dispose pour le slider
   @override
   void dispose() {
     _controller!.dispose();
+    _controller = null;
     super.dispose(); //Super should be called at the very end of dispose
   }
 

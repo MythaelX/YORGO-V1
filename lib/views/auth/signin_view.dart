@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:yorgo/models/signin_form_model.dart';
 /* import 'package:yorgo/models/user_model.dart'; */
 import 'package:yorgo/providers/auth_provider.dart';
+import 'package:yorgo/providers/user_provider.dart';
 import 'package:yorgo/views/auth/signup_view.dart';
 import 'package:yorgo/views/auth/widgets/BackButton.dart';
 import 'package:yorgo/views/auth/widgets/background.dart';
@@ -39,6 +40,8 @@ class _SigninViewState extends State<SigninView> {
       DialogBuilder(context).showLoadingIndicator('Connexion en cours ...');
       final response = await Provider.of<AuthProvider>(context, listen: false)
           .signin(signinForm);
+      await Provider.of<UserProvider>(context, listen: false)
+          .update(Provider.of<AuthProvider>(context, listen: false));
       DialogBuilder(context).hideOpenDialog();
       if (response != "error" && response != "errorAuth") {
         Navigator.pushAndRemoveUntil(

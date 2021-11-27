@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
 import 'package:yorgo/models/signin_form_model.dart';
 import 'package:yorgo/providers/auth_provider.dart';
+import 'package:yorgo/providers/user_provider.dart';
 import 'package:yorgo/views/auth/widgets/BackButton.dart';
 import 'package:yorgo/views/auth/widgets/background.dart';
 import 'package:yorgo/views/profile/profile_create_view.dart';
@@ -37,7 +38,6 @@ class _SignupViewState extends State<SignupView> {
       DialogBuilder(context).showLoadingIndicator('Inscription en cours ...');
       final error = await Provider.of<AuthProvider>(context, listen: false)
           .signup(signupForm);
-
       if (error == null) {
         await Provider.of<AuthProvider>(context, listen: false).signin(
             SigninForm(

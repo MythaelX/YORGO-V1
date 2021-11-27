@@ -82,6 +82,7 @@ class AuthProvider with ChangeNotifier {
       if (response.statusCode != 201) {
         return json.decode(response.body);
       }
+
       return null;
     } catch (e) {
       isLoading = false;
@@ -109,6 +110,7 @@ class AuthProvider with ChangeNotifier {
         isLoggedin = true;
         //On set un Timer pour refresh le token Access
         initTimer();
+
         return "OK";
       } else {
         return "errorAuth";
