@@ -49,7 +49,7 @@ class SportCategory extends StatelessWidget {
 
   getLevel(String name, ProfileSportForm? form) {
     if (form!.sports.keys.contains(name)) {
-      return form!.sports[name];
+      return form.sports[name];
     } else {
       return 0;
     }
