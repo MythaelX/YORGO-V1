@@ -16,6 +16,7 @@ class User {
   String? description;
   bool is_profile_complete;
   Image? profile_image;
+  Map? sports;
 
   User({
     required this.username,
@@ -31,6 +32,7 @@ class User {
     this.description,
     required this.is_profile_complete,
     this.profile_image,
+    this.sports,
   });
 
   User.fromJson(Map<String, dynamic> json)
@@ -46,7 +48,8 @@ class User {
         gender = json['gender'],
         description = json['description'],
         is_profile_complete = json['is_profile_complete'],
-        profile_image = getImageUser((json['profile_image']));
+        profile_image = getImageUser((json['profile_image'])),
+        sports = getSports(json['sports']);
 }
 
 Image? getImageUser(String? image) {
@@ -68,6 +71,18 @@ DateTime? getDateBirthUser(String? date) {
 double? getDouble(String? value) {
   if (value != null) {
     return double.parse(value);
+  } else {
+    return null;
+  }
+}
+
+Map? getSports(String? value) {
+  if (value != null) {
+    try {
+      return json.decode(value);
+    } catch (e) {
+      return null;
+    }
   } else {
     return null;
   }

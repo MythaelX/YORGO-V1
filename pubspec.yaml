@@ -29,7 +29,7 @@ dependencies:
 
   provider: ^5.0.0
   http: ^0.13.3
-  flutter_secure_storage: ^4.2.1
+  flutter_secure_storage: ^5.0.2
   video_player: ^2.2.6
   intl: ^0.17.0
   cupertino_icons: ^1.0.2
@@ -38,11 +38,11 @@ dependencies:
   image_picker_for_web: ^2.1.4
   custom_radio_grouped_button: ^2.1.1
   auto_size_text: ^3.0.0
-  flutter_osm_plugin: ^0.25.0-rc.5
+  flutter_osm_plugin: ^0.26.1
   geocoding: ^2.0.1
 
 dev_dependencies:
-  flutter_launcher_icons: "^0.7.3"
+  flutter_launcher_icons: ^0.9.2
 
   flutter_test:
     sdk: flutter
@@ -72,6 +72,11 @@ flutter:
   assets:
     - assets/images/
     - assets/videos/
+
+  fonts:
+    - family: SportIcons
+      fonts:
+        - asset: assets/fonts/SportIcons.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

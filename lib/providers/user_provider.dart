@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:yorgo/models/profile_form_model.dart';
+import 'package:yorgo/models/profile_sport_form_model.dart';
 import 'package:yorgo/models/user_model.dart';
 import 'package:yorgo/providers/auth_provider.dart';
 import 'package:http/http.dart' as http;
@@ -29,7 +30,7 @@ class UserProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       updateUser(
         User.fromJson(
-          json.decode(response.body),
+          json.decode(utf8.decode(response.bodyBytes)),
         ),
       );
 
@@ -59,13 +60,39 @@ class UserProvider with ChangeNotifier {
       );
       isLoading = false;
       if (response.statusCode != 201) {
-        return json.decode(response.body);
+        return json.decode(utf8.decode(response.bodyBytes));
       }
       updateUser(
         User.fromJson(
-          json.decode(response.body),
+          json.decode(utf8.decode(response.bodyBytes)),
         ),
       );
+      return null;
+    } catch (e) {
+      isLoading = false;
+      return "error";
+    }
+  }
+
+  Future<dynamic> profileSportCreate(ProfileSportForm profileSportForm) async {
+    try {
+      isLoading = true;
+      Uri url = Uri.parse("$host/api/sports/user/");
+      http.Response response = await http.post(
+        url,
+        headers: {
+          'Content-type': 'application/json',
+          'authorization': 'Bearer ${authProvider.tokenAccess}',
+        },
+        body: json.encode(profileSportForm.toJson()),
+      );
+      isLoading = false;
+      if (response.statusCode != 201) {
+        return json.decode(response.body);
+      }
+      //update des sports de l'utilisateur.
+      user!.sports =
+          json.decode(json.decode(utf8.decode(response.bodyBytes))["sports"]);
 
       return null;
     } catch (e) {

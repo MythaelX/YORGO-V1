@@ -3,9 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:yorgo/providers/auth_provider.dart';
+import 'package:yorgo/providers/sport_provider.dart';
 import 'package:yorgo/providers/user_provider.dart';
 import 'package:yorgo/routes.dart';
 import 'package:yorgo/views/not_found_view.dart';
+import 'package:yorgo/views/profile/profile_sport_create.dart';
 import 'package:yorgo/views/splash_view.dart';
 
 void main() {
@@ -34,6 +36,12 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: authProvider),
+        ChangeNotifierProxyProvider<AuthProvider, SportProvider>(
+            create: (_) => SportProvider(),
+            update: (_, authProvider, oldUserProvider) {
+              oldUserProvider!.update(authProvider);
+              return oldUserProvider;
+            }),
         ChangeNotifierProxyProvider<AuthProvider, UserProvider>(
             create: (_) => UserProvider(),
             update: (_, authProvider, oldUserProvider) {
