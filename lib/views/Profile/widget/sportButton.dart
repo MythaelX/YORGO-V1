@@ -1,13 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class SportButton extends StatefulWidget {
   final void Function(String, int)? onPressed;
   final String text;
   final double textFontsize;
   final EdgeInsetsGeometry padding;
   final IconData? icon;
-  int? level;
+  int? level = 0;
 
   SportButton({
     Key? key,
@@ -118,7 +119,6 @@ class _SportButtonState extends State<SportButton> {
   }
 
   ElevatedButton buttonDialog({
-    int level = 0,
     String text = "",
     String? text2,
     void Function()? onPressed,

@@ -7,7 +7,6 @@ import 'package:yorgo/providers/sport_provider.dart';
 import 'package:yorgo/providers/user_provider.dart';
 import 'package:yorgo/routes.dart';
 import 'package:yorgo/views/not_found_view.dart';
-import 'package:yorgo/views/profile/profile_sport_create.dart';
 import 'package:yorgo/views/splash_view.dart';
 
 void main() {

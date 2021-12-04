@@ -7,7 +7,6 @@ import 'package:yorgo/providers/user_provider.dart';
 import 'package:yorgo/views/home/home_main_view.dart';
 import 'package:yorgo/views/home/home_views.dart';
 import 'package:yorgo/views/profile/profile_create_view.dart';
-import 'package:yorgo/views/profile/profile_sport_create.dart';
 
 class SplashView extends StatelessWidget {
   static String routeName = '/splash';
