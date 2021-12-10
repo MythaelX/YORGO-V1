@@ -3,9 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:yorgo/iconCustom/sport_icons.dart';
 import 'package:yorgo/models/form/profile_sport_form_model.dart';
 import 'package:yorgo/models/sport_model.dart';
+import 'package:yorgo/models/user_model.dart';
 import 'package:yorgo/providers/sport_provider.dart';
 import 'package:yorgo/providers/user_provider.dart';
-import 'package:yorgo/views/home/home_main_view.dart';
 import 'package:yorgo/views/profile/widget/searchBar.dart';
 import 'package:yorgo/views/profile/widget/sportCategory.dart';
 import 'package:yorgo/widgets/Buttons/GradientElevatedButton.dart';
@@ -14,14 +14,14 @@ import 'package:yorgo/widgets/header_app_bar_widget.dart';
 import "package:collection/collection.dart";
 import 'package:yorgo/widgets/progressor/dialog_progressor.dart';
 
-class ProfileSportCreateView extends StatefulWidget {
-  static String routeName = '/profil_sport_create';
+class ProfileSportEditView extends StatefulWidget {
+  static String routeName = '/profil_sport_edit';
 
   @override
-  State<ProfileSportCreateView> createState() => _ProfileSportCreateViewState();
+  State<ProfileSportEditView> createState() => _ProfileSportEditViewState();
 }
 
-class _ProfileSportCreateViewState extends State<ProfileSportCreateView> {
+class _ProfileSportEditViewState extends State<ProfileSportEditView> {
   final GlobalKey<FormState> key = GlobalKey<FormState>();
   late ProfileSportForm profileSportForm;
   FormState? get form => key.currentState;
@@ -45,7 +45,7 @@ class _ProfileSportCreateViewState extends State<ProfileSportCreateView> {
           .profileSportCreate(profileSportForm);
       DialogBuilder(context).hideOpenDialog();
       if (error == null) {
-        Navigator.pushNamed(context, HomeMainView.routeName);
+        Navigator.pop(context);
       } else {
         final snackBar = SnackBar(
           content: const Text("Erreur d'envoie du formulaire"),
@@ -59,6 +59,10 @@ class _ProfileSportCreateViewState extends State<ProfileSportCreateView> {
 
   @override
   Widget build(BuildContext context) {
+    User? user = Provider.of<UserProvider>(context).user;
+    if (user != null && user.sports != null) {
+      profileSportForm.sports = user.sports!;
+    }
     Map? groups = getSportBycategoryFilter(filter: filter);
     return Scaffold(
       appBar: HeaderAppBar(
@@ -80,11 +84,9 @@ class _ProfileSportCreateViewState extends State<ProfileSportCreateView> {
                       Expanded(child: Container()),
                       Container(
                         padding: EdgeInsets.all(20),
-                        child: GradientElevatedButton2(
-                          function: submitForm,
-                          text: "Continuer",
-                          page: 2,
-                          numberPage: 2,
+                        child: GradientElevatedButton(
+                          onPressed: submitForm,
+                          text: "Sauvegarder",
                           colors: [Color(0xff65C5F8), Color(0xff2D93CC)],
                         ),
                       ),

@@ -1,13 +1,14 @@
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:flutter/material.dart';
-import 'package:yorgo/models/profile_form_model.dart';
+import 'package:yorgo/models/form/profile_form_model.dart';
 
 class RadiosButtons extends StatelessWidget {
   final ProfileForm? formTosave;
-
+  final int? initialValue;
   const RadiosButtons({
     Key? key,
     this.formTosave,
+    this.initialValue,
   }) : super(key: key);
 
   @override
@@ -38,7 +39,7 @@ class RadiosButtons extends StatelessWidget {
       },
       autoWidth: true,
       spacing: 0,
-      defaultSelected: 0,
+      defaultSelected: initialValue,
       horizontal: false,
       enableButtonWrap: false,
       absoluteZeroSpacing: false,

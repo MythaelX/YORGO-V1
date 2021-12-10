@@ -3,9 +3,11 @@ import 'package:intl/intl.dart';
 
 class DateInput1 extends StatefulWidget {
   final String? texte;
+  final DateTime? initialValue;
   final Icon? icon;
   final void Function(String?)? onSaved;
-  const DateInput1({Key? key, this.texte, this.icon, this.onSaved})
+  const DateInput1(
+      {Key? key, this.texte, this.icon, this.onSaved, this.initialValue})
       : super(key: key);
 
   @override
@@ -27,6 +29,10 @@ class _DateInput1State extends State<DateInput1> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.initialValue != null) {
+      date = widget.initialValue;
+      txtController.text = getText()!;
+    }
     return TextFormField(
         controller: txtController,
         decoration: InputDecoration(

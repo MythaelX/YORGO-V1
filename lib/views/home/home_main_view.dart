@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:yorgo/views/profile/profile_view.dart';
 import 'package:yorgo/widgets/header_app_bar_widget.dart';
-import 'package:yorgo/widgets/navigation_bottom-bar_widget.dart';
-import 'package:yorgo/widgets/navigation_drawer_widget.dart';
+import 'package:yorgo/widgets/menus/navigation_bottom-bar_widget.dart';
+import 'package:yorgo/widgets/menus/navigation_drawer_widget.dart';
 
 class HomeMainView extends StatefulWidget {
   static String routeName = '/homemain';
@@ -31,7 +31,10 @@ class _HomeMainViewState extends State<HomeMainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HeaderAppBar(texte: "Yorgo"),
+      appBar: HeaderAppBar(
+        texte: "Yorgo",
+        config: (currentIndex == 4) ? true : false,
+      ),
       drawer: NavigationDrawerWidget(),
       bottomNavigationBar: NavigationBottomBarWidget(
         selectedIndex: currentIndex,

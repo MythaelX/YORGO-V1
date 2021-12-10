@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:yorgo/models/signin_form_model.dart';
-import 'package:yorgo/models/signup_form_model.dart';
+import 'package:yorgo/models/form/signin_form_model.dart';
+import 'package:yorgo/models/form/signup_form_model.dart';
 import 'dart:convert';
 
 // import 'package:yorgo/models/user_model.dart';
@@ -61,6 +61,7 @@ class AuthProvider with ChangeNotifier {
         signout();
       }
     } catch (e) {
+      signout();
       rethrow;
     }
   }
@@ -125,6 +126,7 @@ class AuthProvider with ChangeNotifier {
     tokenRefresh = "";
     storage.delete(key: 'tokenAccess');
     storage.delete(key: 'tokenRefresh');
+    notifyListeners();
   }
 
   void initTimer() {

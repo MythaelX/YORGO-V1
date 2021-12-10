@@ -1,16 +1,17 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
-import 'package:yorgo/models/signin_form_model.dart';
+import 'package:yorgo/models/form/signin_form_model.dart';
+import 'package:yorgo/models/form/signup_form_model.dart';
+
 import 'package:yorgo/providers/auth_provider.dart';
 import 'package:yorgo/views/auth/widgets/BackButton.dart';
 import 'package:yorgo/views/auth/widgets/background.dart';
+import 'package:yorgo/views/auth/widgets/signUpFormButtons.dart';
+import 'package:yorgo/views/auth/widgets/titleAuth.dart';
 import 'package:yorgo/views/profile/profile_create_view.dart';
-import 'package:yorgo/widgets/Buttons/BasicElevatedButton.dart';
-import 'package:yorgo/widgets/Buttons/GradientElevatedButton.dart';
 import 'package:yorgo/widgets/FormWidgets/inputText.dart';
 import 'package:yorgo/widgets/progressor/dialog_progressor.dart';
 
-import '../../models/signup_form_model.dart';
 import 'package:flutter/material.dart';
 
 class SignupView extends StatefulWidget {
@@ -63,93 +64,74 @@ class _SignupViewState extends State<SignupView> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      extendBody: true,
-      extendBodyBehindAppBar: true,
-      resizeToAvoidBottomInset: false,
-      body: _body(height, width, context),
-    );
-  }
-
-  Text _title() {
-    return Text(
-      'Inscription',
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 54,
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-        shadows: [
-          Shadow(
-            color: Colors.black.withOpacity(1),
-            offset: Offset(3, 2),
-            blurRadius: 5,
-          ),
-        ],
-      ),
-    );
-  }
-
-  SingleChildScrollView _body(
-      double height, double width, BuildContext context) {
     double heightResponsive = 0;
     if (height < 645) {
       heightResponsive = 645;
     } else {
       heightResponsive = height;
     }
-    return SingleChildScrollView(
-      child: Container(
-        height: heightResponsive,
-        child: Stack(
-          children: [
-            Background(
-                height: heightResponsive,
+    return Scaffold(
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        child: Container(
+          child: Stack(
+            children: [
+              Background(
                 width: width,
-                path: 'assets/images/jogging.jpg'),
-            BackButtonHome(),
-            _signUpContains(context),
-          ],
+                path: 'assets/images/jogging.jpg',
+                height: heightResponsive,
+              ),
+              BackButtonHome(),
+              _signUpContains(context, heightResponsive),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Center _signUpContains(BuildContext context) {
-    return Center(
-      child: Container(
-        constraints: BoxConstraints(minWidth: 100, maxWidth: 500),
-        padding: EdgeInsets.only(top: 50, bottom: 10, left: 30, right: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 15),
+  _signUpContains(BuildContext context, double? height) {
+    return Container(
+      height: height,
+      constraints: BoxConstraints(minWidth: 100, maxWidth: 500),
+      padding: EdgeInsets.only(top: 30, bottom: 0, left: 30, right: 30),
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 15),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 50.0),
+            child: TitleAuth(text: 'Inscription'),
+          ),
+          Expanded(
+            flex: 1,
+            child: Container(),
+          ),
+          _formSignUp(context),
+          Expanded(flex: 2, child: Container(height: 28)),
+          AutoSizeText(
+            "En continuant vous acceptez notre Termes et Politique de confidentialité ",
+            maxLines: 2,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+              shadows: [
+                Shadow(
+                  color: Colors.black.withOpacity(1),
+                  offset: Offset(3, 2),
+                  blurRadius: 5,
+                ),
+              ],
             ),
-            _title(),
-            _formSignUp(context),
-            Expanded(child: Container()),
-            AutoSizeText(
-              "En continuant vous acceptez notre Termes et Politique de confidentialité ",
-              maxLines: 2,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-                shadows: [
-                  Shadow(
-                    color: Colors.black.withOpacity(1),
-                    offset: Offset(3, 2),
-                    blurRadius: 5,
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 5),
-            ),
-          ],
-        ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 5),
+          ),
+        ],
       ),
     );
   }
@@ -168,77 +150,55 @@ class _SignupViewState extends State<SignupView> {
             onSaved: (newValue) {
               signupForm.email = newValue!;
             },
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-          ),
-          TextInput3(
-            text: 'username',
-            onSaved: (newValue) {
-              signupForm.username = newValue!;
+            validator: (value) {
+              if (value == null || value == "") {
+                return 'Veuillez indiquez votre email.';
+              } else if (!RegExp(
+                      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
+                  .hasMatch(value)) {
+                return 'Entrez une adresse e-mail valide.';
+              }
+              return null;
             },
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
           ),
           TextInput3(
-            text: 'password',
-            onSaved: (newValue) {
-              signupForm.password = newValue!;
-            },
-          ),
+              text: 'username',
+              onSaved: (newValue) {
+                signupForm.username = newValue!;
+              },
+              validator: (value) {
+                if (value == null || value == "") {
+                  return 'Veuillez indiquez votre pseudo.';
+                }
+                return null;
+              }),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
           ),
-          _signUpFormButtons(),
+          TextInput3(
+              text: 'password',
+              onSaved: (newValue) {
+                signupForm.password = newValue!;
+              },
+              validator: (value) {
+                if (value == null || value == "") {
+                  return 'Veuillez indiquez un mot de passe';
+                } else if (!RegExp(
+                        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                    .hasMatch(value)) {
+                  return "Utilisez au moins huit caractères au moins 1 majuscule, 1 chiffre et 1 symbole";
+                }
+                return null;
+              }),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+          ),
+          SignUpFormButtons(submitForm: submitForm),
         ],
       ),
-    );
-  }
-
-  Column _signUpFormButtons() {
-    return Column(
-      children: [
-        GradientElevatedButton(
-          onPressed: submitForm,
-          text: "S'inscrire",
-          colors: [Color(0xff65C5F8), Color(0xff2D93CC)],
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 5),
-        ),
-        Text(
-          "ou",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 30,
-            color: Colors.white,
-            shadows: [
-              Shadow(
-                color: Colors.black.withOpacity(0.8),
-                offset: Offset(3, 2),
-                blurRadius: 5,
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 5),
-        ),
-        GradientElevatedButton(
-          //submitForm: submitForm,
-          text: "S'inscrire avec facebook",
-          colors: [Color(0x18ACFE), Color(0xff0062E0)],
-          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 5),
-        ),
-        BasicElevatedButton(
-          text: "S'inscrire avec Google",
-          //submitForm: submitForm,
-        ),
-      ],
     );
   }
 }

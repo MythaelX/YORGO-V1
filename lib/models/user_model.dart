@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
+import 'dart:typed_data';
 import 'package:intl/intl.dart';
 
 class User {
@@ -15,8 +15,8 @@ class User {
   int? gender;
   String? description;
   bool is_profile_complete;
-  Image? profile_image;
-  Map? sports;
+  Uint8List? profile_image;
+  Map<String, int>? sports;
 
   User({
     required this.username,
@@ -35,6 +35,33 @@ class User {
     this.sports,
   });
 
+  getGenderString() {
+    switch (this.gender) {
+      case 0:
+        return "Homme";
+      case 1:
+        return "Femme";
+      default:
+        return "Neutre";
+    }
+  }
+
+  getAgeString() {
+    if (bith != null) {
+      Duration year = DateTime.now().difference(bith!);
+
+      return (year.inDays ~/ 365).toString();
+    }
+    return "Information non renseigné";
+  }
+
+  getAdressString() {
+    if (address_text != null) {
+      return address_text;
+    }
+    return "Information non renseigné";
+  }
+
   User.fromJson(Map<String, dynamic> json)
       : username = json['username'],
         email = json['email'],
@@ -52,9 +79,9 @@ class User {
         sports = getSports(json['sports']);
 }
 
-Image? getImageUser(String? image) {
+Uint8List? getImageUser(String? image) {
   if (image != null) {
-    return Image.memory(base64Decode(image));
+    return base64Decode(image);
   } else {
     return null;
   }
@@ -76,10 +103,16 @@ double? getDouble(String? value) {
   }
 }
 
-Map? getSports(String? value) {
+Map<String, int>? getSports(String? value) {
+  Map<String, int> mapfinal;
   if (value != null) {
+    mapfinal = {};
     try {
-      return json.decode(value);
+      Map valueMap = json.decode(value);
+      valueMap.forEach((key, value) {
+        mapfinal[key] = value;
+      });
+      return mapfinal;
     } catch (e) {
       return null;
     }

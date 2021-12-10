@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yorgo/widgets/navigation_drawer_widget.dart';
+import 'package:yorgo/widgets/menus/navigation_drawer_widget.dart';
 
 class ActivitySearchView extends StatelessWidget {
   static String routeName = '/activitysearch';

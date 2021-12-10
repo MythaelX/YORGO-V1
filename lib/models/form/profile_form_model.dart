@@ -1,5 +1,5 @@
-import 'dart:io';
 import 'dart:convert';
+import 'dart:typed_data';
 
 class ProfileForm {
   String lastname;
@@ -12,7 +12,7 @@ class ProfileForm {
   String? description;
   int? gender;
   bool? is_profile_complete;
-  File? profile_image;
+  Uint8List? profile_image;
 
   ProfileForm({
     required this.lastname,
@@ -45,9 +45,9 @@ class ProfileForm {
   }
 }
 
-getImageUser(File? image) {
+getImageUser(Uint8List? image) {
   if (image != null) {
-    return base64.encode(image.readAsBytesSync());
+    return base64.encode(image);
   } else {
     return null;
   }

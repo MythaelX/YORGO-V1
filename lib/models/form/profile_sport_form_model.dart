@@ -9,7 +9,7 @@ class ProfileSportForm {
 
   Map<String, dynamic> toJson() {
     return {
-      'sports': json.encode(sports),
+      'sports': json.encode(sports).toString(),
     };
   }
 }

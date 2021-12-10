@@ -1,16 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:yorgo/models/signin_form_model.dart';
-/* import 'package:yorgo/models/user_model.dart'; */
+import 'package:yorgo/models/form/signin_form_model.dart';
 import 'package:yorgo/providers/auth_provider.dart';
 import 'package:yorgo/providers/user_provider.dart';
 import 'package:yorgo/views/auth/signup_view.dart';
 import 'package:yorgo/views/auth/widgets/BackButton.dart';
 import 'package:yorgo/views/auth/widgets/background.dart';
+import 'package:yorgo/views/auth/widgets/signInFormButtons.dart';
+import 'package:yorgo/views/auth/widgets/titleAuth.dart';
 import 'package:yorgo/views/splash_view.dart';
-import 'package:yorgo/widgets/Buttons/BasicElevatedButton.dart';
-import 'package:yorgo/widgets/Buttons/GradientElevatedButton.dart';
 import 'package:yorgo/widgets/FormWidgets/inputText.dart';
 import 'package:yorgo/widgets/progressor/dialog_progressor.dart';
 
@@ -64,102 +63,77 @@ class _SigninViewState extends State<SigninView> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    double heightResponsive = 0;
+    if (height < 645) {
+      heightResponsive = 645;
+    } else {
+      heightResponsive = height;
+    }
+
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
-      body: _body(height, width, context),
-    );
-  }
-
-  Text _title() {
-    return Text(
-      'Yorgo',
-      style: TextStyle(
-        fontSize: 60,
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-        shadows: [
-          Shadow(
-            color: Colors.black.withOpacity(1),
-            offset: Offset(3, 2),
-            blurRadius: 5,
-          ),
-        ],
-      ),
-    );
-  }
-
-  SingleChildScrollView _body(
-      double height, double width, BuildContext context) {
-    double heightResponsive = 0;
-    if (height < 690) {
-      heightResponsive = 690;
-    } else {
-      heightResponsive = height;
-    }
-    return SingleChildScrollView(
-      child: Container(
-        height: heightResponsive,
+      body: Container(
         child: Stack(
           children: [
             Background(
-              height: heightResponsive,
               width: width,
               path: 'assets/images/jogging.jpg',
+              height: height,
             ),
             BackButtonHome(),
-            _signInContains(context),
+            _signInContains(context, heightResponsive),
           ],
         ),
       ),
     );
   }
 
-  Center _signInContains(BuildContext context) {
-    return Center(
-      child: Container(
-        constraints: BoxConstraints(minWidth: 100, maxWidth: 500),
-        padding: EdgeInsets.only(top: 50, bottom: 5, left: 30, right: 30),
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+  Container _signInContains(BuildContext context, double height) {
+    return Container(
+      alignment: Alignment.topCenter,
+      constraints: BoxConstraints(minWidth: 100, maxWidth: 500),
+      padding: EdgeInsets.only(top: 30, bottom: 0, left: 30, right: 30),
+      height: height,
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 15),
+          ),
+          TitleAuth(text: 'Yorgo'),
+          Expanded(
+            flex: 1,
+            child: Container(),
+          ),
+          _formSignIn(context),
+          Expanded(flex: 2, child: Container()),
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: const TextStyle(fontSize: 25, color: Colors.white),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             ),
-            _title(),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 15),
-            ),
-            _formSignIn(context),
-            Expanded(child: Container()),
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: const TextStyle(fontSize: 25, color: Colors.white),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            onPressed: () {
+              Navigator.pushNamed(context, SignupView.routeName);
+            },
+            child: AutoSizeText(
+              "Je n'ai pas de compte",
+              maxLines: 1,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                decoration: TextDecoration.underline,
+                shadows: [
+                  Shadow(
+                    color: Colors.black.withOpacity(1),
+                    offset: Offset(3, 2),
+                    blurRadius: 5,
+                  ),
+                ],
               ),
-              onPressed: () {
-                Navigator.pushNamed(context, SignupView.routeName);
-              },
-              child: AutoSizeText(
-                "Je n'ai pas de compte",
-                maxLines: 1,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  decoration: TextDecoration.underline,
-                  shadows: [
-                    Shadow(
-                      color: Colors.black.withOpacity(1),
-                      offset: Offset(3, 2),
-                      blurRadius: 5,
-                    ),
-                  ],
-                ),
-              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -178,6 +152,12 @@ class _SigninViewState extends State<SigninView> {
             onSaved: (newValue) {
               signinForm.username = newValue!;
             },
+            validator: (value) {
+              if (value == null || value == "") {
+                return 'Veuillez indiquez votre pseudo.';
+              }
+              return null;
+            },
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
@@ -192,6 +172,12 @@ class _SigninViewState extends State<SigninView> {
             },
             onSaved: (newValue) {
               signinForm.password = newValue!;
+            },
+            validator: (value) {
+              if (value == null || value == "") {
+                return 'Veuillez indiquez votre mot de passe.';
+              }
+              return null;
             },
           ),
           Padding(
@@ -236,55 +222,9 @@ class _SigninViewState extends State<SigninView> {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
           ),
-          _signInFormButtons(),
+          SignInFormButtons(submitForm: submitForm),
         ],
       ),
-    );
-  }
-
-  Column _signInFormButtons() {
-    return Column(
-      children: [
-        GradientElevatedButton(
-          onPressed: submitForm,
-          text: "Se connecter",
-          colors: [Color(0xff65C5F8), Color(0xff2D93CC)],
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 5),
-        ),
-        Text(
-          "ou",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 30,
-            color: Colors.white,
-            shadows: [
-              Shadow(
-                color: Colors.black.withOpacity(0.8),
-                offset: Offset(3, 2),
-                blurRadius: 5,
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 5),
-        ),
-        GradientElevatedButton(
-          //submitForm: submitForm,
-          text: "Connexion avec facebook",
-          colors: [Color(0x18ACFE), Color(0xff0062E0)],
-          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 5),
-        ),
-        BasicElevatedButton(
-          text: "Connexion avec Google",
-          //submitForm: submitForm,
-        ),
-      ],
     );
   }
 }

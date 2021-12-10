@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:yorgo/widgets/navigation_drawer_widget.dart';
+import 'package:yorgo/widgets/menus/navigation_drawer_widget.dart';
 
 class FluxView extends StatelessWidget {
   static String routeName = '/flux';

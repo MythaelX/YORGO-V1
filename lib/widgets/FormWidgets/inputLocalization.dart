@@ -6,12 +6,18 @@ class LocalizationInput1 extends StatefulWidget {
   final String? texte;
   final Icon? icon;
   final void Function(String?, double?, double?)? onSaved;
+  final String? initialValueText;
+  final double? initialValueLat;
+  final double? initialValueLong;
 
   const LocalizationInput1({
     Key? key,
     this.texte,
     this.icon,
     this.onSaved,
+    this.initialValueText,
+    this.initialValueLat,
+    this.initialValueLong,
   }) : super(key: key);
 
   @override
@@ -24,6 +30,12 @@ class _LocalizationInput1State extends State<LocalizationInput1> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.initialValueText != null) {
+      address = widget.initialValueText;
+      localization = GeoPoint(
+          latitude: widget.initialValueLat!,
+          longitude: widget.initialValueLong!);
+    }
     return TextFormField(
         decoration: InputDecoration(
             enabledBorder: UnderlineInputBorder(

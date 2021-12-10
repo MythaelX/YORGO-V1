@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:yorgo/models/profile_form_model.dart';
-import 'package:yorgo/models/profile_sport_form_model.dart';
+import 'package:yorgo/models/form/profile_form_model.dart';
+import 'package:yorgo/models/form/profile_sport_form_model.dart';
 import 'package:yorgo/models/user_model.dart';
 import 'package:yorgo/providers/auth_provider.dart';
 import 'package:http/http.dart' as http;
@@ -88,11 +88,12 @@ class UserProvider with ChangeNotifier {
       );
       isLoading = false;
       if (response.statusCode != 201) {
-        return json.decode(response.body);
+        return json.decode(utf8.decode(response.bodyBytes));
       }
       //update des sports de l'utilisateur.
-      user!.sports =
-          json.decode(json.decode(utf8.decode(response.bodyBytes))["sports"]);
+      String value =
+          json.decode(utf8.decode(response.bodyBytes))["sports"].toString();
+      user!.sports = getSports(value);
 
       return null;
     } catch (e) {

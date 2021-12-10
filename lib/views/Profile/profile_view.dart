@@ -2,55 +2,58 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yorgo/models/user_model.dart';
 import 'package:yorgo/providers/user_provider.dart';
+import 'package:yorgo/views/profile/widget/headerProfile.dart';
+import 'package:yorgo/views/profile/widget/infosProfile.dart';
+import 'package:yorgo/widgets/menus/tabBarMenu.dart';
 
-class ProfileView extends StatelessWidget {
+class ProfileView extends StatefulWidget {
   const ProfileView({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<ProfileView> createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends State<ProfileView> {
+  @override
   Widget build(BuildContext context) {
     final User? user = Provider.of<UserProvider>(context).user;
+
     return Container(
-      alignment: Alignment.center,
+      color: Colors.white,
       child: user != null
-          ? Column(
+          ? ListView(
               children: [
+                headerProfile(user: user),
                 Container(
-                  height: 30,
+                  child: (user.description != null && user.description != "")
+                      ? Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Text(
+                            user.description.toString(),
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 17),
+                          ),
+                        )
+                      : Container(
+                          height: 10,
+                        ),
                 ),
-                Container(height: 200, child: user.profile_image),
-                Container(
-                  height: 30,
-                ),
-                Text(
-                  'Pseudo : ${user.username}',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                tabBarMenu(length: 2, listTab: [
+                  "Infos",
+                  "Flux",
+                ], listContentTab: [
+                  InfosProfile(user: user),
+                  Container(
+                    child: Center(
+                      child: Text('Display Flux',
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold)),
+                    ),
                   ),
-                ),
-                Text(
-                  'Email : ${user.email}',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  'Prénom : ${user.firstname}',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  'Nom : ${user.lastname}',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                ]),
               ],
             )
           : CircularProgressIndicator(),

@@ -7,6 +7,7 @@ import 'package:yorgo/views/friend/Friend_view.dart';
 import 'package:yorgo/views/group/group_view.dart';
 import 'package:yorgo/views/home/home_views.dart';
 import 'package:yorgo/views/local_sportmen/local_sportmen_view.dart';
+import 'package:yorgo/views/setting/settingMenuView.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
   @override
@@ -42,10 +43,13 @@ class NavigationDrawerWidget extends StatelessWidget {
             buildMenuItem(
               text: 'Paramètres',
               icon: Icons.settings,
+              onClicked: () {
+                navigateMenu(context, SettingMenuView.routeName);
+              },
             ),
             const SizedBox(height: 5),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 17),
+              padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Divider(
                 color: Colors.white,
                 height: 0,

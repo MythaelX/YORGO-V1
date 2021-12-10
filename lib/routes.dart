@@ -13,8 +13,11 @@ import 'package:yorgo/views/home/Home_main_view.dart';
 import 'package:yorgo/views/home/home_views.dart';
 import 'package:yorgo/views/local_sportmen/local_sportmen_view.dart';
 import 'package:yorgo/views/not_found_view.dart';
+import 'package:yorgo/views/profile/profile_edit_view.dart';
 import 'package:yorgo/views/profile/profile_sport_create.dart';
 import 'package:yorgo/views/profile/profile_create_view.dart';
+import 'package:yorgo/views/profile/profile_sport_edit.dart';
+import 'package:yorgo/views/setting/settingMenuView.dart';
 import 'package:yorgo/widgets/map/map_search_input.dart';
 
 Route<dynamic> routes(settings) {
@@ -27,7 +30,8 @@ Route<dynamic> routes(settings) {
     return MaterialPageRoute(
         builder: (_) => SignupView(),
         settings: RouteSettings(name: SignupView.routeName));
-    //////////////////////// Profile /////////////////////////////////
+    /////////////////////////// Profile /////////////////////////////////
+    // Create
   } else if (settings.name == ProfileCreateView.routeName) {
     return MaterialPageRoute(
       builder: (_) => ProfileCreateView(),
@@ -38,12 +42,33 @@ Route<dynamic> routes(settings) {
       builder: (_) => ProfileSportCreateView(),
       settings: RouteSettings(name: ProfileSportCreateView.routeName),
     );
+    // Edit
+  } else if (settings.name == ProfileEditView.routeName) {
+    return MaterialPageRoute(
+      builder: (_) => ProfileEditView(),
+      settings: RouteSettings(name: ProfileEditView.routeName),
+    );
+  } else if (settings.name == ProfileSportEditView.routeName) {
+    return MaterialPageRoute(
+      builder: (_) => ProfileSportEditView(),
+      settings: RouteSettings(name: ProfileSportEditView.routeName),
+    );
   }
   ///////////////////////////////////////////////////////////////
   else if (settings.name == HomeView.routeName) {
     return MaterialPageRoute(
         builder: (_) => HomeView(),
         settings: RouteSettings(name: HomeView.routeName));
+  } else if (settings.name == HomeMainView.routeName) {
+    return MaterialPageRoute(
+      builder: (_) => HomeMainView(),
+      settings: RouteSettings(name: HomeMainView.routeName),
+    );
+  } else if (settings.name == SettingMenuView.routeName) {
+    return MaterialPageRoute(
+      builder: (_) => SettingMenuView(),
+      settings: RouteSettings(name: SettingMenuView.routeName),
+    );
   } else if (settings.name == FluxView.routeName) {
     return MaterialPageRoute(
         builder: (_) => FluxView(),
@@ -77,11 +102,6 @@ Route<dynamic> routes(settings) {
     return MaterialPageRoute(
       builder: (_) => ActivitySearchView(),
       settings: RouteSettings(name: ActivitySearchView.routeName),
-    );
-  } else if (settings.name == HomeMainView.routeName) {
-    return MaterialPageRoute(
-      builder: (_) => HomeMainView(),
-      settings: RouteSettings(name: HomeMainView.routeName),
     );
   } else if (settings.name == "/search") {
     return MaterialPageRoute(

@@ -1,13 +1,16 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImageInput extends StatefulWidget {
-  final void Function(File?)? onSaved;
+  final void Function(Uint8List?)? onSaved;
+  final Uint8List? initialValue;
   const ImageInput({
     Key? key,
     this.onSaved,
+    this.initialValue,
   }) : super(key: key);
 
   @override
@@ -19,6 +22,9 @@ class _ImageInputState extends State<ImageInput> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.initialValue != null) {
+      widget.onSaved!(widget.initialValue);
+    }
     return Stack(
       children: [
         Container(
@@ -82,7 +88,9 @@ class _ImageInputState extends State<ImageInput> {
   }
 
   ImageProvider<Object> getImage() {
-    if (image != null) {
+    if (widget.initialValue != null) {
+      return Image.memory(widget.initialValue!).image;
+    } else if (image != null) {
       return FileImage(image!);
     } else {
       return AssetImage(
@@ -118,7 +126,7 @@ class _ImageInputState extends State<ImageInput> {
 
     setState(() {
       this.image = imageTemporary;
-      widget.onSaved!(imageTemporary);
+      widget.onSaved!(imageTemporary.readAsBytesSync());
     });
   }
 }
