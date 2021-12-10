@@ -22,7 +22,7 @@ class _ImageInputState extends State<ImageInput> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.initialValue != null) {
+    if (widget.initialValue != null && image == null) {
       widget.onSaved!(widget.initialValue);
     }
     return Stack(
@@ -88,10 +88,10 @@ class _ImageInputState extends State<ImageInput> {
   }
 
   ImageProvider<Object> getImage() {
-    if (widget.initialValue != null) {
-      return Image.memory(widget.initialValue!).image;
-    } else if (image != null) {
+    if (image != null) {
       return FileImage(image!);
+    } else if (widget.initialValue != null) {
+      return Image.memory(widget.initialValue!).image;
     } else {
       return AssetImage(
         "assets/images/jogging.jpg",
