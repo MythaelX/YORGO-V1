@@ -8,7 +8,7 @@ class RadiosButtons extends StatelessWidget {
   const RadiosButtons({
     Key? key,
     this.formTosave,
-    this.initialValue,
+    this.initialValue = 0,
   }) : super(key: key);
 
   @override

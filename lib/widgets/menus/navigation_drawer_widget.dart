@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:yorgo/providers/auth_provider.dart';
-import 'package:yorgo/views/activity/activity_view.dart';
+import 'package:yorgo/views/activity/my_activity_view.dart';
 import 'package:yorgo/views/friend/Friend_view.dart';
 import 'package:yorgo/views/group/group_view.dart';
 import 'package:yorgo/views/home/home_views.dart';
@@ -69,7 +69,7 @@ class NavigationDrawerWidget extends StatelessWidget {
               text: 'Mes Activités',
               icon: Icons.analytics_outlined,
               onClicked: () {
-                navigateMenu(context, ActivityView.routeName);
+                navigateMenu(context, MyActivityView.routeName);
               },
             ),
             buildMenuItem(

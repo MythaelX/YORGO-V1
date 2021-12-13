@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:yorgo/views/activity/activity_home_view.dart';
+import 'package:yorgo/views/message/message_home_view.dart';
 import 'package:yorgo/views/profile/profile_view.dart';
 import 'package:yorgo/widgets/header_app_bar_widget.dart';
 import 'package:yorgo/widgets/menus/navigation_bottom-bar_widget.dart';
@@ -15,8 +17,8 @@ class _HomeMainViewState extends State<HomeMainView> {
   int currentIndex = 2;
 
   final screens = [
-    Center(child: Text('Activité')),
-    Center(child: Text('Message')),
+    ActivityHomeView(),
+    MessageHomeView(),
     Center(child: Text('Flux')),
     Center(child: Text('Notif')),
     ProfileView(),
@@ -34,6 +36,7 @@ class _HomeMainViewState extends State<HomeMainView> {
       appBar: HeaderAppBar(
         texte: "Yorgo",
         config: (currentIndex == 4) ? true : false,
+        elevation: (currentIndex == 0 || currentIndex == 1) ? false : true,
       ),
       drawer: NavigationDrawerWidget(),
       bottomNavigationBar: NavigationBottomBarWidget(

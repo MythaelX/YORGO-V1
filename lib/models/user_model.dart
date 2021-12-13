@@ -50,7 +50,7 @@ class User {
     if (bith != null) {
       Duration year = DateTime.now().difference(bith!);
 
-      return (year.inDays ~/ 365).toString();
+      return (year.inDays ~/ 365).toString() + " ans";
     }
     return "Information non renseigné";
   }

@@ -232,7 +232,7 @@ class _ProfileCreateViewState extends State<ProfileEditView> {
                   Container(height: 20),
                   GradientElevatedButton(
                     onPressed: submitForm,
-                    text: "Sauvegader",
+                    text: "Sauvegarder",
                     colors: [Color(0xff65C5F8), Color(0xff2D93CC)],
                   ),
                 ],

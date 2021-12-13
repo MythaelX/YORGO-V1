@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class tabBarMenu extends StatefulWidget {
@@ -65,8 +66,80 @@ class _tabBarMenuState extends State<tabBarMenu> {
   getTabs(List<String> listTab) {
     List<Widget> list = [];
     for (var i = 0; i < listTab.length; i++) {
-      list.add(Text(
+      list.add(AutoSizeText(
         listTab[i],
+        maxLines: 1,
+      ));
+    }
+    return list;
+  }
+}
+
+class tabBarMenu2 extends StatefulWidget {
+  final List<Widget> listContentTab;
+  final List<String> listTab;
+  final int length;
+
+  const tabBarMenu2({
+    Key? key,
+    required this.listContentTab,
+    required this.listTab,
+    required this.length,
+  }) : super(key: key);
+
+  @override
+  State<tabBarMenu2> createState() => _tabBarMenu2State();
+}
+
+class _tabBarMenu2State extends State<tabBarMenu2> {
+  int _tabIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: widget.length, // length of tabs
+      initialIndex: _tabIndex,
+      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <
+          Widget>[
+        Container(
+          child: DecoratedBox(
+            //This is responsible for the background of the tabbar, does the magic
+            decoration: BoxDecoration(
+              //This is for background color
+              color: Theme.of(context).primaryColor,
+              boxShadow: [
+                BoxShadow(blurRadius: 5, spreadRadius: 0.2, offset: Offset.zero)
+              ],
+            ),
+            child: TabBar(
+              labelColor: Colors.white,
+              indicatorColor: Colors.white,
+              labelStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+              unselectedLabelColor: Colors.white70,
+              unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w500),
+              tabs: getTabs(widget.listTab),
+              onTap: (value) {
+                setState(() {
+                  _tabIndex = value;
+                });
+              },
+            ),
+          ),
+        ),
+        TabsView(
+          tabIndex: _tabIndex,
+          children: widget.listContentTab,
+        )
+      ]),
+    );
+  }
+
+  getTabs(List<String> listTab) {
+    List<Widget> list = [];
+    for (var i = 0; i < listTab.length; i++) {
+      list.add(AutoSizeText(
+        listTab[i],
+        maxLines: 1,
       ));
     }
     return list;

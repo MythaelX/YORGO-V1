@@ -82,6 +82,9 @@ class _TextInput2State extends State<TextInput2> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.initialValue != null) {
+      maxLength = maxLength - widget.initialValue!.length;
+    }
     return Padding(
       padding: const EdgeInsets.only(top: 5),
       child: Stack(

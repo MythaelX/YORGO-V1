@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ActivitySearchView extends StatelessWidget {
-  const ActivitySearchView({
+class MessageGroupsView extends StatelessWidget {
+  const MessageGroupsView({
     Key? key,
   }) : super(key: key);
 
@@ -12,10 +12,7 @@ class ActivitySearchView extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10),
       child: Column(
-        children: [
-          Text("Barre de Recherche"),
-          Text("scroll infini avec les catégories")
-        ],
+        children: [Text("Groupes"), Text("message des groupes")],
       ),
     );
   }

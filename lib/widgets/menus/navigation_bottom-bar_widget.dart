@@ -9,14 +9,15 @@ class NavigationBottomBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      elevation: 20,
       type: BottomNavigationBarType.fixed,
       showUnselectedLabels: true,
       backgroundColor: Colors.white,
       unselectedItemColor: Colors.black54,
-      unselectedFontSize: 16,
+      unselectedFontSize: 15,
       selectedFontSize: 17,
-      iconSize: 30,
-      selectedIconTheme: IconThemeData(size: 35),
+      iconSize: 25,
+      selectedIconTheme: IconThemeData(size: 30),
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.search),

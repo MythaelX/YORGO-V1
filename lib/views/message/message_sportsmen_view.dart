@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ActivitySearchView extends StatelessWidget {
-  const ActivitySearchView({
+class MessageSportsmenView extends StatelessWidget {
+  const MessageSportsmenView({
     Key? key,
   }) : super(key: key);
 
@@ -13,8 +13,8 @@ class ActivitySearchView extends StatelessWidget {
       padding: EdgeInsets.all(10),
       child: Column(
         children: [
-          Text("Barre de Recherche"),
-          Text("scroll infini avec les catégories")
+          Text("Sports"),
+          Text("Message des sportifs"),
         ],
       ),
     );

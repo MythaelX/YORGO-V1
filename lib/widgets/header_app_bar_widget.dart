@@ -5,7 +5,12 @@ class HeaderAppBar extends StatelessWidget with PreferredSizeWidget {
   final String? texte;
   final bool backButton;
   final bool config;
-  HeaderAppBar({this.texte, this.backButton = false, this.config = false});
+  final bool elevation;
+  HeaderAppBar(
+      {this.texte,
+      this.backButton = false,
+      this.config = false,
+      this.elevation = true});
 
   @override
   Size get preferredSize => const Size.fromHeight(50);
@@ -15,8 +20,12 @@ class HeaderAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       leading: backButton ? BackButton(color: Colors.white) : null,
       centerTitle: true,
-      title: Text(texte!),
+      title: Text(
+        texte!,
+        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+      ),
       actions: config ? [confButton()] : null,
+      elevation: elevation ? null : 0,
     );
   }
 }

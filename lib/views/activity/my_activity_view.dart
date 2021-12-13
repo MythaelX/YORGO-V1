@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ActivityView extends StatelessWidget {
-  static String routeName = '/activity';
+class MyActivityView extends StatelessWidget {
+  static String routeName = '/my_activity';
 
   @override
   Widget build(BuildContext context) {
