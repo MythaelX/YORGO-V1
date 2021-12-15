@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:yorgo/models/category_model.dart';
-import 'package:yorgo/models/sport_model.dart';
+import 'package:yorgo/models/data/category_model.dart';
+import 'package:yorgo/models/data/sport_model.dart';
 import 'package:yorgo/providers/auth_provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yorgo/iconCustom/sport_icons.dart';
 import 'package:yorgo/models/form/profile_sport_form_model.dart';
 
-import 'package:yorgo/models/sport_model.dart';
+import 'package:yorgo/models/data/sport_model.dart';
 import 'package:yorgo/views/profile/widget/sportButton.dart';
 
 class SportCategory extends StatelessWidget {

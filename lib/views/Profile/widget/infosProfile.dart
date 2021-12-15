@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yorgo/models/user_model.dart';
+import 'package:yorgo/models/data/user_model.dart';
 
 class InfosProfile extends StatelessWidget {
   final User user;

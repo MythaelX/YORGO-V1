@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yorgo/iconCustom/sport_icons.dart';
 import 'package:yorgo/models/form/profile_sport_form_model.dart';
-import 'package:yorgo/models/sport_model.dart';
+import 'package:yorgo/models/data/sport_model.dart';
 import 'package:yorgo/providers/sport_provider.dart';
 import 'package:yorgo/providers/user_provider.dart';
 import 'package:yorgo/views/home/home_main_view.dart';

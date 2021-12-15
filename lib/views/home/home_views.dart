@@ -7,13 +7,13 @@ import '../auth/signin_view.dart';
 // On défini le carousel avec son titre, texte, image son format (3 formats possibles)
 final List imgList = [
   {
-    'image': 'assets/images/jogging.jpg',
-    'title': "Bienvenue sur Yorgo",
+    'image': 'assets/images/fond4.jpg',
+    'title': "Bienvenue\nsur Yorgo",
     'text': [],
     'format': 0,
   },
   {
-    'image': 'assets/images/escalade.jpg',
+    'image': 'assets/images/fond2.jpg',
     'title': "YORGO c’est quoi  ?",
     'text': [
       " YORGO, c’est faire du sport à plusieurs, booster sa motivation et challenger ses performances.",
@@ -23,7 +23,7 @@ final List imgList = [
     'format': 1,
   },
   {
-    'image': 'assets/images/escalade.jpg',
+    'image': 'assets/images/fond3.jpg',
     'title': "Mais également",
     'text': [],
     'format': 2,
@@ -54,7 +54,7 @@ List<Widget> imageSliders = imgList.map((item) {
         textAlign: TextAlign.center,
         style: TextStyle(
           color: Colors.white,
-          fontSize: height / 17,
+          fontSize: height / 10,
           fontWeight: FontWeight.bold,
           shadows: [
             Shadow(
@@ -71,7 +71,7 @@ List<Widget> imageSliders = imgList.map((item) {
   // style d'affichage 2 (le titre en Haut) + texte au centre :
   var format2 = [
     Padding(
-      padding: EdgeInsets.symmetric(vertical: height / 4, horizontal: 0),
+      padding: EdgeInsets.symmetric(vertical: height / 4, horizontal: 20),
       child: Column(
         children: [
           Padding(
@@ -98,7 +98,7 @@ List<Widget> imageSliders = imgList.map((item) {
           ),
           for (var itemText in item['text'])
             Align(
-              alignment: Alignment.center,
+              alignment: Alignment.bottomLeft,
               child: Text(
                 itemText,
                 textAlign: TextAlign.center,

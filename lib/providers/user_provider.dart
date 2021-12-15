@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart';
+import 'package:yorgo/models/data/friend_model.dart';
 import 'package:yorgo/models/form/profile_form_model.dart';
 import 'package:yorgo/models/form/profile_sport_form_model.dart';
-import 'package:yorgo/models/user_model.dart';
+import 'package:yorgo/models/data/user_model.dart';
 import 'package:yorgo/providers/auth_provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -9,6 +10,7 @@ import 'dart:convert';
 class UserProvider with ChangeNotifier {
   final String host = 'https://yorgoapi.herokuapp.com';
   User? user;
+  List<Friend>? listFriend;
   bool isLoading = false;
   late AuthProvider authProvider;
 
@@ -17,6 +19,7 @@ class UserProvider with ChangeNotifier {
     if (authProvider.isLoggedin != null) {
       if (user == null && authProvider.isLoggedin!) {
         fetchCurrentUser();
+        getFriends();
       }
     }
   }
@@ -42,6 +45,11 @@ class UserProvider with ChangeNotifier {
 
   void updateUser(User updatedUser) {
     user = updatedUser;
+    notifyListeners();
+  }
+
+  void updateFriend(List<Friend> listFriend) {
+    listFriend = listFriend;
     notifyListeners();
   }
 
@@ -100,5 +108,27 @@ class UserProvider with ChangeNotifier {
       isLoading = false;
       return "error";
     }
+  }
+
+  Future getFriends() async {
+    Uri url = Uri.parse("$host/api/myfriends/");
+    http.Response response = await http.get(
+      url,
+      headers: {'authorization': 'Bearer ${authProvider.tokenAccess}'},
+    );
+    if (response.statusCode == 200) {
+      Map data = json.decode(utf8.decode(response.bodyBytes));
+      List<Friend> friends = [];
+      for (var item in data['friends']) {
+        Friend friend = Friend.fromJson(item);
+        friends.add(friend);
+      }
+
+      updateFriend(friends);
+
+      return response.body;
+    }
+
+    return null;
   }
 }

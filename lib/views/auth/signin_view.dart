@@ -79,8 +79,9 @@ class _SigninViewState extends State<SigninView> {
           children: [
             Background(
               width: width,
-              path: 'assets/images/jogging.jpg',
+              path: 'assets/images/fond3.jpg',
               height: height,
+              alignment: Alignment(-0, 0),
             ),
             BackButtonHome(),
             _signInContains(context, heightResponsive),

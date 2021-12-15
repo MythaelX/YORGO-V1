@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:yorgo/models/form/profile_form_model.dart';
-import 'package:yorgo/models/user_model.dart';
+import 'package:yorgo/models/data/user_model.dart';
 //model and form
 import 'package:yorgo/providers/user_provider.dart';
 //Widget common

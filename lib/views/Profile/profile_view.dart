@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:yorgo/models/user_model.dart';
+import 'package:yorgo/models/data/user_model.dart';
 import 'package:yorgo/providers/user_provider.dart';
 import 'package:yorgo/views/profile/widget/headerProfile.dart';
 import 'package:yorgo/views/profile/widget/infosProfile.dart';

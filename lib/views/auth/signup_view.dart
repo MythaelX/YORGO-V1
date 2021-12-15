@@ -80,8 +80,9 @@ class _SignupViewState extends State<SignupView> {
             children: [
               Background(
                 width: width,
-                path: 'assets/images/jogging.jpg',
+                path: 'assets/images/fond.jpg',
                 height: heightResponsive,
+                alignment: Alignment(-0.1, 0),
               ),
               BackButtonHome(),
               _signUpContains(context, heightResponsive),
