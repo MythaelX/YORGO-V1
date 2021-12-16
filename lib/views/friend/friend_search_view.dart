@@ -4,8 +4,6 @@ import 'package:yorgo/models/data/friend_model.dart';
 import 'package:yorgo/providers/user_provider.dart';
 import 'package:yorgo/views/friend/widget/FriendButton.dart';
 import 'package:yorgo/views/profile/widget/searchBar.dart';
-import 'package:yorgo/widgets/buttons/ProfileButton.dart';
-import "package:collection/collection.dart";
 
 class FriendSearchView extends StatefulWidget {
   const FriendSearchView({

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:carousel_slider/carousel_options.dart';
 import 'package:video_player/video_player.dart';
 import '../auth/signin_view.dart';
 

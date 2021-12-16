@@ -1,6 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:yorgo/views/home/home_views.dart';
 import 'package:yorgo/widgets/GetImageProfile.dart';
 
 class ImageProfile extends StatelessWidget {
