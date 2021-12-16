@@ -97,7 +97,7 @@ class headerProfile extends StatelessWidget {
           Positioned(
             top: 10,
             left: 30,
-            child: ImageProfile(height: 160, image: user.profile_image),
+            child: ImageProfile(size: 160, image: user.profile_image),
           ),
         ],
       ),

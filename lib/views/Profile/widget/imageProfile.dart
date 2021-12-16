@@ -1,53 +1,40 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:yorgo/views/home/home_views.dart';
+import 'package:yorgo/widgets/GetImageProfile.dart';
 
 class ImageProfile extends StatelessWidget {
   final String? image;
-  final int height;
+  final int size;
 
-  const ImageProfile({
-    Key? key,
-    required this.image,
-    required this.height,
-  }) : super(key: key);
+  final bool shadow;
+
+  const ImageProfile(
+      {Key? key, required this.image, required this.size, this.shadow = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Image image = getImage();
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey,
-            blurRadius: 15.0,
-            spreadRadius: 2,
-            offset: Offset(1, 2),
-          )
-        ],
+        boxShadow: (shadow)
+            ? [
+                BoxShadow(
+                  color: Colors.grey,
+                  blurRadius: 15.0,
+                  spreadRadius: 2,
+                  offset: Offset(1, 2),
+                )
+              ]
+            : null,
       ),
       child: ClipOval(
-        child: image,
+        child: GetImageProfile(
+          imageUrl: image,
+          size: size.toDouble(),
+        ),
       ),
     );
-  }
-
-  getImage() {
-    if (image != null) {
-      return Image.network(
-        image!,
-        height: height.toDouble(),
-        width: height.toDouble(),
-        fit: BoxFit.cover,
-      );
-    } else {
-      return Image(
-        image: AssetImage(
-          "assets/images/jogging.jpg",
-        ),
-        height: height.toDouble(),
-        width: height.toDouble(),
-        fit: BoxFit.cover,
-      );
-    }
   }
 }

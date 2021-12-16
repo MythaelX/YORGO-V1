@@ -14,12 +14,12 @@ class Friend {
       : id = json['id'],
         username = json['username'],
         profile_image = getImageUser(json['profile_image']),
-        address_text = json['address_text']!;
+        address_text = json['address_text'];
 }
 
 String? getImageUser(String? image) {
-  if (image != null) {
-    return "http://yorgoapi.herokuapp.com" + image;
+  if (image != null && image != "media/default_profile_image.png") {
+    return "http://yorgoapi.herokuapp.com/media/" + image;
   } else {
     return null;
   }

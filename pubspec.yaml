@@ -41,6 +41,7 @@ dependencies:
   flutter_osm_plugin: ^0.26.1
   geocoding: ^2.0.1
   dio: ^4.0.4
+  cached_network_image: ^3.2.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.9.2
