@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:yorgo/models/data/friend_model.dart';
 import 'package:yorgo/models/data/user_model.dart';
 import 'package:yorgo/providers/user_provider.dart';
 import 'package:yorgo/views/profile/widget/headerProfile.dart';
@@ -19,13 +20,18 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     final User? user = Provider.of<UserProvider>(context).user;
-
+    final List<Friend>? listFriends =
+        Provider.of<UserProvider>(context).listFriend;
+    int? numberOfFriends;
+    if (listFriends != null) {
+      numberOfFriends = listFriends.length;
+    }
     return Container(
       color: Colors.white,
       child: user != null
           ? ListView(
               children: [
-                headerProfile(user: user),
+                headerProfile(user, numberOfFriends: numberOfFriends),
                 Container(
                   child: (user.description != null && user.description != "")
                       ? Padding(

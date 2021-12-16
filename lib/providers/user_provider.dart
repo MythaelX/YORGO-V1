@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:yorgo/models/data/friend_model.dart';
 import 'package:yorgo/models/form/profile_form_model.dart';
@@ -48,31 +49,47 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void updateFriend(List<Friend> listFriend) {
-    listFriend = listFriend;
+  void updateFriend(List<Friend> updatedListFriend) {
+    listFriend = updatedListFriend;
     notifyListeners();
   }
 
   Future<dynamic> profileCreate(ProfileForm profileForm) async {
     profileForm.is_profile_complete = true;
     try {
-      isLoading = true;
-      Uri url = Uri.parse("$host/api/user/");
-      http.Response response = await http.post(
-        url,
+      var options = BaseOptions(
+        baseUrl: 'https://yorgoapi.herokuapp.com',
+        connectTimeout: 5000,
+        receiveTimeout: 3000,
         headers: {
           'Content-type': 'application/json',
           'authorization': 'Bearer ${authProvider.tokenAccess}',
         },
-        body: json.encode(profileForm.toJson()),
       );
+
+      Dio dio = Dio(options);
+      isLoading = true;
+
+      FormData formdata = FormData();
+      profileForm.toMap().forEach((key, value) {
+        if (value != null) {
+          formdata.fields.add(MapEntry(key, value.toString()));
+        }
+      });
+      if (profileForm.profile_image != null) {
+        formdata.files
+            .add(MapEntry("profile_image", profileForm.profile_image!));
+      }
+      Response response = await dio.post('/api/user/', data: formdata);
+
       isLoading = false;
       if (response.statusCode != 201) {
-        return json.decode(utf8.decode(response.bodyBytes));
+        return response.data;
       }
+
       updateUser(
         User.fromJson(
-          json.decode(utf8.decode(response.bodyBytes)),
+          response.data,
         ),
       );
       return null;

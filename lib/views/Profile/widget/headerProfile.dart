@@ -6,11 +6,12 @@ import 'package:yorgo/views/profile/widget/sportHeaderProfile.dart';
 import 'package:yorgo/widgets/colorTexts/textBlue.dart';
 
 class headerProfile extends StatelessWidget {
-  final User? user;
-
-  const headerProfile({
+  final int? numberOfFriends;
+  final User user;
+  const headerProfile(
+    this.user, {
     Key? key,
-    required this.user,
+    this.numberOfFriends,
   }) : super(key: key);
 
   @override
@@ -40,7 +41,7 @@ class headerProfile extends StatelessWidget {
                 padding:
                     EdgeInsets.only(left: (width / 2.2), top: 15, right: 10),
                 child: TextBlue(
-                  text: ' ${user!.username.toUpperCase()}',
+                  text: ' ${user.username.toUpperCase()}',
                   fontWeight: FontWeight.w500,
                   maxLines: 1,
                 ),
@@ -63,7 +64,7 @@ class headerProfile extends StatelessWidget {
                   child: Container(
                     child: Align(
                         child: TextBlue(
-                      text: "X\n Amis",
+                      text: numberOfFriends.toString() + "\n Amis",
                       textFontsize: 20,
                       textAlign: TextAlign.center,
                     )),
@@ -90,13 +91,13 @@ class headerProfile extends StatelessWidget {
             child: SportHeaderProfile(
               width: width,
               height: 50,
-              userSports: user!.sports,
+              userSports: user.sports,
             ),
           ),
           Positioned(
             top: 10,
             left: 30,
-            child: ImageProfile(height: 160, image: user!.profile_image),
+            child: ImageProfile(height: 160, image: user.profile_image),
           ),
         ],
       ),

@@ -1,18 +1,17 @@
-import 'dart:convert';
-import 'dart:typed_data';
+import 'package:dio/dio.dart';
 
 class ProfileForm {
   String lastname;
   String firstname;
   String? birth;
-  num? phone;
+  int? phone;
   String? address_text;
   double? address_long;
   double? address_lat;
   String? description;
   int? gender;
   bool? is_profile_complete;
-  Uint8List? profile_image;
+  MultipartFile? profile_image;
 
   ProfileForm({
     required this.lastname,
@@ -40,15 +39,26 @@ class ProfileForm {
       'gender': gender,
       'description': description,
       'is_profile_complete': is_profile_complete,
-      'profile_image': getImageUser(profile_image),
+      'profile_image': profile_image,
     };
   }
-}
 
-getImageUser(Uint8List? image) {
-  if (image != null) {
-    return base64.encode(image);
-  } else {
-    return null;
+  Map<String, dynamic> toMap() {
+    if (birth != null) {
+      birth = birth!.split(" ").first;
+    }
+    Map<String, dynamic> data = {
+      'lastname': lastname,
+      'firstname': firstname,
+      'birth': birth,
+      'phone': phone,
+      'address_text': address_text,
+      'address_long': address_long,
+      'address_lat': address_lat,
+      'gender': gender,
+      'description': description,
+      'is_profile_complete': (is_profile_complete!) ? "True" : "False",
+    };
+    return data;
   }
 }

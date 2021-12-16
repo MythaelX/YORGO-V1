@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -88,8 +91,10 @@ class _ProfileCreateViewState extends State<ProfileCreateView> {
               child: Column(
                 children: [
                   Container(height: 10),
-                  ImageInput(onSaved: (newValue) {
-                    profileForm.profile_image = newValue!;
+                  ImageInput(onSaved: (File? newValue) async {
+                    profileForm.profile_image = await MultipartFile.fromFile(
+                        newValue!.path,
+                        filename: newValue.path.split('/').last);
                   }),
                   Container(height: 10),
                   TextInput1(
@@ -149,7 +154,7 @@ class _ProfileCreateViewState extends State<ProfileCreateView> {
                     ),
                     onSaved: (newValue) {
                       if (newValue != "") {
-                        profileForm.phone = num.tryParse(newValue!);
+                        profileForm.phone = int.tryParse(newValue!);
                       }
                     },
                     validator: (value) {

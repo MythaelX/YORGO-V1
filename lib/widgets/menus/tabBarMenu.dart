@@ -126,9 +126,11 @@ class _tabBarMenu2State extends State<tabBarMenu2> {
             ),
           ),
         ),
-        TabsView(
-          tabIndex: _tabIndex,
-          children: widget.listContentTab,
+        Expanded(
+          child: TabsView(
+            tabIndex: _tabIndex,
+            children: widget.listContentTab,
+          ),
         )
       ]),
     );

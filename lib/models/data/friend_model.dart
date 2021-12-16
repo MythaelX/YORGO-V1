@@ -1,10 +1,7 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
 class Friend {
   int id;
   String username;
-  Uint8List? profile_image;
+  String? profile_image;
   String? address_text;
 
   Friend(
@@ -20,9 +17,9 @@ class Friend {
         address_text = json['address_text']!;
 }
 
-Uint8List? getImageUser(String? image) {
+String? getImageUser(String? image) {
   if (image != null) {
-    return base64Decode(image);
+    return "http://yorgoapi.herokuapp.com" + image;
   } else {
     return null;
   }

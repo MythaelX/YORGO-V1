@@ -6,7 +6,7 @@ import 'package:yorgo/views/activity/my_activity_view.dart';
 import 'package:yorgo/views/auth/signin_view.dart';
 import 'package:yorgo/views/auth/signup_view.dart';
 import 'package:yorgo/views/flux/flux_view.dart';
-import 'package:yorgo/views/friend/friend_view.dart';
+import 'package:yorgo/views/friend/friend_home_view.dart';
 import 'package:yorgo/views/group/group_view.dart';
 import 'package:yorgo/views/home/Home_main_view.dart';
 import 'package:yorgo/views/home/home_views.dart';
@@ -112,15 +112,10 @@ Route<dynamic> routes(settings) {
       builder: (_) => SettingMenuView(),
       settings: RouteSettings(name: SettingMenuView.routeName),
     );
-  } else if (settings.name == FriendView.routeName) {
+  } else if (settings.name == FriendHomeView.routeName) {
     return MaterialPageRoute(
-      builder: (_) => FriendView(),
-      settings: RouteSettings(name: FriendView.routeName),
-    );
-  } else if (settings.name == FriendView.routeName) {
-    return MaterialPageRoute(
-      builder: (_) => FriendView(),
-      settings: RouteSettings(name: FriendView.routeName),
+      builder: (_) => FriendHomeView(),
+      settings: RouteSettings(name: FriendHomeView.routeName),
     );
   } else if (settings.name == GroupView.routeName) {
     return MaterialPageRoute(

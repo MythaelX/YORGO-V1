@@ -1,8 +1,7 @@
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 class ImageProfile extends StatelessWidget {
-  final Uint8List? image;
+  final String? image;
   final int height;
 
   const ImageProfile({
@@ -34,7 +33,7 @@ class ImageProfile extends StatelessWidget {
 
   getImage() {
     if (image != null) {
-      return Image.memory(
+      return Image.network(
         image!,
         height: height.toDouble(),
         width: height.toDouble(),
