@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
+import 'package:yorgo/models/data/account_model.dart';
 import 'package:yorgo/models/data/friend_model.dart';
 import 'package:yorgo/models/form/profile_form_model.dart';
 import 'package:yorgo/models/form/profile_sport_form_model.dart';
@@ -11,7 +12,9 @@ import 'dart:convert';
 class UserProvider with ChangeNotifier {
   final String host = 'https://yorgoapi.herokuapp.com';
   User? user;
+  Account? account;
   List<Friend>? listFriend;
+  List? friendRequests;
   bool isLoading = false;
   late AuthProvider authProvider;
 
@@ -49,8 +52,15 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void updateFriend(List<Friend> updatedListFriend) {
+  void updateOtherUser(Account updatedAccount) {
+    account = updatedAccount;
+    notifyListeners();
+  }
+
+  void updateFriend(
+      List<Friend> updatedListFriend, List updatedfriendRequests) {
     listFriend = updatedListFriend;
+    friendRequests = updatedfriendRequests;
     notifyListeners();
   }
 
@@ -118,7 +128,7 @@ class UserProvider with ChangeNotifier {
       //update des sports de l'utilisateur.
       String value =
           json.decode(utf8.decode(response.bodyBytes))["sports"].toString();
-      user!.sports = getSports(value);
+      user!.sports = User.getSports(value);
 
       return null;
     } catch (e) {
@@ -136,16 +146,136 @@ class UserProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       Map data = json.decode(utf8.decode(response.bodyBytes));
       List<Friend> friends = [];
+      List friendRequests = data['friend_requests'];
       for (var item in data['friends']) {
         Friend friend = Friend.fromJson(item);
         friends.add(friend);
       }
 
-      updateFriend(friends);
+      updateFriend(friends, friendRequests);
+
+      return response.body;
+    }
+  }
+
+  Future friendRequestDecline(int friend_request_id) async {
+    Map<String, String> mapFriendRequestDecline = {};
+    Uri url = Uri.parse("$host/api/myfriends/");
+    mapFriendRequestDecline['action'] = "friend_request_decline";
+    mapFriendRequestDecline['friend_request_id'] = friend_request_id.toString();
+
+    http.Response response = await http.post(
+      url,
+      headers: {'authorization': 'Bearer ${authProvider.tokenAccess}'},
+      body: mapFriendRequestDecline,
+    );
+
+    if (response.statusCode == 200) {
+      Map data = json.decode(utf8.decode(response.bodyBytes));
+      List<Friend>? friends = this.listFriend;
+      List friendRequests = data['data'];
+
+      updateFriend(friends!, friendRequests);
 
       return response.body;
     }
 
     return null;
+  }
+
+  Future friendRequestAccept(int friend_request_id) async {
+    Map<String, String> mapFriendRequestDecline = {};
+    Uri url = Uri.parse("$host/api/myfriends/");
+    mapFriendRequestDecline['action'] = "friend_request_accept";
+    mapFriendRequestDecline['friend_request_id'] = friend_request_id.toString();
+
+    http.Response response = await http.post(
+      url,
+      headers: {'authorization': 'Bearer ${authProvider.tokenAccess}'},
+      body: mapFriendRequestDecline,
+    );
+
+    if (response.statusCode == 200) {
+      Map data = json.decode(utf8.decode(response.bodyBytes));
+      List<Friend>? friends = [];
+      for (var item in data['friends']) {
+        Friend friend = Friend.fromJson(item);
+        friends.add(friend);
+      }
+
+      List friendRequests = data['friend_request'];
+
+      updateFriend(friends, friendRequests);
+
+      return response.body;
+    }
+
+    return null;
+  }
+
+  Future friendRemove(int friend_id) async {
+    Map<String, String> mapFriendRequestDecline = {};
+    Uri url = Uri.parse("$host/api/myfriends/");
+    mapFriendRequestDecline['action'] = "friend_remove";
+    mapFriendRequestDecline['friend_id'] = friend_id.toString();
+
+    http.Response response = await http.post(
+      url,
+      headers: {'authorization': 'Bearer ${authProvider.tokenAccess}'},
+      body: mapFriendRequestDecline,
+    );
+
+    if (response.statusCode == 200) {
+      Map data = json.decode(utf8.decode(response.bodyBytes));
+      List<Friend>? friends = [];
+      for (var item in data['friends']) {
+        Friend friend = Friend.fromJson(item);
+        friends.add(friend);
+      }
+
+      List? friendRequests = this.friendRequests;
+
+      updateFriend(friends, friendRequests!);
+
+      return response.body;
+    }
+
+    return null;
+  }
+
+  Future friendSendDemand(int user_receiver_id) async {
+    Map<String, String> mapFriendRequestDecline = {};
+    Uri url = Uri.parse("$host/api/myfriends/");
+    mapFriendRequestDecline['action'] = "friend_request_send";
+    mapFriendRequestDecline['user_receiver_id'] = user_receiver_id.toString();
+
+    http.Response response = await http.post(
+      url,
+      headers: {'authorization': 'Bearer ${authProvider.tokenAccess}'},
+      body: mapFriendRequestDecline,
+    );
+
+    if (response.statusCode != 200) {
+      return response.body;
+    }
+
+    return null;
+  }
+
+  Future getUserInformation(int id) async {
+    //this.otherUser = null;
+    Uri url = Uri.parse("$host/api/user/" + id.toString());
+    http.Response response = await http.get(
+      url,
+      headers: {'authorization': 'Bearer ${authProvider.tokenAccess}'},
+    );
+
+    if (response.statusCode != 200) {
+      return "error";
+    } else {
+      updateOtherUser(
+          Account.fromJson(json.decode(utf8.decode(response.bodyBytes))));
+      return null;
+    }
   }
 }

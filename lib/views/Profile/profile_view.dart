@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:yorgo/models/data/friend_model.dart';
 import 'package:yorgo/models/data/user_model.dart';
 import 'package:yorgo/providers/user_provider.dart';
+import 'package:yorgo/views/friend/friend_home_view.dart';
 import 'package:yorgo/views/profile/widget/headerProfile.dart';
 import 'package:yorgo/views/profile/widget/infosProfile.dart';
 import 'package:yorgo/widgets/menus/tabBarMenu.dart';
@@ -31,7 +32,16 @@ class _ProfileViewState extends State<ProfileView> {
       child: user != null
           ? ListView(
               children: [
-                headerProfile(user, numberOfFriends: numberOfFriends),
+                headerProfile(
+                  user,
+                  numberOfFriends: numberOfFriends,
+                  friendFunction: () {
+                    Navigator.pushNamed(
+                      context,
+                      FriendHomeView.routeName,
+                    );
+                  },
+                ),
                 Container(
                   child: (user.description != null && user.description != "")
                       ? Padding(

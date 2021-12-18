@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yorgo/models/data/account_model.dart';
 import 'package:yorgo/models/data/user_model.dart';
 
 class InfosProfile extends StatelessWidget {
@@ -28,6 +29,42 @@ class InfosProfile extends StatelessWidget {
               iconData: Icons.date_range_outlined),
           textBlockInfos(
               text: user.getAdressString(),
+              textStyle: textStyle,
+              iconData: Icons.maps_home_work_rounded,
+              border: false),
+        ],
+      ),
+    );
+  }
+}
+
+class InfosProfileOther extends StatelessWidget {
+  final Account account;
+
+  const InfosProfileOther({
+    Key? key,
+    required this.account,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    TextStyle textStyle = TextStyle(
+        fontSize: 25, fontWeight: FontWeight.w400, color: Colors.black);
+    return Container(
+      padding: EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          textBlockInfos(
+              text: account.getGenderString(),
+              textStyle: textStyle,
+              iconData: Icons.transgender),
+          textBlockInfos(
+              text: account.getAgeString(),
+              textStyle: textStyle,
+              iconData: Icons.date_range_outlined),
+          textBlockInfos(
+              text: account.getAdressString(),
               textStyle: textStyle,
               iconData: Icons.maps_home_work_rounded,
               border: false),

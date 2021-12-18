@@ -38,9 +38,10 @@ class SplashView extends StatelessWidget {
       } else {
         Navigator.pushReplacementNamed(context, ProfileCreateView.routeName);
       }
-    } else {
-      Provider.of<UserProvider>(context, listen: false)
-          .update(Provider.of<AuthProvider>(context, listen: false));
+      // } else {
+      //   // Provider.of<UserProvider>(context, listen: false)
+      //   //     .update(Provider.of<AuthProvider>(context, listen: false));
+      // }
     }
   }
 

@@ -1,6 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:yorgo/models/data/friend_model.dart';
+import 'package:yorgo/providers/user_provider.dart';
+import 'package:yorgo/routes.dart';
+import 'package:yorgo/views/profile/profile_other_view.dart';
 import 'package:yorgo/views/profile/widget/imageProfile.dart';
 import 'package:yorgo/widgets/buttons/ProfileButton.dart';
 
@@ -101,7 +105,13 @@ class _FriendButtonState extends State<FriendButton> {
                         text: "Voir le profile",
                         iconData: Icons.person_rounded,
                         onPressed: () {
-                          Navigator.pop(context);
+                          Provider.of<UserProvider>(context, listen: false)
+                              .account = null;
+                          Navigator.pushNamed(
+                            context,
+                            ProfileOtherView.routeName,
+                            arguments: ProfileArguments(widget.friend.id),
+                          );
                         }),
                     Container(
                       height: 10,
@@ -111,7 +121,10 @@ class _FriendButtonState extends State<FriendButton> {
                         color: Color(0xffFF7168),
                         iconData: Icons.cancel,
                         textcolor: Colors.white,
-                        onPressed: () {
+                        onPressed: () async {
+                          await Provider.of<UserProvider>(context,
+                                  listen: false)
+                              .friendRemove(widget.friend.id);
                           Navigator.pop(context);
                         }),
                   ],

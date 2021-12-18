@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:intl/intl.dart';
 
-class User {
-  String username;
-  String email;
+class Account {
+  int? id;
+  String? username;
+  String? email;
   String? firstname;
   String? lastname;
   DateTime? birth;
@@ -16,10 +17,16 @@ class User {
   bool is_profile_complete;
   String? profile_image;
   Map<String, int>? sports;
+  //Friend
+  int? request_sent;
+  bool? is_friend;
+  bool? is_self;
+  int? pending_friend_request_id;
 
-  User({
-    required this.username,
-    required this.email,
+  Account({
+    required this.id,
+    this.username,
+    this.email,
     this.firstname,
     this.lastname,
     this.birth,
@@ -32,6 +39,10 @@ class User {
     required this.is_profile_complete,
     this.profile_image,
     this.sports,
+    this.request_sent,
+    this.is_friend,
+    this.is_self,
+    this.pending_friend_request_id,
   });
 
   getGenderString() {
@@ -58,7 +69,26 @@ class User {
     if (address_text != null) {
       return address_text;
     }
+
     return "Information non renseigné";
+  }
+
+  static Map<String, int>? getSports(String? value) {
+    Map<String, int> mapfinal;
+    if (value != null) {
+      mapfinal = {};
+      try {
+        Map valueMap = json.decode(value);
+        valueMap.forEach((key, value) {
+          mapfinal[key] = value;
+        });
+        return mapfinal;
+      } catch (e) {
+        return null;
+      }
+    } else {
+      return null;
+    }
   }
 
   static String? getImageUser(String? image) {
@@ -101,43 +131,9 @@ class User {
     }
   }
 
-  static Map<String, int>? getSports(String? value) {
-    Map<String, int> mapfinal;
-    if (value != null) {
-      mapfinal = {};
-      try {
-        Map valueMap = json.decode(value);
-        valueMap.forEach((key, value) {
-          mapfinal[key] = value;
-        });
-        return mapfinal;
-      } catch (e) {
-        return null;
-      }
-    } else {
-      return null;
-    }
-  }
-
-  User.fromJson(Map<String, dynamic> json)
-      : username = json['username'],
-        email = json['email'],
-        firstname = json['firstname'],
-        lastname = json['lastname'],
-        birth = getDateBirthUser(json['birth']),
-        phone = json['phone'],
-        address_text = json['address_text'],
-        address_long = getDouble(json['address_long']),
-        address_lat = getDouble(json['address_lat']),
-        gender = json['gender'],
-        description = json['description'],
-        is_profile_complete = json['is_profile_complete'],
-        profile_image = getImageUser(json['profile_image']),
-        sports = getSports(json['sports']);
-
-  User.fromJson2(Map<String, dynamic> json)
-      : username = json['username'],
-        email = "",
+  Account.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        username = json['username'],
         firstname = json['firstname'],
         lastname = json['lastname'],
         birth = getDateBirthUser(json['birth']),
@@ -149,5 +145,9 @@ class User {
         description = json['description'],
         is_profile_complete = true,
         profile_image = getImageUser2(json['profile_image']),
-        sports = getSports(json['sports']);
+        sports = getSports(json['sports']),
+        request_sent = json['request_sent'],
+        is_friend = json['is_friend'],
+        is_self = json['is_self'],
+        pending_friend_request_id = json['pending_friend_request_id'];
 }

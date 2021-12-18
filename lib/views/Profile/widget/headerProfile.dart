@@ -8,10 +8,16 @@ import 'package:yorgo/widgets/colorTexts/textBlue.dart';
 class headerProfile extends StatelessWidget {
   final int? numberOfFriends;
   final User user;
+  final void Function()? friendFunction;
+  final void Function()? activityFunction;
+  final void Function()? followFunction;
   const headerProfile(
     this.user, {
     Key? key,
     this.numberOfFriends,
+    this.friendFunction,
+    this.activityFunction,
+    this.followFunction,
   }) : super(key: key);
 
   @override
@@ -51,33 +57,46 @@ class headerProfile extends StatelessWidget {
               ),
               Row(children: [
                 Expanded(
+                  flex: 1,
                   child: Container(
-                    child: Align(
+                    child: TextButton(
+                      onPressed: activityFunction,
+                      child: Align(
                         child: TextBlue(
-                      text: "X\n Activités",
-                      textFontsize: 20,
-                      textAlign: TextAlign.center,
-                    )),
+                          text: "X\n Activités",
+                          textFontsize: 20,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 Expanded(
+                  flex: 1,
                   child: Container(
-                    child: Align(
-                        child: TextBlue(
-                      text: numberOfFriends.toString() + "\n Amis",
-                      textFontsize: 20,
-                      textAlign: TextAlign.center,
-                    )),
+                    child: TextButton(
+                      onPressed: friendFunction,
+                      child: Align(
+                          child: TextBlue(
+                        text: numberOfFriends.toString() + "\n Amis",
+                        textFontsize: 20,
+                        textAlign: TextAlign.center,
+                      )),
+                    ),
                   ),
                 ),
                 Expanded(
+                  flex: 1,
                   child: Container(
-                    child: Align(
-                        child: TextBlue(
-                      text: "X\n Abonnés",
-                      textFontsize: 20,
-                      textAlign: TextAlign.center,
-                    )),
+                    child: TextButton(
+                        onPressed: followFunction,
+                        child: Align(
+                          child: TextBlue(
+                            text: "X\n Abonnés",
+                            textFontsize: 20,
+                            textAlign: TextAlign.center,
+                          ),
+                        )),
                   ),
                 ),
               ]),

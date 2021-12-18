@@ -13,6 +13,7 @@ import 'package:yorgo/views/local_sportmen/local_sportmen_view.dart';
 import 'package:yorgo/views/message/message_home_view.dart';
 import 'package:yorgo/views/not_found_view.dart';
 import 'package:yorgo/views/profile/profile_edit_view.dart';
+import 'package:yorgo/views/profile/profile_other_view.dart';
 import 'package:yorgo/views/profile/profile_sport_create.dart';
 import 'package:yorgo/views/profile/profile_create_view.dart';
 import 'package:yorgo/views/profile/profile_sport_edit.dart';
@@ -102,6 +103,12 @@ Route<dynamic> routes(settings) {
       builder: (_) => ProfileSportEditView(),
       settings: RouteSettings(name: ProfileSportEditView.routeName),
     );
+  } else if (settings.name == ProfileOtherView.routeName) {
+    final args = settings.arguments as ProfileArguments;
+    return MaterialPageRoute(
+      builder: (_) => ProfileOtherView(id: args.id),
+      settings: RouteSettings(name: ProfileOtherView.routeName),
+    );
   }
   ///////////////////////////////////////////////////////////////
 
@@ -140,4 +147,11 @@ Route<dynamic> routes(settings) {
   else {
     return MaterialPageRoute(builder: (_) => NotFoundView());
   }
+}
+
+//argument
+class ProfileArguments {
+  final int id;
+
+  ProfileArguments(this.id);
 }
