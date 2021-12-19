@@ -177,10 +177,10 @@ class UserProvider with ChangeNotifier {
 
       updateFriend(friends!, friendRequests);
 
-      return response.body;
+      return null;
     }
 
-    return null;
+    return "error";
   }
 
   Future friendRequestAccept(int friend_request_id) async {
@@ -255,11 +255,12 @@ class UserProvider with ChangeNotifier {
       body: mapFriendRequestDecline,
     );
 
-    if (response.statusCode != 200) {
-      return response.body;
+    if (response.statusCode == 201) {
+      account!.pending_friend_request_id = json.decode(response.body)['data'];
+      return null;
     }
 
-    return null;
+    return response.body;
   }
 
   Future getUserInformation(int id) async {

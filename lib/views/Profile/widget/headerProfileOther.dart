@@ -468,7 +468,7 @@ class _headerProfileOtherState extends State<headerProfileOther> {
                   .friendRequestDecline(
                       widget.account.pending_friend_request_id!);
             } else {
-              error = null;
+              error = "error";
             }
             if (error == null) {
               setState(() {
