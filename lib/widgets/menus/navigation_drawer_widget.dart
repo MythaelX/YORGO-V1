@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yorgo/providers/auth_provider.dart';
+import 'package:yorgo/providers/user_provider.dart';
 import 'package:yorgo/views/activity/my_activity_view.dart';
 import 'package:yorgo/views/friend/friend_home_view.dart';
 import 'package:yorgo/views/group/group_view.dart';
@@ -117,6 +118,7 @@ class NavigationDrawerWidget extends StatelessWidget {
 
   void signout(BuildContext context) {
     Provider.of<AuthProvider>(context, listen: false).signout();
+    Provider.of<UserProvider>(context, listen: false).signout();
 
     Navigator.pushAndRemoveUntil(context,
         MaterialPageRoute(builder: (context) => HomeView()), (route) => false);

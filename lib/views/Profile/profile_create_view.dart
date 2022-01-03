@@ -67,7 +67,7 @@ class _ProfileCreateViewState extends State<ProfileCreateView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HeaderAppBar(texte: "Mon Profil"),
+      appBar: HeaderAppBar(text: "Mon Profil"),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(

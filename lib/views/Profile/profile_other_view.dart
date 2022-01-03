@@ -38,7 +38,7 @@ class _ProfileOtherViewState extends State<ProfileOtherView> {
 
     return Scaffold(
       appBar: HeaderAppBar(
-        texte: "Yorgo",
+        text: "Yorgo",
       ),
       body: Container(
         color: Colors.white,

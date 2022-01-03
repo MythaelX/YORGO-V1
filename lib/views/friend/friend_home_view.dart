@@ -12,7 +12,7 @@ class FriendHomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HeaderAppBar(
-        texte: "Mes Amis",
+        text: "Mes Amis",
         elevation: false,
       ),
       body: Container(

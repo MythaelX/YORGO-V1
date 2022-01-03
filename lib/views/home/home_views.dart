@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:video_player/video_player.dart';
@@ -7,7 +8,7 @@ import '../auth/signin_view.dart';
 final List imgList = [
   {
     'image': 'assets/images/fond4.jpg',
-    'title': "Bienvenue\nsur Yorgo",
+    'title': "Bienvenue sur Yorgo",
     'text': [],
     'format': 0,
   },
@@ -46,22 +47,26 @@ List<Widget> imageSliders = imgList.map((item) {
   // style d'affichage 1 (le titre au centre) :
   var format1 = [
     Expanded(flex: 1, child: Container()),
-    Align(
-      alignment: Alignment.center,
-      child: Text(
-        item['title'],
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: height / 10,
-          fontWeight: FontWeight.bold,
-          shadows: [
-            Shadow(
-              color: Colors.black.withOpacity(1),
-              offset: Offset(3, 2),
-              blurRadius: 5,
-            ),
-          ],
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Align(
+        alignment: Alignment.center,
+        child: AutoSizeText(
+          item['title'],
+          maxLines: 1,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+            shadows: [
+              Shadow(
+                color: Colors.black.withOpacity(1),
+                offset: Offset(3, 2),
+                blurRadius: 5,
+              ),
+            ],
+          ),
         ),
       ),
     ),
@@ -70,19 +75,19 @@ List<Widget> imageSliders = imgList.map((item) {
   // style d'affichage 2 (le titre en Haut) + texte au centre :
   var format2 = [
     Padding(
-      padding: EdgeInsets.symmetric(vertical: height / 4, horizontal: 20),
+      padding: EdgeInsets.symmetric(vertical: height / 9, horizontal: 20),
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(bottom: height / 13),
+            padding: EdgeInsets.only(bottom: 50),
             child: FittedBox(
               fit: BoxFit.fitWidth,
-              child: Text(
+              child: AutoSizeText(
                 item['title'],
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: height / 15,
+                  fontSize: 50,
                   fontWeight: FontWeight.bold,
                   shadows: [
                     Shadow(
@@ -96,23 +101,21 @@ List<Widget> imageSliders = imgList.map((item) {
             ),
           ),
           for (var itemText in item['text'])
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Text(
-                itemText,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: height / 27,
-                  fontWeight: FontWeight.w500,
-                  shadows: [
-                    Shadow(
-                      color: Colors.black.withOpacity(1),
-                      offset: Offset(3, 2),
-                      blurRadius: 5,
-                    ),
-                  ],
-                ),
+            AutoSizeText(
+              itemText,
+              maxLines: 4,
+              textAlign: TextAlign.justify,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.w400,
+                shadows: [
+                  Shadow(
+                    color: Colors.black.withOpacity(1),
+                    offset: Offset(3, 2),
+                    blurRadius: 5,
+                  ),
+                ],
               ),
             ),
         ],

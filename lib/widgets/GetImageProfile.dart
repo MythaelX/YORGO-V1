@@ -19,13 +19,14 @@ class GetImageProfile extends StatelessWidget {
     return getImage(
         imageUrl: imageUrl,
         size: size,
-        imageDefaultPath: "assets/images/jogging.jpg");
+        imageDefaultPath: "assets/images/profile.png");
   }
 
-  getImage(
-      {String? imageUrl,
-      required double size,
-      required String imageDefaultPath}) {
+  getImage({
+    String? imageUrl,
+    required double size,
+    required String imageDefaultPath,
+  }) {
     var defaultImage = Image(
       image: AssetImage(
         imageDefaultPath,

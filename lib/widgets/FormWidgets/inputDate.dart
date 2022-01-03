@@ -29,7 +29,7 @@ class _DateInput1State extends State<DateInput1> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.initialValue != null) {
+    if (widget.initialValue != null && date == null) {
       date = widget.initialValue;
       txtController.text = getText()!;
     }
@@ -68,12 +68,18 @@ class _DateInput1State extends State<DateInput1> {
   }
 
   Future pickDate(BuildContext context) async {
-    final initialDate = DateTime.now();
+    final dateNow = DateTime.now();
+    final initialDate;
+    if (date != null) {
+      initialDate = date;
+    } else {
+      initialDate = DateTime(dateNow.year - 18);
+    }
     final newDate = await showDatePicker(
       context: context,
-      initialDate: DateTime(initialDate.year - 18),
-      firstDate: DateTime(initialDate.year - 100),
-      lastDate: initialDate,
+      initialDate: initialDate,
+      firstDate: DateTime(dateNow.year - 100),
+      lastDate: dateNow,
       builder: null,
     );
 

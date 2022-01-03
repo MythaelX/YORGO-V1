@@ -74,18 +74,20 @@ class _SigninViewState extends State<SigninView> {
       extendBody: true,
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
-      body: Container(
-        child: Stack(
-          children: [
-            Background(
-              width: width,
-              path: 'assets/images/fond3.jpg',
-              height: height,
-              alignment: Alignment(-0, 0),
-            ),
-            BackButtonHome(),
-            _signInContains(context, heightResponsive),
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          child: Stack(
+            children: [
+              Background(
+                width: width,
+                path: 'assets/images/fond3.jpg',
+                height: heightResponsive,
+                alignment: Alignment(-0, 0),
+              ),
+              BackButtonHome(),
+              _signInContains(context, heightResponsive),
+            ],
+          ),
         ),
       ),
     );

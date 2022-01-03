@@ -7,7 +7,7 @@ class SearchBar extends StatefulWidget {
   SearchBar({
     Key? key,
     required this.onChanged,
-    this.hintText = "Recherchez",
+    this.hintText = "Rechercher",
   }) : super(key: key);
 
   @override
@@ -79,7 +79,7 @@ class SearchBar2 extends StatefulWidget {
   SearchBar2({
     Key? key,
     required this.onChanged,
-    this.hintText = "Recherchez",
+    this.hintText = "Rechercher",
   }) : super(key: key);
 
   @override

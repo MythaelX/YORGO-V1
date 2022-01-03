@@ -1,8 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:web_socket_channel/io.dart';
 import 'package:yorgo/models/data/account_model.dart';
+import 'package:yorgo/providers/auth_provider.dart';
 import 'package:yorgo/providers/user_provider.dart';
+import 'package:yorgo/routes.dart';
+import 'package:yorgo/views/message/message_sportsmen_room_view.dart';
 import 'package:yorgo/views/profile/widget/backgroundProfile.dart';
 import 'package:yorgo/views/profile/widget/imageProfile.dart';
 import 'package:yorgo/views/profile/widget/sportHeaderProfile.dart';
@@ -363,21 +367,7 @@ class _headerProfileOtherState extends State<headerProfileOther> {
                       child: getAccountFriendButton(widget.account),
                     ),
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: Text(
-                          "Ecrire",
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
+                  getAccountMessage(widget.account),
                 ],
               ),
             ],
@@ -449,14 +439,9 @@ class _headerProfileOtherState extends State<headerProfileOther> {
           child: Text(
             "Ajouter ?",
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 18, shadows: [
-              BoxShadow(
-                color: Colors.grey.shade700,
-                blurRadius: 8.0,
-                spreadRadius: 1,
-                offset: Offset(0.5, 1),
-              )
-            ]),
+            style: TextStyle(
+              fontSize: 18,
+            ),
           ),
         );
       case 1:
@@ -496,6 +481,50 @@ class _headerProfileOtherState extends State<headerProfileOther> {
           onPressed: () {},
           child: Text("???"),
         );
+    }
+  }
+
+  getAccountMessage(Account? account) {
+    if (account!.is_friend!) {
+      return Expanded(
+        flex: 1,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: ElevatedButton(
+            onPressed: () async {
+              var tokenAccess =
+                  Provider.of<AuthProvider>(context, listen: false).tokenAccess;
+              DialogBuilder(context).showLoadingIndicator('Chargement...');
+              var room_id =
+                  await Provider.of<UserProvider>(context, listen: false)
+                      .getOrCreateRoomFriend(widget.account);
+              DialogBuilder(context).hideOpenDialog();
+              if (room_id != null) {
+                Navigator.pushNamed(
+                  context,
+                  MessageSportsmenRoom.routeName,
+                  arguments: PrivateRoomArguments(
+                      IOWebSocketChannel.connect(
+                          "ws://yorgoapi.herokuapp.com/api/chat/" +
+                              room_id.toString() +
+                              "/?token=" +
+                              tokenAccess!),
+                      widget.account,
+                      room_id),
+                );
+              }
+            },
+            child: Text(
+              "Ecrire",
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+          ),
+        ),
+      );
+    } else {
+      return Container();
     }
   }
 }

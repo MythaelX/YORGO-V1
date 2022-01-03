@@ -1,12 +1,16 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:web_socket_channel/io.dart';
 import 'package:yorgo/models/data/friend_model.dart';
+import 'package:yorgo/providers/auth_provider.dart';
 import 'package:yorgo/providers/user_provider.dart';
 import 'package:yorgo/routes.dart';
+import 'package:yorgo/views/message/message_sportsmen_room_view.dart';
 import 'package:yorgo/views/profile/profile_other_view.dart';
 import 'package:yorgo/views/profile/widget/imageProfile.dart';
 import 'package:yorgo/widgets/buttons/ProfileButton.dart';
+import 'package:yorgo/widgets/progressor/dialog_progressor.dart';
 
 // ignore: must_be_immutable
 class FriendButton extends StatefulWidget {
@@ -95,8 +99,30 @@ class _FriendButtonState extends State<FriendButton> {
                     buttonDialog(
                         text: "Envoyer un message",
                         iconData: Icons.mail_rounded,
-                        onPressed: () {
-                          Navigator.pop(context);
+                        onPressed: () async {
+                          var tokenAccess =
+                              Provider.of<AuthProvider>(context, listen: false)
+                                  .tokenAccess;
+                          DialogBuilder(context)
+                              .showLoadingIndicator('Chargement...');
+                          var room_id = await Provider.of<UserProvider>(context,
+                                  listen: false)
+                              .getOrCreateRoomFriend(widget.friend);
+                          DialogBuilder(context).hideOpenDialog();
+                          if (room_id != null) {
+                            Navigator.pushNamed(
+                              context,
+                              MessageSportsmenRoom.routeName,
+                              arguments: PrivateRoomArguments(
+                                  IOWebSocketChannel.connect(
+                                      "ws://yorgoapi.herokuapp.com/api/chat/" +
+                                          room_id.toString() +
+                                          "/?token=" +
+                                          tokenAccess!),
+                                  widget.friend,
+                                  room_id),
+                            );
+                          }
                         }),
                     Container(
                       height: 10,

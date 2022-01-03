@@ -11,7 +11,7 @@ class SettingMenuView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HeaderAppBar(
-        texte: "Paramètres",
+        text: "Paramètres",
       ),
       body: Container(
         color: Colors.white,

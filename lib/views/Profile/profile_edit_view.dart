@@ -62,7 +62,7 @@ class _ProfileCreateViewState extends State<ProfileEditView> {
   Widget build(BuildContext context) {
     User? user = Provider.of<UserProvider>(context).user;
     return Scaffold(
-      appBar: HeaderAppBar(texte: "Mon Profil"),
+      appBar: HeaderAppBar(text: "Mon Profil"),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(

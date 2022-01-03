@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:yorgo/models/data/account_model.dart';
 import 'package:yorgo/models/data/friend_model.dart';
+import 'package:yorgo/models/data/room_model.dart';
 import 'package:yorgo/models/form/profile_form_model.dart';
 import 'package:yorgo/models/form/profile_sport_form_model.dart';
 import 'package:yorgo/models/data/user_model.dart';
@@ -17,6 +18,15 @@ class UserProvider with ChangeNotifier {
   List? friendRequests;
   bool isLoading = false;
   late AuthProvider authProvider;
+  Map? listPrivateRoom;
+
+  void signout() {
+    user = null;
+    account = null;
+    listFriend = null;
+    friendRequests = null;
+    listPrivateRoom = null;
+  }
 
   update(AuthProvider newAuthProvider) {
     authProvider = newAuthProvider;
@@ -24,6 +34,7 @@ class UserProvider with ChangeNotifier {
       if (user == null && authProvider.isLoggedin!) {
         fetchCurrentUser();
         getFriends();
+        getRoomsFriend();
       }
     }
   }
@@ -277,6 +288,73 @@ class UserProvider with ChangeNotifier {
       updateOtherUser(
           Account.fromJson(json.decode(utf8.decode(response.bodyBytes))));
       return null;
+    }
+  }
+
+  Future getUsersByQuery(String query) async {
+    //this.otherUser = null;
+    Uri url = Uri.parse("$host/api/user/search?queryWord=" + query);
+    http.Response response = await http.get(
+      url,
+      headers: {'authorization': 'Bearer ${authProvider.tokenAccess}'},
+    );
+
+    if (response.statusCode != 200) {
+      return null;
+    } else {
+      var accounts = json.decode(utf8.decode(response.bodyBytes))["accounts"];
+      List<Account> listAccount = [];
+      for (var account in accounts) {
+        listAccount.add(Account.fromJson2(account));
+      }
+      return listAccount;
+    }
+  }
+
+  Future getRoomsFriend() async {
+    if (listPrivateRoom != null) {
+      if (DateTime.now()
+          .subtract(Duration(seconds: 1))
+          .isBefore(listPrivateRoom!['time'])) {
+        return listPrivateRoom!['listRoom'];
+      }
+    }
+    Uri url = Uri.parse("$host/api/chat/rooms");
+    http.Response response = await http.get(
+      url,
+      headers: {'authorization': 'Bearer ${authProvider.tokenAccess}'},
+    );
+
+    if (response.statusCode != 200) {
+      return null;
+    } else {
+      var rooms = json.decode(utf8.decode(response.bodyBytes));
+      List<PrivateRoom> listRoom = [];
+      for (var room in rooms) {
+        listRoom.add(PrivateRoom.fromJson(room));
+      }
+      listPrivateRoom = {'listRoom': listRoom, 'time': DateTime.now()};
+      notifyListeners();
+      return listRoom;
+    }
+  }
+
+  Future getOrCreateRoomFriend(dynamic friend) async {
+    Map<String, String> mapRequest = {};
+    mapRequest['user2_id'] = friend.id.toString();
+    Uri url = Uri.parse("$host/api/chat/create_or_return_private_chat/");
+    http.Response response = await http.post(
+      url,
+      headers: {'authorization': 'Bearer ${authProvider.tokenAccess}'},
+      body: mapRequest,
+    );
+
+    if (response.statusCode != 201) {
+      return null;
+    } else {
+      var room = json.decode(utf8.decode(response.bodyBytes));
+      this.getRoomsFriend();
+      return room["chatroom_id"];
     }
   }
 }

@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:yorgo/widgets/menus/navigation_drawer_widget.dart';
+import 'package:yorgo/views/flux/flux_search_content.dart';
+import 'package:yorgo/views/flux/widget/searchBarFlux.dart';
+
+import '../../routes.dart';
 
 class FluxView extends StatelessWidget {
-  static String routeName = '/flux';
-
   @override
   Widget build(BuildContext context) {
-//Provider.of<UserProvider>(context).user;
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("YORGO"),
-        backgroundColor: Color.fromRGBO(73, 165, 216, 1),
-      ),
-      drawer: NavigationDrawerWidget(),
-      bottomNavigationBar: null,
-      body: Container(
-        alignment: Alignment.center,
-        child: Text("Flux vue vide"),
-      ),
+    return Column(
+      children: [
+        SearchBarFlux(
+          onTap: () {
+            FocusScope.of(context).requestFocus(new FocusNode());
+            Navigator.push(
+              context,
+              FadeRoute(page: FluxSearchContentView()),
+            );
+          },
+        ),
+      ],
     );
   }
 }

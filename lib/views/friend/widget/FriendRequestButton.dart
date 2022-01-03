@@ -66,7 +66,7 @@ class FriendRequestButton extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 8),
+              padding: EdgeInsets.symmetric(horizontal: 5),
               decoration: BoxDecoration(
                 border: Border.all(width: 2, color: Colors.white),
                 shape: BoxShape.circle,
@@ -75,8 +75,8 @@ class FriendRequestButton extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 16.0,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,8 +100,8 @@ class FriendRequestButton extends StatelessWidget {
               ),
             ),
             Container(
-              width: 55,
-              height: 55,
+              width: 50,
+              height: 50,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Colors.red,
@@ -125,8 +125,8 @@ class FriendRequestButton extends StatelessWidget {
               width: 10,
             ),
             Container(
-              width: 55,
-              height: 55,
+              width: 50,
+              height: 50,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Colors.green,
@@ -145,9 +145,6 @@ class FriendRequestButton extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-            ),
-            Container(
-              width: 5,
             ),
           ]),
         ),

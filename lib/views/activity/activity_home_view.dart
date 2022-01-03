@@ -9,24 +9,31 @@ class ActivityHomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        color: Colors.white,
-        child: Stack(
-          children: [
-            tabBarMenu2(listContentTab: [
-              ActivitySearchView(),
-              ActivityMapView(),
-              ActivityAddView(),
-            ], listTab: [
-              "Recherche",
-              "Cartes",
-              "Nouveau"
-            ], length: 3),
-            //Todo : add filter here;
-          ],
-        ),
-      ),
+    return Stack(
+      children: [
+        tabBarMenu2Icon(listContentTab: [
+          ActivitySearchView(),
+          ActivityMapView(),
+          ActivityAddView(),
+        ], listTab: [
+          Icon(
+            Icons.search,
+            size: 30,
+          ),
+          Icon(
+            Icons.map_outlined,
+            size: 30,
+          ),
+          Icon(
+            Icons.add_circle_outline,
+            size: 30,
+          ),
+          // "Accueil",
+          // "Cartes",
+          // "Nouveau"
+        ], length: 3),
+        // //Todo : add filter here;
+      ],
     );
   }
 }

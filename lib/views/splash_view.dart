@@ -6,6 +6,7 @@ import 'package:yorgo/providers/auth_provider.dart';
 import 'package:yorgo/providers/user_provider.dart';
 import 'package:yorgo/views/home/home_main_view.dart';
 import 'package:yorgo/views/home/home_views.dart';
+
 import 'package:yorgo/views/profile/profile_create_view.dart';
 
 class SplashView extends StatelessWidget {

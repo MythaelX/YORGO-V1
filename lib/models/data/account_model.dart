@@ -14,7 +14,6 @@ class Account {
   double? address_lat;
   int? gender;
   String? description;
-  bool is_profile_complete;
   String? profile_image;
   Map<String, int>? sports;
   //Friend
@@ -36,7 +35,6 @@ class Account {
     this.address_lat,
     this.gender,
     this.description,
-    required this.is_profile_complete,
     this.profile_image,
     this.sports,
     this.request_sent,
@@ -99,14 +97,6 @@ class Account {
     }
   }
 
-  static String? getImageUser2(String? image) {
-    if (image != null) {
-      return "http://yorgoapi.herokuapp.com/media/" + image;
-    } else {
-      return null;
-    }
-  }
-
   static DateTime? getDateBirthUser(String? date) {
     try {
       if (date != null) {
@@ -143,11 +133,19 @@ class Account {
         address_lat = getDouble(json['address_lat']),
         gender = json['gender'],
         description = json['description'],
-        is_profile_complete = true,
-        profile_image = getImageUser2(json['profile_image']),
+        profile_image = getImageUser(json['profile_image']),
         sports = getSports(json['sports']),
         request_sent = json['request_sent'],
         is_friend = json['is_friend'],
         is_self = json['is_self'],
         pending_friend_request_id = json['pending_friend_request_id'];
+
+  Account.fromJson2(Map<String, dynamic> json)
+      : id = json['id'],
+        username = json['username'],
+        profile_image = getImageUser(json['profile_image']),
+        address_text = json['address_text'],
+        address_long = getDouble(json['address_long']),
+        address_lat = getDouble(json['address_lat']),
+        is_friend = json['is_friend'];
 }

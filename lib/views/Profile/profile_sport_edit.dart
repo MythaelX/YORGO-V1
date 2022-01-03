@@ -66,7 +66,7 @@ class _ProfileSportEditViewState extends State<ProfileSportEditView> {
     Map? groups = getSportBycategoryFilter(filter: filter);
     return Scaffold(
       appBar: HeaderAppBar(
-        texte: "Mon Profil",
+        text: "Mon Profil",
         backButton: true,
       ),
       body: (groups != null)

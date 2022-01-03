@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:yorgo/models/data/friend_model.dart';
 //Page Import :
 import 'package:yorgo/views/activity/activity_home_view.dart';
 import 'package:yorgo/views/activity/my_activity_view.dart';
 import 'package:yorgo/views/auth/signin_view.dart';
 import 'package:yorgo/views/auth/signup_view.dart';
-import 'package:yorgo/views/flux/flux_view.dart';
+import 'package:yorgo/views/flux/flux_search_content.dart';
 import 'package:yorgo/views/friend/friend_home_view.dart';
 import 'package:yorgo/views/group/group_view.dart';
 import 'package:yorgo/views/home/Home_main_view.dart';
 import 'package:yorgo/views/home/home_views.dart';
 import 'package:yorgo/views/local_sportmen/local_sportmen_view.dart';
-import 'package:yorgo/views/message/message_home_view.dart';
+import 'package:yorgo/views/message/message_new.dart';
+import 'package:yorgo/views/message/message_sportsmen_room_view.dart';
+
 import 'package:yorgo/views/not_found_view.dart';
 import 'package:yorgo/views/profile/profile_edit_view.dart';
 import 'package:yorgo/views/profile/profile_other_view.dart';
@@ -62,18 +66,28 @@ Route<dynamic> routes(settings) {
   //////////////////////////////////////////////////////////////////////////////
 
   /////////////////////////// Message Menu 02 /////////////////////////////////
-  else if (settings.name == MessageHomeView.routeName) {
+  else if (settings.name == MessageNewView.routeName) {
     return MaterialPageRoute(
-        builder: (_) => MessageHomeView(),
-        settings: RouteSettings(name: MessageHomeView.routeName));
+        builder: (_) => MessageNewView(),
+        settings: RouteSettings(name: MessageNewView.routeName));
+  } else if (settings.name == MessageSportsmenRoom.routeName) {
+    final args = settings.arguments as PrivateRoomArguments;
+    return MaterialPageRoute(
+      builder: (_) => MessageSportsmenRoom(
+        channel: args.channel,
+        friend: args.friend,
+        room_id: args.room_id,
+      ),
+      settings: RouteSettings(name: MessageSportsmenRoom.routeName),
+    );
   }
   //////////////////////////////////////////////////////////////////////////////
 
   ////////////////////////////// Flux Menu 03 /////////////////////////////////
-  else if (settings.name == FluxView.routeName) {
+  else if (settings.name == FluxSearchContentView.routeName) {
     return MaterialPageRoute(
-        builder: (_) => FluxView(),
-        settings: RouteSettings(name: FluxView.routeName));
+        builder: (_) => FluxSearchContentView(),
+        settings: RouteSettings(name: FluxSearchContentView.routeName));
   }
   //////////////////////////////////////////////////////////////////////////////
 
@@ -154,4 +168,34 @@ class ProfileArguments {
   final int id;
 
   ProfileArguments(this.id);
+}
+
+class PrivateRoomArguments {
+  final WebSocketChannel channel;
+  final dynamic friend;
+  final int room_id;
+  PrivateRoomArguments(this.channel, this.friend, this.room_id);
+}
+
+class FadeRoute extends PageRouteBuilder {
+  final Widget page;
+  FadeRoute({required this.page})
+      : super(
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) =>
+              page,
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) =>
+              FadeTransition(
+            opacity: animation,
+            child: child,
+          ),
+        );
 }

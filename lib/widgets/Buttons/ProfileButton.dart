@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:yorgo/widgets/GetImageProfile.dart';
 
 class ProfileButton extends StatelessWidget {
   final void Function()? onPressed;
@@ -13,6 +14,7 @@ class ProfileButton extends StatelessWidget {
   final Color colorOnSurface;
   final IconData? icon;
   final String? imageUrl;
+  final double sizeIcon;
   const ProfileButton({
     Key? key,
     this.onPressed,
@@ -20,10 +22,11 @@ class ProfileButton extends StatelessWidget {
     this.text2,
     this.imageUrl,
     this.textFontsize = 20,
-    this.padding = const EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+    this.padding = const EdgeInsets.symmetric(vertical: 7.0),
     this.colorPrimary = const Color.fromRGBO(73, 165, 216, 1),
     this.colorOnPrimary = Colors.black,
     this.colorOnSurface = Colors.red,
+    this.sizeIcon = 35,
     this.icon,
   }) : super(key: key);
 
@@ -32,7 +35,7 @@ class ProfileButton extends StatelessWidget {
     BuildContext context,
   ) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 7.0),
+      padding: padding,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: colorPrimary,
@@ -54,7 +57,12 @@ class ProfileButton extends StatelessWidget {
                 border: Border.all(width: 2, color: Colors.white),
                 shape: BoxShape.circle,
               ),
-              child: ClipOval(child: getImage(imageUrl, 70)),
+              child: ClipOval(
+                child: GetImageProfile(
+                  imageUrl: imageUrl,
+                  size: 70.0,
+                ),
+              ),
             ),
             Expanded(
               child: Padding(
@@ -84,7 +92,7 @@ class ProfileButton extends StatelessWidget {
               width: 50,
               child: Icon(
                 icon,
-                size: 35,
+                size: sizeIcon,
                 color: Colors.white,
               ),
             ),

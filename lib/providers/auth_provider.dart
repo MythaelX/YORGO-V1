@@ -130,7 +130,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   void initTimer() {
-    timer = Timer.periodic(Duration(minutes: 5), (timer) {
+    timer = Timer.periodic(Duration(minutes: 15), (timer) {
       refreshToken();
     });
   }
