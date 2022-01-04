@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:yorgo/models/data/friend_model.dart';
 //Page Import :
 import 'package:yorgo/views/activity/activity_home_view.dart';
 import 'package:yorgo/views/activity/my_activity_view.dart';

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:yorgo/models/data/friend_model.dart';
 import 'package:yorgo/models/data/message_model.dart';
 import 'package:yorgo/views/message/widget/MessageContent.dart';
 import 'package:yorgo/widgets/header_app_bar_widget.dart';

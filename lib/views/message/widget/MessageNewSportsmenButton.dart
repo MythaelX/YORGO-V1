@@ -8,6 +8,7 @@ import 'package:yorgo/providers/auth_provider.dart';
 import 'package:yorgo/providers/user_provider.dart';
 import 'package:yorgo/routes.dart';
 import 'package:yorgo/views/message/message_sportsmen_room_view.dart';
+import 'package:yorgo/widgets/GetImageProfile.dart';
 import 'package:yorgo/widgets/progressor/dialog_progressor.dart';
 
 class MessageNewSportsmenButton extends StatelessWidget {
@@ -90,7 +91,11 @@ class MessageNewSportsmenButton extends StatelessWidget {
                 border: Border.all(width: 2, color: Colors.white),
                 shape: BoxShape.circle,
               ),
-              child: ClipOval(child: getImage(friend.profile_image, 70)),
+              child: ClipOval(
+                  child: GetImageProfile(
+                imageUrl: friend.profile_image,
+                size: 70,
+              )),
             ),
             AutoSizeText(
               friend.username,

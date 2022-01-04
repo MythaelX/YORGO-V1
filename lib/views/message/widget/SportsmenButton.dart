@@ -60,10 +60,13 @@ class _SportsmenButtonState extends State<SportsmenButton> {
         ),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              primary: widget.colorPrimary,
+              primary: (widget.room.unReadMessageCount == 0)
+                  ? widget.colorPrimary
+                  : Colors.grey.shade300,
               onPrimary: widget.colorOnPrimary,
               onSurface: widget.colorOnSurface,
               shadowColor: Colors.transparent,
+              shape: RoundedRectangleBorder(),
               padding: EdgeInsets.zero,
               elevation: 0),
           onPressed: () {
@@ -125,19 +128,52 @@ class _SportsmenButtonState extends State<SportsmenButton> {
                       Container(
                         height: 3,
                       ),
-                      Expanded(
-                        child: Container(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            getMessageRoom(widget.room, friend.username),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                getMessageRoom(widget.room, friend.username),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: (widget.room.unReadMessageCount == 0)
+                                    ? TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 16,
+                                      )
+                                    : TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                              ),
                             ),
                           ),
-                        ),
+                          Container(
+                            width: 40,
+                            height: 38,
+                            child: (widget.room.unReadMessageCount != 0)
+                                ? Center(
+                                    child: Container(
+                                    width: 35,
+                                    height: 35,
+                                    padding: EdgeInsets.all(3),
+                                    decoration: BoxDecoration(
+                                        color: Theme.of(context).primaryColor,
+                                        shape: BoxShape.circle),
+                                    child: Center(
+                                      child: Text(
+                                        widget.room.getMessageCountUnread(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ))
+                                : null,
+                          )
+                        ],
                       ),
                     ],
                   ),
@@ -154,29 +190,6 @@ class _SportsmenButtonState extends State<SportsmenButton> {
     }
   }
 
-  getImage(String? imageUrl, double size) {
-    var defaultImage = Image(
-      image: AssetImage(
-        "assets/images/jogging.jpg",
-      ),
-      height: size,
-      width: size,
-      fit: BoxFit.cover,
-    );
-    if (imageUrl != null) {
-      var image = CachedNetworkImage(
-        imageUrl: imageUrl,
-        width: size,
-        height: size,
-        fit: BoxFit.cover,
-        placeholder: (context, url) => CircularProgressIndicator(),
-        errorWidget: (context, url, error) => defaultImage,
-      );
-      return image;
-    }
-    return defaultImage;
-  }
-
   String getTextTimeMessage(DateTime? timestamp) {
     if (timestamp != null) {
       if (timestamp.isAfter(DateTime.now().subtract(Duration(days: 1)))) {
@@ -188,7 +201,7 @@ class _SportsmenButtonState extends State<SportsmenButton> {
         }
         return timestamp.hour.toString() + " h " + timestamp.minute.toString();
       } else if (timestamp
-          .isBefore(DateTime.now().subtract(Duration(days: 7)))) {
+          .isAfter(DateTime.now().subtract(Duration(days: 7)))) {
         var numberOfdays = DateTime.now().difference(timestamp).inDays.toInt();
         return numberOfdays.toString() + " j";
       } else {

@@ -6,10 +6,12 @@ class PrivateRoom {
   int? message_autor;
   String? message;
   DateTime? timestamp;
+  int unReadMessageCount;
 
   PrivateRoom(
       {required this.id,
       required this.friend_id,
+      required this.unReadMessageCount,
       this.message_autor,
       this.message,
       this.timestamp});
@@ -23,6 +25,14 @@ class PrivateRoom {
       }
     } catch (e) {
       return null;
+    }
+  }
+
+  String getMessageCountUnread() {
+    if (this.unReadMessageCount > 99) {
+      return "+99";
+    } else {
+      return this.unReadMessageCount.toString();
     }
   }
 
@@ -43,5 +53,6 @@ class PrivateRoom {
         friend_id = json['friend'],
         message_autor = getInt(json['message_autor'].toString()),
         message = json['message'].toString(),
+        unReadMessageCount = json['messageUnRead'],
         timestamp = getDate(json['timestamp']);
 }
