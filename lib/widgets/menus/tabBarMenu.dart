@@ -79,21 +79,23 @@ class tabBarMenu2 extends StatefulWidget {
   final List<Widget> listContentTab;
   final List<String> listTab;
   final int length;
-
+  final int tabIndex;
   const tabBarMenu2({
     Key? key,
     required this.listContentTab,
     required this.listTab,
     required this.length,
+    this.tabIndex = 0,
   }) : super(key: key);
 
   @override
-  State<tabBarMenu2> createState() => _tabBarMenu2State();
+  State<tabBarMenu2> createState() => _tabBarMenu2State(tabIndex);
 }
 
 class _tabBarMenu2State extends State<tabBarMenu2> {
   int _tabIndex = 0;
 
+  _tabBarMenu2State(this._tabIndex);
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

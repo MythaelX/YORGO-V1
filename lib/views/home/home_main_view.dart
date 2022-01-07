@@ -3,6 +3,7 @@ import 'package:yorgo/views/activity/activity_home_view.dart';
 import 'package:yorgo/views/flux/flux_view.dart';
 import 'package:yorgo/views/message/message_home_view.dart';
 import 'package:yorgo/views/message/message_new.dart';
+import 'package:yorgo/views/notification/notification_view.dart';
 import 'package:yorgo/views/profile/profile_view.dart';
 import 'package:yorgo/views/setting/settingMenuView.dart';
 import 'package:yorgo/widgets/header_app_bar_widget.dart';
@@ -23,7 +24,7 @@ class _HomeMainViewState extends State<HomeMainView> {
     ActivityHomeView(),
     MessageHomeView(),
     FluxView(),
-    Center(child: Text('Notif')),
+    NotificationView(),
     ProfileView(),
   ];
 

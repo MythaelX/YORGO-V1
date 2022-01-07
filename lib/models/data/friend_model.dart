@@ -11,7 +11,6 @@ class Friend {
       this.address_text});
 
   static String? getImageUser(String? image) {
-    print(image);
     if (image != null &&
         image != "media/default_profile_image.png" &&
         image != "") {

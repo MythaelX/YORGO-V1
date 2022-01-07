@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:yorgo/models/data/friend_model.dart';
 import 'package:yorgo/providers/auth_provider.dart';
+import 'package:yorgo/providers/notification_provider.dart';
 import 'package:yorgo/providers/user_provider.dart';
 import 'package:yorgo/routes.dart';
 import 'package:yorgo/views/message/message_sportsmen_room_view.dart';
@@ -105,7 +106,8 @@ class _FriendButtonState extends State<FriendButton> {
                                   .tokenAccess;
                           DialogBuilder(context)
                               .showLoadingIndicator('Chargement...');
-                          var room_id = await Provider.of<UserProvider>(context,
+                          var room_id = await Provider.of<NotificationProvider>(
+                                  context,
                                   listen: false)
                               .getOrCreateRoomFriend(widget.friend);
                           DialogBuilder(context).hideOpenDialog();

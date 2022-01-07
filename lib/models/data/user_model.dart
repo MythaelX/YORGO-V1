@@ -70,7 +70,7 @@ class User {
   }
 
   static String? getImageUser2(String? image) {
-    if (image != null) {
+    if (image != null && image != "") {
       return "http://yorgoapi.herokuapp.com/media/" + image;
     } else {
       return null;

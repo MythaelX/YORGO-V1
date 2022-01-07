@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:yorgo/providers/user_provider.dart';
 import 'package:yorgo/routes.dart';
 import 'package:yorgo/views/profile/profile_other_view.dart';
+import 'package:yorgo/widgets/GetImageProfile.dart';
 import 'package:yorgo/widgets/progressor/dialog_progressor.dart';
 
 class FriendRequestButton extends StatelessWidget {
@@ -71,7 +72,8 @@ class FriendRequestButton extends StatelessWidget {
                 border: Border.all(width: 2, color: Colors.white),
                 shape: BoxShape.circle,
               ),
-              child: ClipOval(child: getImage(imageUrl, 70)),
+              child: ClipOval(
+                  child: GetImageProfile(imageUrl: imageUrl, size: 70)),
             ),
             Expanded(
               child: Padding(

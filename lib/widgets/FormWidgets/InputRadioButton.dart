@@ -34,7 +34,6 @@ class RadiosButtons extends StatelessWidget {
         2,
       ],
       radioButtonValue: (value) {
-        print(value);
         formTosave!.gender = value as int?;
       },
       autoWidth: true,

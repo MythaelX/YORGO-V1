@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yorgo/providers/auth_provider.dart';
 import 'package:yorgo/providers/user_provider.dart';
+import 'package:yorgo/routes.dart';
 import 'package:yorgo/views/activity/my_activity_view.dart';
 import 'package:yorgo/views/friend/friend_home_view.dart';
 import 'package:yorgo/views/group/group_view.dart';
@@ -83,7 +84,12 @@ class NavigationDrawerWidget extends StatelessWidget {
               text: 'Mes Amis',
               icon: Icons.people,
               onClicked: () {
-                navigateMenu(context, FriendHomeView.routeName);
+                String? route = ModalRoute.of(context)!.settings.name;
+                if (route != FriendHomeView.routeName) {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, FriendHomeView.routeName,
+                      arguments: FriendArguments(0));
+                }
               },
             ),
           ],

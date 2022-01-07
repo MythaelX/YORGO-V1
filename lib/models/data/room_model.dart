@@ -53,6 +53,14 @@ class PrivateRoom {
         friend_id = json['friend'],
         message_autor = getInt(json['message_autor'].toString()),
         message = json['message'].toString(),
-        unReadMessageCount = json['messageUnRead'],
+        unReadMessageCount = getUnreadMessage(json['messageUnRead']),
         timestamp = getDate(json['timestamp']);
+
+  static getUnreadMessage(messageUnRead) {
+    if (messageUnRead == null) {
+      return 0;
+    } else {
+      return messageUnRead;
+    }
+  }
 }

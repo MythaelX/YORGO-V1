@@ -1,11 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:yorgo/models/data/friend_model.dart';
 import 'package:yorgo/models/data/room_model.dart';
 import 'package:yorgo/providers/auth_provider.dart';
+import 'package:yorgo/providers/notification_provider.dart';
 import 'package:yorgo/providers/user_provider.dart';
 import 'package:yorgo/routes.dart';
 import 'package:yorgo/views/message/message_sportsmen_room_view.dart';
@@ -82,8 +82,8 @@ class _SportsmenButtonState extends State<SportsmenButton> {
                   friend!,
                   widget.room.id),
             ).then((value) => setState(() {
-                  Provider.of<UserProvider>(context, listen: false)
-                      .getRoomsFriend();
+                  Provider.of<NotificationProvider>(context, listen: false)
+                      .getRoomsFriend(reload: true);
                 }));
           },
           child: Padding(
@@ -192,7 +192,8 @@ class _SportsmenButtonState extends State<SportsmenButton> {
 
   String getTextTimeMessage(DateTime? timestamp) {
     if (timestamp != null) {
-      if (timestamp.isAfter(DateTime.now().subtract(Duration(days: 1)))) {
+      if (timestamp.isAfter(DateTime.now().subtract(Duration(days: 1))) &&
+          timestamp.day == DateTime.now().day) {
         int minute = timestamp.minute;
         if (minute < 10) {
           return timestamp.hour.toString() +
@@ -203,6 +204,9 @@ class _SportsmenButtonState extends State<SportsmenButton> {
       } else if (timestamp
           .isAfter(DateTime.now().subtract(Duration(days: 7)))) {
         var numberOfdays = DateTime.now().difference(timestamp).inDays.toInt();
+        if (numberOfdays == 0) {
+          numberOfdays = 1;
+        }
         return numberOfdays.toString() + " j";
       } else {
         var numberOfWeek =

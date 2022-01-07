@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:yorgo/views/profile/widget/imageProfile.dart';
 
@@ -8,6 +9,7 @@ class HeaderAppBar extends StatelessWidget with PreferredSizeWidget {
   final bool config;
   final String? configRouteName;
   final Widget? configIcon;
+  final double fontSize;
 
   final bool elevation;
   HeaderAppBar(
@@ -16,6 +18,7 @@ class HeaderAppBar extends StatelessWidget with PreferredSizeWidget {
       this.backButton = false,
       this.config = false,
       this.configRouteName,
+      this.fontSize = 35,
       this.configIcon = const Icon(
         Icons.settings,
         color: Colors.white,
@@ -32,9 +35,9 @@ class HeaderAppBar extends StatelessWidget with PreferredSizeWidget {
       leading: backButton ? BackButton(color: Colors.white) : null,
       centerTitle: true,
       title: (textImage == null)
-          ? Text(
+          ? AutoSizeText(
               text!,
-              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
             )
           : Row(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -48,9 +51,10 @@ class HeaderAppBar extends StatelessWidget with PreferredSizeWidget {
                   child:
                       ImageProfile(size: 35, image: textImage, shadow: false),
                 ),
-                Text(
+                AutoSizeText(
                   text!,
-                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: fontSize, fontWeight: FontWeight.bold),
                 ),
                 Expanded(
                   flex: 2,

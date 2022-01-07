@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:yorgo/views/activity/activity_create_alone.dart';
+import 'package:yorgo/views/activity/activity_create_group.dart';
 //Page Import :
 import 'package:yorgo/views/activity/activity_home_view.dart';
 import 'package:yorgo/views/activity/my_activity_view.dart';
@@ -51,10 +53,15 @@ Route<dynamic> routes(settings) {
   //////////////////////////////////////////////////////////////////////////////
 
   /////////////////////////// Activity Menu 01 /////////////////////////////////
-  else if (settings.name == ActivityHomeView.routeName) {
+  else if (settings.name == ActivityCreateAloneView.routeName) {
     return MaterialPageRoute(
-      builder: (_) => ActivityHomeView(),
-      settings: RouteSettings(name: ActivityHomeView.routeName),
+      builder: (_) => ActivityCreateAloneView(),
+      settings: RouteSettings(name: ActivityCreateAloneView.routeName),
+    );
+  } else if (settings.name == ActivityCreateGroupView.routeName) {
+    return MaterialPageRoute(
+      builder: (_) => ActivityCreateGroupView(),
+      settings: RouteSettings(name: ActivityCreateGroupView.routeName),
     );
   } else if (settings.name == MyActivityView.routeName) {
     return MaterialPageRoute(
@@ -132,8 +139,9 @@ Route<dynamic> routes(settings) {
       settings: RouteSettings(name: SettingMenuView.routeName),
     );
   } else if (settings.name == FriendHomeView.routeName) {
+    final args = settings.arguments as FriendArguments;
     return MaterialPageRoute(
-      builder: (_) => FriendHomeView(),
+      builder: (_) => FriendHomeView(tabIndex: args.tabIndex),
       settings: RouteSettings(name: FriendHomeView.routeName),
     );
   } else if (settings.name == GroupView.routeName) {
@@ -167,6 +175,11 @@ class ProfileArguments {
   final int id;
 
   ProfileArguments(this.id);
+}
+
+class FriendArguments {
+  final int tabIndex;
+  FriendArguments(this.tabIndex);
 }
 
 class PrivateRoomArguments {

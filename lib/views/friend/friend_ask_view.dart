@@ -69,7 +69,9 @@ class FriendAskView extends StatelessWidget {
   }
 
   getImageUrl(item) {
-    if (item != null && item != "media/default_profile_image.png") {
+    if (item != null &&
+        item != "media/default_profile_image.png" &&
+        item != "") {
       return "http://yorgoapi.herokuapp.com/media/" + item;
     } else {
       return null;

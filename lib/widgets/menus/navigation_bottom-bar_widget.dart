@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:yorgo/providers/notification_provider.dart';
+import 'package:badges/badges.dart';
 
 // ignore: must_be_immutable
-class NavigationBottomBarWidget extends StatelessWidget {
+class NavigationBottomBarWidget extends StatefulWidget {
   final selectedIndex;
   ValueChanged<int>? onClicked;
   NavigationBottomBarWidget({this.selectedIndex, this.onClicked});
 
   @override
+  State<NavigationBottomBarWidget> createState() =>
+      _NavigationBottomBarWidgetState();
+}
+
+class _NavigationBottomBarWidgetState extends State<NavigationBottomBarWidget> {
+  @override
   Widget build(BuildContext context) {
+    final numberofMessageNotRead =
+        Provider.of<NotificationProvider>(context).countNotReadMessage;
+    final numberofNotificationNotRead =
+        Provider.of<NotificationProvider>(context).countNotReadNotification;
     return BottomNavigationBar(
       elevation: 20,
       type: BottomNavigationBarType.fixed,
@@ -18,13 +31,29 @@ class NavigationBottomBarWidget extends StatelessWidget {
       selectedFontSize: 17,
       iconSize: 25,
       selectedIconTheme: IconThemeData(size: 30),
-      items: const <BottomNavigationBarItem>[
+      items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.search),
           label: 'Activités',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.message),
+          icon: Badge(
+              showBadge:
+                  (numberofMessageNotRead != null && numberofMessageNotRead > 0)
+                      ? true
+                      : false,
+              badgeContent: (numberofMessageNotRead != null)
+                  ? Center(
+                      child: Text(
+                        numberofMessageNotRead.toString(),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
+                  : null,
+              child: Icon(Icons.message)),
           label: 'Message',
         ),
         BottomNavigationBarItem(
@@ -32,7 +61,25 @@ class NavigationBottomBarWidget extends StatelessWidget {
           label: 'Flux',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.notifications_outlined),
+          icon: Badge(
+              showBadge: (numberofNotificationNotRead != null &&
+                      numberofNotificationNotRead > 0)
+                  ? true
+                  : false,
+              badgeContent: (numberofNotificationNotRead != null)
+                  ? Center(
+                      child: Text(
+                        numberofNotificationNotRead.toString(),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
+                  : null,
+              child: Icon(
+                Icons.notifications_outlined,
+              )),
           label: 'Notif',
         ),
         BottomNavigationBarItem(
@@ -40,9 +87,9 @@ class NavigationBottomBarWidget extends StatelessWidget {
           label: 'Profil',
         ),
       ],
-      currentIndex: selectedIndex,
+      currentIndex: widget.selectedIndex,
       selectedItemColor: Color.fromRGBO(73, 165, 216, 1),
-      onTap: onClicked,
+      onTap: widget.onClicked,
     );
   }
 }

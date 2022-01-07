@@ -14,7 +14,6 @@ class Message {
       required this.isMe});
 
   static String? getImageUser(String? image) {
-    print(image);
     if (image != null && image != "media/default_profile_image.png") {
       return "http://yorgoapi.herokuapp.com" + image;
     } else {

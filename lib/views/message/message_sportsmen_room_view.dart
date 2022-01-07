@@ -24,7 +24,6 @@ class MessageSportsmenRoom extends StatefulWidget {
 
 class _MessageSportsmenRoomState extends State<MessageSportsmenRoom> {
   List<Message> messageList = [];
-  int StreamCpt = 0;
   int newPageNumber = 1;
   bool loading = true;
   bool loadingMessage = false;
@@ -187,9 +186,6 @@ class _MessageSportsmenRoomState extends State<MessageSportsmenRoom> {
       });
       return;
     }
-
-    print(valueDecode);
-    StreamCpt++;
   }
 
   @override

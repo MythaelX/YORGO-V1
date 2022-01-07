@@ -5,8 +5,6 @@ import 'package:yorgo/views/activity/activity_search_view.dart';
 import 'package:yorgo/widgets/menus/tabBarMenu.dart';
 
 class ActivityHomeView extends StatelessWidget {
-  static String routeName = '/activity';
-
   @override
   Widget build(BuildContext context) {
     return Stack(

@@ -18,14 +18,12 @@ class UserProvider with ChangeNotifier {
   List? friendRequests;
   bool isLoading = false;
   late AuthProvider authProvider;
-  Map? listPrivateRoom;
 
   void signout() {
     user = null;
     account = null;
     listFriend = null;
     friendRequests = null;
-    listPrivateRoom = null;
   }
 
   update(AuthProvider newAuthProvider) {
@@ -34,7 +32,6 @@ class UserProvider with ChangeNotifier {
       if (user == null && authProvider.isLoggedin!) {
         fetchCurrentUser();
         getFriends();
-        getRoomsFriend();
       }
     }
   }
@@ -195,15 +192,15 @@ class UserProvider with ChangeNotifier {
   }
 
   Future friendRequestAccept(int friend_request_id) async {
-    Map<String, String> mapFriendRequestDecline = {};
+    Map<String, String> mapFriendRequestAccept = {};
     Uri url = Uri.parse("$host/api/myfriends/");
-    mapFriendRequestDecline['action'] = "friend_request_accept";
-    mapFriendRequestDecline['friend_request_id'] = friend_request_id.toString();
+    mapFriendRequestAccept['action'] = "friend_request_accept";
+    mapFriendRequestAccept['friend_request_id'] = friend_request_id.toString();
 
     http.Response response = await http.post(
       url,
       headers: {'authorization': 'Bearer ${authProvider.tokenAccess}'},
-      body: mapFriendRequestDecline,
+      body: mapFriendRequestAccept,
     );
 
     if (response.statusCode == 200) {
@@ -255,15 +252,15 @@ class UserProvider with ChangeNotifier {
   }
 
   Future friendSendDemand(int user_receiver_id) async {
-    Map<String, String> mapFriendRequestDecline = {};
+    Map<String, String> mapFriendRequest = {};
     Uri url = Uri.parse("$host/api/myfriends/");
-    mapFriendRequestDecline['action'] = "friend_request_send";
-    mapFriendRequestDecline['user_receiver_id'] = user_receiver_id.toString();
+    mapFriendRequest['action'] = "friend_request_send";
+    mapFriendRequest['user_receiver_id'] = user_receiver_id.toString();
 
     http.Response response = await http.post(
       url,
       headers: {'authorization': 'Bearer ${authProvider.tokenAccess}'},
-      body: mapFriendRequestDecline,
+      body: mapFriendRequest,
     );
 
     if (response.statusCode == 201) {
@@ -308,53 +305,6 @@ class UserProvider with ChangeNotifier {
         listAccount.add(Account.fromJson2(account));
       }
       return listAccount;
-    }
-  }
-
-  Future getRoomsFriend() async {
-    if (listPrivateRoom != null) {
-      if (DateTime.now()
-          .subtract(Duration(seconds: 1))
-          .isBefore(listPrivateRoom!['time'])) {
-        return listPrivateRoom!['listRoom'];
-      }
-    }
-    Uri url = Uri.parse("$host/api/chat/rooms");
-    http.Response response = await http.get(
-      url,
-      headers: {'authorization': 'Bearer ${authProvider.tokenAccess}'},
-    );
-
-    if (response.statusCode != 200) {
-      return null;
-    } else {
-      var rooms = json.decode(utf8.decode(response.bodyBytes));
-      List<PrivateRoom> listRoom = [];
-      for (var room in rooms) {
-        listRoom.add(PrivateRoom.fromJson(room));
-      }
-      listPrivateRoom = {'listRoom': listRoom, 'time': DateTime.now()};
-      notifyListeners();
-      return listRoom;
-    }
-  }
-
-  Future getOrCreateRoomFriend(dynamic friend) async {
-    Map<String, String> mapRequest = {};
-    mapRequest['user2_id'] = friend.id.toString();
-    Uri url = Uri.parse("$host/api/chat/create_or_return_private_chat/");
-    http.Response response = await http.post(
-      url,
-      headers: {'authorization': 'Bearer ${authProvider.tokenAccess}'},
-      body: mapRequest,
-    );
-
-    if (response.statusCode != 201) {
-      return null;
-    } else {
-      var room = json.decode(utf8.decode(response.bodyBytes));
-      this.getRoomsFriend();
-      return room["chatroom_id"];
     }
   }
 }

@@ -7,6 +7,11 @@ import 'package:yorgo/widgets/menus/tabBarMenu.dart';
 
 class FriendHomeView extends StatelessWidget {
   static String routeName = '/friend_home';
+  final int? tabIndex;
+  const FriendHomeView({
+    Key? key,
+    this.tabIndex,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +22,16 @@ class FriendHomeView extends StatelessWidget {
       ),
       body: Container(
         color: Colors.white,
-        child: tabBarMenu2(listContentTab: [
-          FriendSearchView(),
-          FriendMapView(),
-          FriendAskView(),
-        ], listTab: [
-          "Recherche",
-          "Carte",
-          "Demande"
-        ], length: 3),
+        child: tabBarMenu2(
+          listContentTab: [
+            FriendSearchView(),
+            FriendMapView(),
+            FriendAskView(),
+          ],
+          listTab: ["Recherche", "Carte", "Demande"],
+          length: 3,
+          tabIndex: (tabIndex != null) ? tabIndex! : 0,
+        ),
       ),
     );
   }
