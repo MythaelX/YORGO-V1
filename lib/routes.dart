@@ -3,7 +3,6 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:yorgo/views/activity/activity_create_alone.dart';
 import 'package:yorgo/views/activity/activity_create_group.dart';
 //Page Import :
-import 'package:yorgo/views/activity/activity_home_view.dart';
 import 'package:yorgo/views/activity/my_activity_view.dart';
 import 'package:yorgo/views/auth/signin_view.dart';
 import 'package:yorgo/views/auth/signup_view.dart';

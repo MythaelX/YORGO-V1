@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:yorgo/models/data/friend_model.dart';
 import 'package:yorgo/models/data/user_model.dart';
 import 'package:yorgo/providers/user_provider.dart';
+import 'package:yorgo/routes.dart';
 import 'package:yorgo/views/friend/friend_home_view.dart';
 import 'package:yorgo/views/profile/widget/headerProfile.dart';
 import 'package:yorgo/views/profile/widget/infosProfile.dart';
@@ -36,10 +37,8 @@ class _ProfileViewState extends State<ProfileView> {
                   user,
                   numberOfFriends: numberOfFriends,
                   friendFunction: () {
-                    Navigator.pushNamed(
-                      context,
-                      FriendHomeView.routeName,
-                    );
+                    Navigator.pushNamed(context, FriendHomeView.routeName,
+                        arguments: FriendArguments(0));
                   },
                 ),
                 Container(
@@ -63,10 +62,22 @@ class _ProfileViewState extends State<ProfileView> {
                 ], listContentTab: [
                   InfosProfile(user: user),
                   Container(
-                    child: Center(
-                      child: Text('Display Flux',
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 30,
+                        ),
+                        Text(
+                          "Flux des publications",
                           style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold)),
+                              fontWeight: FontWeight.bold, fontSize: 30),
+                        ),
+                        Text(
+                          "Bientôt...",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 25),
+                        ),
+                      ],
                     ),
                   ),
                 ]),

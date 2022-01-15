@@ -33,7 +33,6 @@ class NotificationButton extends StatelessWidget {
             padding: EdgeInsets.zero,
             elevation: 0),
         onPressed: () {
-          print("ok");
           if (notification.type == "FriendRequest") {
             Navigator.pushNamed(context, FriendHomeView.routeName,
                 arguments: FriendArguments(2));

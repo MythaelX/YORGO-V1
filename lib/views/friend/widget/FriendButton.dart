@@ -130,7 +130,7 @@ class _FriendButtonState extends State<FriendButton> {
                       height: 10,
                     ),
                     buttonDialog(
-                        text: "Voir le profile",
+                        text: "Voir le profil",
                         iconData: Icons.person_rounded,
                         onPressed: () {
                           Provider.of<UserProvider>(context, listen: false)

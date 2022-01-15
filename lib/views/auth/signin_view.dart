@@ -151,7 +151,7 @@ class _SigninViewState extends State<SigninView> {
             padding: EdgeInsets.symmetric(vertical: 3),
           ),
           TextInput3(
-            text: 'Username',
+            text: 'Pseudo',
             onSaved: (newValue) {
               signinForm.username = newValue!;
             },

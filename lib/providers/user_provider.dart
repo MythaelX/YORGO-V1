@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:yorgo/models/data/account_model.dart';
 import 'package:yorgo/models/data/friend_model.dart';
-import 'package:yorgo/models/data/room_model.dart';
 import 'package:yorgo/models/form/profile_form_model.dart';
 import 'package:yorgo/models/form/profile_sport_form_model.dart';
 import 'package:yorgo/models/data/user_model.dart';

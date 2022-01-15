@@ -18,7 +18,7 @@ class NotificationProvider with ChangeNotifier {
   int? countNotReadNotification;
   int? countNotReadMessage;
   late AuthProvider authProvider;
-  late Timer timer;
+  Timer? timer;
   int page_number_general = 1;
   int page_number_chat = 1;
   List<NotificationModel> listNotificationGeneral = [];
@@ -27,11 +27,35 @@ class NotificationProvider with ChangeNotifier {
   DateFormat formatter = DateFormat('yyyy-MM-dd H:m:s');
   bool allGeneralNotificationLoad = false;
   bool generalNotificationLoad = false;
+  bool is_signout = false;
+  bool init = false;
+
+  void signout() {
+    is_signout = true;
+    listNotificationGeneral = [];
+    countNotReadNotification = null;
+    countNotReadMessage = null;
+    page_number_general = 1;
+    page_number_chat = 1;
+    allGeneralNotificationLoad = false;
+    generalNotificationLoad = false;
+    isLoading = false;
+    listPrivateRoom = null;
+    init = false;
+    if (channel != null) {
+      timer!.cancel();
+      timer = null;
+      channel!.sink.close();
+      channel = null;
+    }
+  }
 
   update(AuthProvider newAuthProvider) {
     authProvider = newAuthProvider;
     if (authProvider.isLoggedin != null) {
-      if (authProvider.isLoggedin! && channel == null) {
+      if (authProvider.isLoggedin! && channel == null && init == false) {
+        is_signout = false;
+        init = true;
         initNotification();
         getRoomsFriend();
       }
@@ -48,9 +72,14 @@ class NotificationProvider with ChangeNotifier {
           (data) => messageProcess(data),
           onDone: () {
             print("channel finish");
-            channel!.sink.close();
-            channel = null;
-            initNotification();
+
+            if (is_signout == false) {
+              channel!.sink.close();
+              channel = null;
+              timer!.cancel();
+              timer = null;
+              initNotification();
+            }
           },
         );
         initNotificationValue();

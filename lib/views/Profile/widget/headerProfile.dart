@@ -63,7 +63,7 @@ class headerProfile extends StatelessWidget {
                       onPressed: activityFunction,
                       child: Align(
                         child: TextBlue(
-                          text: "X\n Activités",
+                          text: "0\n Activités",
                           textFontsize: 20,
                           textAlign: TextAlign.center,
                         ),
@@ -78,7 +78,9 @@ class headerProfile extends StatelessWidget {
                       onPressed: friendFunction,
                       child: Align(
                           child: TextBlue(
-                        text: numberOfFriends.toString() + "\n Amis",
+                        text: (numberOfFriends != null)
+                            ? numberOfFriends.toString() + "\n Amis"
+                            : "0\n Amis",
                         textFontsize: 20,
                         textAlign: TextAlign.center,
                       )),
@@ -92,7 +94,7 @@ class headerProfile extends StatelessWidget {
                         onPressed: followFunction,
                         child: Align(
                           child: TextBlue(
-                            text: "X\n Abonnés",
+                            text: "0\n Abonnés",
                             textFontsize: 20,
                             textAlign: TextAlign.center,
                           ),

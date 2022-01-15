@@ -18,6 +18,16 @@ class FluxView extends StatelessWidget {
             );
           },
         ),
+        Expanded(child: Container()),
+        Text(
+          "Flux des publications",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+        ),
+        Text(
+          "Bientôt...",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+        ),
+        Expanded(child: Container()),
       ],
     );
   }

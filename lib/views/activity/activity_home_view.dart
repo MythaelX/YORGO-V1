@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yorgo/views/activity/activity_add_view.dart';
 import 'package:yorgo/views/activity/activity_map_view.dart';
-import 'package:yorgo/views/activity/activity_search_view.dart';
+import 'package:yorgo/views/activity/activity_global_view.dart';
 import 'package:yorgo/widgets/menus/tabBarMenu.dart';
 
 class ActivityHomeView extends StatelessWidget {
@@ -10,7 +10,7 @@ class ActivityHomeView extends StatelessWidget {
     return Stack(
       children: [
         tabBarMenu2Icon(listContentTab: [
-          ActivitySearchView(),
+          ActivityGlobalView(),
           ActivityMapView(),
           ActivityAddView(),
         ], listTab: [

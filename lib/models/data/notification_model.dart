@@ -1,3 +1,5 @@
+import 'package:yorgo/models/data/utils_model.dart';
+
 class NotificationModel {
   int id;
   String action;
@@ -27,16 +29,4 @@ class NotificationModel {
         natural_timestamp = json['natural_timestamp'],
         verb = json['verb'],
         type = json['notification_type'];
-
-  static getBoolfromString(String string) {
-    if (string == "True") {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  static getDateTimeFromString(String string) {
-    return DateTime.parse(string);
-  }
 }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class SearchBarFlux extends StatefulWidget {
+class SearchBarActivity extends StatefulWidget {
   final String hintText;
   final void Function(String)? onChanged;
   final void Function()? onTap;
   final bool autofocus;
   final double height;
 
-  const SearchBarFlux({
+  const SearchBarActivity({
     Key? key,
     this.onChanged,
     this.onTap,
@@ -17,10 +17,10 @@ class SearchBarFlux extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<SearchBarFlux> createState() => _SearchBarFluxState();
+  State<SearchBarActivity> createState() => _SearchBarActivityState();
 }
 
-class _SearchBarFluxState extends State<SearchBarFlux> {
+class _SearchBarActivityState extends State<SearchBarActivity> {
   var _controller = TextEditingController();
 
   @override

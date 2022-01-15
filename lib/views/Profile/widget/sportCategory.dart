@@ -32,14 +32,15 @@ class SportCategory extends StatelessWidget {
           return Container(
             child: SportButton(
               text: item.name,
+              id: item.id.toString(),
               icon: SportIcons.getIconByString(item.icon),
-              level: getLevel(item.name, form),
+              level: getLevel(item.id.toString(), form),
               onPressed: (form != null)
-                  ? (String sportName, int level) {
-                      if (level == 0 && form!.sports.containsKey(sportName)) {
-                        form!.sports.remove(sportName);
+                  ? (String sportId, int level) {
+                      if (level == 0 && form!.sports.containsKey(sportId)) {
+                        form!.sports.remove(sportId);
                       } else {
-                        form!.sports[sportName] = level;
+                        form!.sports[sportId] = level;
                       }
                     }
                   : null,

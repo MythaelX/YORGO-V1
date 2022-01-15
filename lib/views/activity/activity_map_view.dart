@@ -13,7 +13,16 @@ class ActivityMapView extends StatelessWidget {
       padding: EdgeInsets.all(10),
       child: Column(
         children: [
-          Text("Carte avec les activités dans le coin"),
+          Expanded(child: Container()),
+          Text(
+            "Carte des activités",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+          ),
+          Text(
+            "Bientôt...",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+          ),
+          Expanded(child: Container()),
         ],
       ),
     );

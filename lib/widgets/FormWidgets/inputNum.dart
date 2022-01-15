@@ -19,7 +19,7 @@ class NumberInput1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      initialValue: initialValue,
+      initialValue: (initialValue != "0") ? initialValue : null,
       decoration: InputDecoration(
         counterText: "",
         enabledBorder: UnderlineInputBorder(

@@ -1,4 +1,4 @@
-import 'package:intl/intl.dart';
+import 'package:yorgo/models/data/utils_model.dart';
 
 class PrivateRoom {
   int id;
@@ -16,35 +16,11 @@ class PrivateRoom {
       this.message,
       this.timestamp});
 
-  static DateTime? getDate(String? date) {
-    try {
-      if (date != null) {
-        return DateFormat('yyyy/MM/dd HH:mm:ss').parse(date);
-      } else {
-        return null;
-      }
-    } catch (e) {
-      return null;
-    }
-  }
-
   String getMessageCountUnread() {
     if (this.unReadMessageCount > 99) {
       return "+99";
     } else {
       return this.unReadMessageCount.toString();
-    }
-  }
-
-  static int? getInt(String? value) {
-    try {
-      if (value != null) {
-        return int.parse(value);
-      } else {
-        return null;
-      }
-    } catch (e) {
-      return null;
     }
   }
 
@@ -54,7 +30,7 @@ class PrivateRoom {
         message_autor = getInt(json['message_autor'].toString()),
         message = json['message'].toString(),
         unReadMessageCount = getUnreadMessage(json['messageUnRead']),
-        timestamp = getDate(json['timestamp']);
+        timestamp = getDateAndTime(json['timestamp']);
 
   static getUnreadMessage(messageUnRead) {
     if (messageUnRead == null) {

@@ -33,6 +33,7 @@ class AuthProvider with ChangeNotifier {
           isLoggedin = false;
         }
       }
+
       notifyListeners();
     } catch (e) {
       return "error init Auth";

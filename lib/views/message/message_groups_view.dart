@@ -12,7 +12,18 @@ class MessageGroupsView extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10),
       child: Column(
-        children: [Text("Groupes"), Text("message des groupes")],
+        children: [
+          Expanded(child: Container()),
+          Text(
+            "Messagerie des Groupes",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+          ),
+          Text(
+            "Bientôt...",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+          ),
+          Expanded(child: Container()),
+        ],
       ),
     );
   }

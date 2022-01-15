@@ -79,11 +79,12 @@ class TextInput2 extends StatefulWidget {
 class _TextInput2State extends State<TextInput2> {
   int maxLength = 500;
   int textLength = 0;
-
+  bool init = false;
   @override
   Widget build(BuildContext context) {
-    if (widget.initialValue != null) {
-      maxLength = maxLength - widget.initialValue!.length;
+    if (widget.initialValue != null && init == false) {
+      textLength = widget.initialValue!.length;
+      init = true;
     }
     return Padding(
       padding: const EdgeInsets.only(top: 5),
@@ -172,12 +173,12 @@ class TextInput3 extends StatelessWidget {
           color: Colors.white,
         ),
         errorStyle: TextStyle(
-          color: Colors.red[900],
+          color: Colors.red[600],
           shadows: [
             Shadow(
-              color: Colors.white.withOpacity(1),
-              offset: Offset(2, 1),
-              blurRadius: 4,
+              color: Colors.black,
+              offset: Offset(3, 2),
+              blurRadius: 10,
             ),
           ],
           fontWeight: FontWeight.w700,
@@ -241,12 +242,12 @@ class TextInputPassword extends StatelessWidget {
           onPressed: onPressed,
         ),
         errorStyle: TextStyle(
-          color: Colors.red[900],
+          color: Colors.red[600],
           shadows: [
             Shadow(
-              color: Colors.white.withOpacity(1),
-              offset: Offset(2, 1),
-              blurRadius: 4,
+              color: Colors.black,
+              offset: Offset(3, 2),
+              blurRadius: 10,
             ),
           ],
           fontWeight: FontWeight.w700,
@@ -265,6 +266,52 @@ class TextInputPassword extends StatelessWidget {
       ),
       onSaved: onSaved,
       validator: validator,
+    );
+  }
+}
+
+class TextInput4 extends StatelessWidget {
+  final String? text;
+  final Icon? icon;
+  final void Function(String?)? onSaved;
+  final String? Function(String?)? validator;
+  final int maxLines;
+
+  const TextInput4({
+    Key? key,
+    this.text,
+    this.icon,
+    this.onSaved,
+    this.validator,
+    this.maxLines = 1,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      maxLines: maxLines,
+      decoration: InputDecoration(
+        errorMaxLines: 3,
+        border: InputBorder.none,
+        focusedBorder: InputBorder.none,
+        enabledBorder: InputBorder.none,
+        errorBorder: InputBorder.none,
+        disabledBorder: InputBorder.none,
+        hintText: text,
+        hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
+        errorStyle: TextStyle(
+          color: Colors.red[900],
+          shadows: [],
+          fontWeight: FontWeight.w700,
+          fontSize: 14.0,
+        ),
+      ),
+      validator: validator,
+      style: TextStyle(
+        color: Colors.black,
+        fontSize: 18,
+      ),
+      onSaved: onSaved,
     );
   }
 }

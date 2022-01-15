@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:intl/intl.dart';
+import 'package:yorgo/models/data/utils_model.dart';
 
 class Account {
   int? id;
@@ -89,44 +89,12 @@ class Account {
     }
   }
 
-  static String? getImageUser(String? image) {
-    if (image != null && image != "" && image != "/media/") {
-      return "http://yorgoapi.herokuapp.com" + image;
-    } else {
-      return null;
-    }
-  }
-
-  static DateTime? getDateBirthUser(String? date) {
-    try {
-      if (date != null) {
-        return DateFormat('yyyy-MM-dd').parse(date);
-      } else {
-        return null;
-      }
-    } catch (e) {
-      return null;
-    }
-  }
-
-  static double? getDouble(String? value) {
-    try {
-      if (value != null) {
-        return double.parse(value);
-      } else {
-        return null;
-      }
-    } catch (e) {
-      return null;
-    }
-  }
-
   Account.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         username = json['username'],
         firstname = json['firstname'],
         lastname = json['lastname'],
-        birth = getDateBirthUser(json['birth']),
+        birth = getDate(json['birth']),
         phone = json['phone'],
         address_text = json['address_text'],
         address_long = getDouble(json['address_long']),

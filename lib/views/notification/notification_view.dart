@@ -63,7 +63,9 @@ class _NotificationViewState extends State<NotificationView> {
                         : null),
               ],
             )
-          : Center(child: Text("Vous n'avez pas de notification.")),
+          : Center(
+              child: Text("Vous n'avez pas de notification.",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500))),
     );
   }
 }

@@ -14,7 +14,20 @@ class LocalSportmenView extends StatelessWidget {
       ),
       body: Container(
         alignment: Alignment.center,
-        child: Text("vue vierge Sportif du coin"),
+        child: Column(
+          children: [
+            Expanded(child: Container()),
+            Text(
+              "Sportifs du coin",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+            ),
+            Text(
+              "Bientôt...",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+            ),
+            Expanded(child: Container()),
+          ],
+        ),
       ),
     );
   }

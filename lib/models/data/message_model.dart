@@ -1,3 +1,5 @@
+import 'package:yorgo/models/data/utils_model.dart';
+
 class Message {
   String message;
   String natural_timestamp;
@@ -12,14 +14,6 @@ class Message {
       this.profile_image,
       required this.timestamp,
       required this.isMe});
-
-  static String? getImageUser(String? image) {
-    if (image != null && image != "media/default_profile_image.png") {
-      return "http://yorgoapi.herokuapp.com" + image;
-    } else {
-      return null;
-    }
-  }
 
   Message.fromMap(Map<String, dynamic> map)
       : message = map['message'],

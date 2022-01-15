@@ -22,7 +22,7 @@ class SportHeaderProfile extends StatelessWidget {
     var mapSports;
     if (listsports != null) {
       mapSports = Map.fromIterable(listsports,
-          key: (e) => e.name, value: (e) => e.icon);
+          key: (e) => e.id.toString(), value: (e) => e.icon);
     }
     return Container(
       decoration: BoxDecoration(

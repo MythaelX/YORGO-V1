@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:yorgo/providers/activity_provider.dart';
 import 'package:yorgo/providers/auth_provider.dart';
 import 'package:yorgo/providers/notification_provider.dart';
 import 'package:yorgo/providers/sport_provider.dart';
@@ -53,6 +54,12 @@ class _MyAppState extends State<MyApp> {
             update: (_, authProvider, oldUserProvider) {
               oldUserProvider!.update(authProvider);
               return oldUserProvider;
+            }),
+        ChangeNotifierProxyProvider<AuthProvider, ActivityProvider>(
+            create: (_) => ActivityProvider(),
+            update: (_, authProvider, oldActivityProvider) {
+              oldActivityProvider!.update(authProvider);
+              return oldActivityProvider;
             }),
       ],
       child: MaterialApp(

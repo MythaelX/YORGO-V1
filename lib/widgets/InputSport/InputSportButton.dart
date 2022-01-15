@@ -1,32 +1,36 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:yorgo/models/data/sport_model.dart';
 
 // ignore: must_be_immutable
-class SportButton extends StatefulWidget {
-  final void Function(String, int)? onPressed;
+class InputSportButton extends StatefulWidget {
+  final void Function(Sport, int)? onPressed;
   final String text;
-  final String id;
   final double textFontsize;
   final EdgeInsetsGeometry padding;
   final IconData? icon;
   int? level = 0;
-
-  SportButton({
-    Key? key,
-    this.onPressed,
-    this.text = "",
-    this.id = "",
-    this.textFontsize = 25,
-    this.padding = const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-    this.icon = Icons.sports_soccer,
-    this.level = 0,
-  }) : super(key: key);
+  final Sport? sportSelected;
+  final int? sportSelectedLevel;
+  final Sport sport;
+  InputSportButton(
+      {Key? key,
+      this.onPressed,
+      this.text = "",
+      this.textFontsize = 25,
+      this.padding = const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+      this.icon = Icons.sports_soccer,
+      this.level = 0,
+      required this.sport,
+      this.sportSelected,
+      this.sportSelectedLevel})
+      : super(key: key);
 
   @override
-  State<SportButton> createState() => _SportButtonState();
+  State<InputSportButton> createState() => _InputSportButtonState();
 }
 
-class _SportButtonState extends State<SportButton> {
+class _InputSportButtonState extends State<InputSportButton> {
   Future<void> saveLevelSport() async {
     await showDialog(
       context: this.context,
@@ -115,8 +119,8 @@ class _SportButtonState extends State<SportButton> {
 
   void setLevelSport({int level = 0}) {
     widget.level = level;
-    if (widget.onPressed != null) {
-      widget.onPressed!(widget.id, level);
+    if (widget.onPressed != null && level != 0) {
+      widget.onPressed!(widget.sport, level);
     }
   }
 

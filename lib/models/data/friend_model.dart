@@ -1,3 +1,5 @@
+import 'package:yorgo/models/data/utils_model.dart';
+
 class Friend {
   int id;
   String username;
@@ -10,19 +12,9 @@ class Friend {
       this.profile_image,
       this.address_text});
 
-  static String? getImageUser(String? image) {
-    if (image != null &&
-        image != "media/default_profile_image.png" &&
-        image != "") {
-      return "http://yorgoapi.herokuapp.com/media/" + image;
-    } else {
-      return null;
-    }
-  }
-
   Friend.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         username = json['username'],
-        profile_image = getImageUser(json['profile_image']),
+        profile_image = getImageUser2(json['profile_image']),
         address_text = json['address_text'];
 }

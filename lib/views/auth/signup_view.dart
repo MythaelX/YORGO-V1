@@ -65,8 +65,8 @@ class _SignupViewState extends State<SignupView> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     double heightResponsive = 0;
-    if (height < 645) {
-      heightResponsive = 645;
+    if (height < 680) {
+      heightResponsive = 680;
     } else {
       heightResponsive = height;
     }
@@ -100,9 +100,6 @@ class _SignupViewState extends State<SignupView> {
       padding: EdgeInsets.only(top: 30, bottom: 0, left: 30, right: 30),
       child: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 15),
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: TitleAuth(text: 'Inscription'),
@@ -166,7 +163,7 @@ class _SignupViewState extends State<SignupView> {
             padding: EdgeInsets.symmetric(vertical: 10),
           ),
           TextInput3(
-              text: 'username',
+              text: 'Pseudo',
               onSaved: (newValue) {
                 signupForm.username = newValue!;
               },
@@ -180,7 +177,7 @@ class _SignupViewState extends State<SignupView> {
             padding: EdgeInsets.symmetric(vertical: 10),
           ),
           TextInput3(
-              text: 'password',
+              text: 'mot de passe',
               onSaved: (newValue) {
                 signupForm.password = newValue!;
               },

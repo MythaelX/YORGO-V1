@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GradientElevatedButton extends StatelessWidget {
-  final Future<void> Function()? onPressed;
+  final void Function()? onPressed;
   final String text;
   final List<Color> colors;
   final double textFontsize;

@@ -12,7 +12,18 @@ class MessageActivityView extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10),
       child: Column(
-        children: [Text("MessageActivityView"), Text("message des activités")],
+        children: [
+          Expanded(child: Container()),
+          Text(
+            "Messagerie des activités",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+          ),
+          Text(
+            "Bientôt...",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+          ),
+          Expanded(child: Container()),
+        ],
       ),
     );
   }
