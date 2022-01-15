@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:yorgo/ads/ad_helper.dart';
 import 'package:yorgo/views/activity/activity_home_view.dart';
 import 'package:yorgo/views/flux/flux_view.dart';
 import 'package:yorgo/views/message/message_home_view.dart';
@@ -13,12 +15,28 @@ import 'package:yorgo/widgets/menus/navigation_drawer_widget.dart';
 class HomeMainView extends StatefulWidget {
   static String routeName = '/home_main';
 
+  Future<InitializationStatus> _initGoogleMobileAds() {
+    // TODO: Initialize Google Mobile Ads SDK
+    return MobileAds.instance.initialize();
+  }
+
   @override
   State<HomeMainView> createState() => _HomeMainViewState();
 }
 
 class _HomeMainViewState extends State<HomeMainView> {
   int currentIndex = 2;
+
+  // ads
+  static final _kAdIndex = 4;
+  late BannerAd _ad;
+  bool _isAdLoaded = false;
+  int _getDestinationItemIndex(int rawIndex) {
+    if (rawIndex >= _kAdIndex && _isAdLoaded) {
+      return rawIndex - 1;
+    }
+    return rawIndex;
+  }
 
   final screens = [
     ActivityHomeView(),
@@ -32,6 +50,38 @@ class _HomeMainViewState extends State<HomeMainView> {
     setState(() {
       currentIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Banner ADS
+    _ad = BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      size: AdSize.banner,
+      request: AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (_) {
+          setState(() {
+            _isAdLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          // Releases an ad resource when it fails to load
+          ad.dispose();
+          print('Ad load failed (code=${error.code} message=${error.message})');
+        },
+      ),
+    );
+
+    _ad.load();
+  }
+
+  @override
+  void dispose() {
+    _ad.dispose();
+    super.dispose();
   }
 
   @override
@@ -50,7 +100,19 @@ class _HomeMainViewState extends State<HomeMainView> {
         selectedIndex: currentIndex,
         onClicked: onClicked,
       ),
-      body: Container(child: screens[currentIndex]),
+      body: Column(
+        children: [
+          Expanded(child: Container(child: screens[currentIndex])),
+          Container(
+            color: Colors.grey,
+            child:
+                _isAdLoaded ? AdWidget(ad: _ad) : CircularProgressIndicator(),
+            height: 60.0,
+            alignment: Alignment.center,
+          ),
+        ],
+      ),
+      //,
     );
   }
 
