@@ -94,6 +94,10 @@ class SportProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Sport getSportByID(int id) {
+    return sports!.firstWhere((sport) => sport.id == id);
+  }
+
   Future<dynamic> GetAllCategorys() async {
     try {
       isLoading = true;

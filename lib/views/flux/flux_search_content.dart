@@ -71,7 +71,7 @@ class _FluxSearchContentViewState extends State<FluxSearchContentView> {
                                   Navigator.pushNamed(
                                     context,
                                     ProfileOtherView.routeName,
-                                    arguments: ProfileArguments(account.id!),
+                                    arguments: IdArguments(account.id!),
                                   );
                                 },
                                 imageUrl: account.profile_image,

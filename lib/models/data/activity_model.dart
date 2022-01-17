@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:yorgo/models/data/account_model.dart';
 import 'package:yorgo/models/data/utils_model.dart';
 
 class Activity {
@@ -7,9 +8,10 @@ class Activity {
   int sport;
   int sportLevel;
   int user_id;
+  String username;
+  String userImage;
   DateTime start;
   DateTime end;
-  String username;
 
   String? description;
   int? minAge;
@@ -22,6 +24,7 @@ class Activity {
   bool? animals_accept;
   bool? is_private;
   int? numberOfLimitParticipant;
+  List<Account>? users;
 
   Activity({
     required this.title,
@@ -33,6 +36,7 @@ class Activity {
     required this.sportLevel,
     required this.user_id,
     required this.username,
+    required this.userImage,
     this.minAge,
     this.maxAge,
     this.numberOfParticipant,
@@ -42,6 +46,7 @@ class Activity {
     this.handi_accept,
     this.animals_accept,
     this.is_private,
+    this.users,
   });
 
   String getDateStartYYYYMMJJ() {
@@ -67,11 +72,29 @@ class Activity {
         sport = int.parse(json["sport"]),
         sportLevel = int.parse(json["sportlevel"]),
         user_id = int.parse(json["user_id"]),
-        username = json["username"];
+        username = json["username"],
+        userImage = getImageUser2(json["profile_image"])!;
 
   String getTimeStartEnd() {
     String timeStart = DateFormat('HH:mm').format(start).replaceFirst(":", "h");
     String timeEnd = DateFormat('HH:mm').format(end).replaceFirst(":", "h");
     return timeStart + " - " + timeEnd;
+  }
+
+  String getDateStart() {
+    return DateFormat('EEEE dd MMMM', 'FR').format(start);
+  }
+
+  String getLevelText() {
+    switch (sportLevel) {
+      case 1:
+        return "Niveau : Débutant";
+      case 2:
+        return "Niveau : Intermédiaires";
+      case 3:
+        return "Niveau : Expert";
+      default:
+        return "Niveau : inconnue";
+    }
   }
 }

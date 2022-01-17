@@ -60,7 +60,7 @@ class FriendRequestButton extends StatelessWidget {
           Navigator.pushNamed(
             context,
             ProfileOtherView.routeName,
-            arguments: ProfileArguments(friend_id),
+            arguments: IdArguments(friend_id),
           );
         },
         child: Padding(

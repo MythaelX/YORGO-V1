@@ -138,7 +138,7 @@ class _FriendButtonState extends State<FriendButton> {
                           Navigator.pushNamed(
                             context,
                             ProfileOtherView.routeName,
-                            arguments: ProfileArguments(widget.friend.id),
+                            arguments: IdArguments(widget.friend.id),
                           );
                         }),
                     Container(

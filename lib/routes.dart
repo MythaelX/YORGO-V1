@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:yorgo/models/data/activity_model.dart';
+import 'package:yorgo/views/activity/activity_category_view.dart';
 import 'package:yorgo/views/activity/activity_create_alone.dart';
 import 'package:yorgo/views/activity/activity_create_group.dart';
+import 'package:yorgo/views/activity/activity_details.dart';
 //Page Import :
 import 'package:yorgo/views/activity/my_activity_view.dart';
 import 'package:yorgo/views/auth/signin_view.dart';
@@ -14,7 +17,6 @@ import 'package:yorgo/views/home/home_views.dart';
 import 'package:yorgo/views/local_sportmen/local_sportmen_view.dart';
 import 'package:yorgo/views/message/message_new.dart';
 import 'package:yorgo/views/message/message_sportsmen_room_view.dart';
-
 import 'package:yorgo/views/not_found_view.dart';
 import 'package:yorgo/views/profile/profile_edit_view.dart';
 import 'package:yorgo/views/profile/profile_other_view.dart';
@@ -66,6 +68,25 @@ Route<dynamic> routes(settings) {
     return MaterialPageRoute(
       builder: (_) => MyActivityView(),
       settings: RouteSettings(name: MyActivityView.routeName),
+    );
+  } else if (settings.name == ActivityDetailsView.routeName) {
+    final args = settings.arguments as ActivityArguments;
+    return MaterialPageRoute(
+      builder: (_) => ActivityDetailsView(
+        idActivity: args.idActivity,
+        activity: args.activity,
+      ),
+      settings: RouteSettings(name: ActivityDetailsView.routeName),
+    );
+  } else if (settings.name == ActivityCategoryView.routeName) {
+    final args = settings.arguments as ActivityCategoryArguments;
+    return MaterialPageRoute(
+      builder: (_) => ActivityCategoryView(
+        nameCategory: args.nameCategory,
+        idCategory: args.idCategory,
+        initMapActivityByDate: args.initMapActivityByDate,
+      ),
+      settings: RouteSettings(name: ActivityCategoryView.routeName),
     );
   }
   //////////////////////////////////////////////////////////////////////////////
@@ -123,7 +144,7 @@ Route<dynamic> routes(settings) {
       settings: RouteSettings(name: ProfileSportEditView.routeName),
     );
   } else if (settings.name == ProfileOtherView.routeName) {
-    final args = settings.arguments as ProfileArguments;
+    final args = settings.arguments as IdArguments;
     return MaterialPageRoute(
       builder: (_) => ProfileOtherView(id: args.id),
       settings: RouteSettings(name: ProfileOtherView.routeName),
@@ -170,15 +191,30 @@ Route<dynamic> routes(settings) {
 }
 
 //argument
-class ProfileArguments {
+class IdArguments {
   final int id;
 
-  ProfileArguments(this.id);
+  IdArguments(this.id);
 }
 
 class FriendArguments {
   final int tabIndex;
   FriendArguments(this.tabIndex);
+}
+
+class ActivityCategoryArguments {
+  final int idCategory;
+  final String nameCategory;
+  final Map<String, List<Activity>> initMapActivityByDate;
+  ActivityCategoryArguments(
+      this.idCategory, this.nameCategory, this.initMapActivityByDate);
+}
+
+class ActivityArguments {
+  final int idActivity;
+  final Activity? activity;
+
+  ActivityArguments(this.idActivity, this.activity);
 }
 
 class PrivateRoomArguments {

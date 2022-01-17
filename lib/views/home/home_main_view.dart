@@ -15,11 +15,6 @@ import 'package:yorgo/widgets/menus/navigation_drawer_widget.dart';
 class HomeMainView extends StatefulWidget {
   static String routeName = '/home_main';
 
-  Future<InitializationStatus> _initGoogleMobileAds() {
-    // TODO: Initialize Google Mobile Ads SDK
-    return MobileAds.instance.initialize();
-  }
-
   @override
   State<HomeMainView> createState() => _HomeMainViewState();
 }
@@ -28,15 +23,8 @@ class _HomeMainViewState extends State<HomeMainView> {
   int currentIndex = 2;
 
   // ads
-  static final _kAdIndex = 4;
   late BannerAd _ad;
-  bool _isAdLoaded = false;
-  int _getDestinationItemIndex(int rawIndex) {
-    if (rawIndex >= _kAdIndex && _isAdLoaded) {
-      return rawIndex - 1;
-    }
-    return rawIndex;
-  }
+  //bool _isAdLoaded = false;
 
   final screens = [
     ActivityHomeView(),
@@ -64,7 +52,7 @@ class _HomeMainViewState extends State<HomeMainView> {
       listener: BannerAdListener(
         onAdLoaded: (_) {
           setState(() {
-            _isAdLoaded = true;
+            // _isAdLoaded = true;
           });
         },
         onAdFailedToLoad: (ad, error) {
@@ -103,13 +91,13 @@ class _HomeMainViewState extends State<HomeMainView> {
       body: Column(
         children: [
           Expanded(child: Container(child: screens[currentIndex])),
-          Container(
-            color: Colors.grey,
-            child:
-                _isAdLoaded ? AdWidget(ad: _ad) : CircularProgressIndicator(),
-            height: 60.0,
-            alignment: Alignment.center,
-          ),
+          // Container(
+          //   color: Colors.grey,
+          //   child:
+          //       _isAdLoaded ? AdWidget(ad: _ad) : CircularProgressIndicator(),
+          //   height: 60.0,
+          //   alignment: Alignment.center,
+          // ),
         ],
       ),
       //,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yorgo/models/data/activity_model.dart';
+import 'package:yorgo/routes.dart';
+import 'package:yorgo/views/activity/activity_category_view.dart';
 import 'package:yorgo/views/activity/widget/BlocActivityDate.dart';
 
 class CategoryActivity extends StatelessWidget {
@@ -43,7 +45,14 @@ class CategoryActivity extends StatelessWidget {
                 color: Colors.white,
                 child: InkWell(
                   onTap: () {
-                    print("ouiii");
+                    Navigator.pushNamed(
+                      context,
+                      ActivityCategoryView.routeName,
+                      arguments: ActivityCategoryArguments(
+                          int.parse(activityMap['id']),
+                          activityMap['name'],
+                          activityByDate),
+                    );
                   },
                   child: Container(
                       height: 40,
