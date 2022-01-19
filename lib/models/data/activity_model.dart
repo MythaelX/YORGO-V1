@@ -8,10 +8,10 @@ class Activity {
   int sport;
   int sportLevel;
   int user_id;
-  String username;
-  String userImage;
-  DateTime start;
-  DateTime end;
+  String? username;
+  String? userImage;
+  DateTime? start;
+  DateTime? end;
 
   String? description;
   int? minAge;
@@ -50,7 +50,7 @@ class Activity {
   });
 
   String getDateStartYYYYMMJJ() {
-    return DateFormat('yyyy-MM-dd').format(start);
+    return DateFormat('yyyy-MM-dd').format(start!);
   }
 
   Activity.fromJson(Map<String, dynamic> json)
@@ -64,25 +64,45 @@ class Activity {
         numberOfLimitParticipant = int.parse(json["numberOfLimitParticipant"]),
         start = getDateAndTime2(json["start"])!,
         end = getDateAndTime2(json["end"])!,
-        minAge = int.parse(json["minAge"]),
-        maxAge = int.parse(json["maxAge"]),
         address_text = json["address_text"],
         address_long = getDouble(json["address_long"]),
         address_lat = getDouble(json["address_lat"]),
         sport = int.parse(json["sport"]),
         sportLevel = int.parse(json["sportlevel"]),
-        user_id = int.parse(json["user_id"]),
-        username = json["username"],
-        userImage = getImageUser2(json["profile_image"])!;
+        user_id = int.parse(json["user_id"]);
+
+  Activity.fromJson2(Map<String, dynamic> json)
+      : id = json['id'],
+        title = json['title'],
+        description = json['description'],
+        is_private = json['is_private'],
+        handi_accept = json['handi_accept'],
+        animals_accept = json["animals_accept"],
+        numberOfParticipant = json["numberOfParticipant"],
+        numberOfLimitParticipant = json["numberOfLimitParticipant"],
+        start = getDateAndTime3(json["start"]),
+        end = getDateAndTime3(json["end"]),
+        minAge = json["minAge"],
+        maxAge = json["maxAge"],
+        address_text = json["address_text"],
+        address_long = getDouble(json["address_long"]),
+        address_lat = getDouble(json["address_lat"]),
+        sport = json["sport"],
+        sportLevel = json["sportlevel"],
+        users = getUsersFromJson(json["users"]),
+        user_id = json["user"]["id"],
+        username = json["user"]["username"],
+        userImage = getImageUser2(json["user"]["profile_image"])!;
 
   String getTimeStartEnd() {
-    String timeStart = DateFormat('HH:mm').format(start).replaceFirst(":", "h");
-    String timeEnd = DateFormat('HH:mm').format(end).replaceFirst(":", "h");
+    String timeStart =
+        DateFormat('HH:mm').format(start!).replaceFirst(":", "h");
+    String timeEnd = DateFormat('HH:mm').format(end!).replaceFirst(":", "h");
     return timeStart + " - " + timeEnd;
   }
 
   String getDateStart() {
-    return DateFormat('EEEE dd MMMM', 'FR').format(start);
+    return DateFormat('EEEE dd MMMM', 'FR').format(start!);
   }
 
   String getLevelText() {
@@ -96,5 +116,14 @@ class Activity {
       default:
         return "Niveau : inconnue";
     }
+  }
+
+  static getUsersFromJson(List listUsersJson) {
+    print(listUsersJson);
+    List<Account> listUsers = [];
+    for (var user in listUsersJson) {
+      listUsers.add(Account.fromJson3(user));
+    }
+    return listUsers;
   }
 }

@@ -212,7 +212,7 @@ class ActivityCategoryArguments {
 
 class ActivityArguments {
   final int idActivity;
-  final Activity? activity;
+  final Activity activity;
 
   ActivityArguments(this.idActivity, this.activity);
 }

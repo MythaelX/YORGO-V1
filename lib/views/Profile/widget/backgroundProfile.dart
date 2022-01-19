@@ -29,8 +29,9 @@ class BackgroundProfile extends StatelessWidget {
     } else {
       return Image(
         image: AssetImage(
-          "assets/images/escalade.jpg",
+          "assets/images/fond6.jpg",
         ),
+        alignment: Alignment.topCenter,
         height: height.toDouble(),
         width: width,
         fit: BoxFit.cover,

@@ -44,7 +44,7 @@ int? getInt(String? value) {
   }
 }
 
-getBoolfromString(String string) {
+getBoolfromString(String? string) {
   if (string == "True") {
     return true;
   } else {
@@ -72,6 +72,18 @@ DateTime? getDateAndTime2(String? date) {
   try {
     if (date != null) {
       return DateFormat('yyyy-MM-dd HH:mm:ss').parse(date);
+    } else {
+      return null;
+    }
+  } catch (e) {
+    return null;
+  }
+}
+
+DateTime? getDateAndTime3(String? date) {
+  try {
+    if (date != null) {
+      return DateFormat('yyyy-MM-ddTHH:mm:ss').parse(date);
     } else {
       return null;
     }

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:yorgo/models/data/utils_model.dart';
 
 class User {
+  int id;
   String username;
   String email;
   String? firstname;
@@ -18,6 +19,7 @@ class User {
   Map<String, int>? sports;
 
   User({
+    required this.id,
     required this.username,
     required this.email,
     this.firstname,
@@ -80,7 +82,8 @@ class User {
   }
 
   User.fromJson(Map<String, dynamic> json)
-      : username = json['username'],
+      : id = json['id'],
+        username = json['username'],
         email = json['email'],
         firstname = json['firstname'],
         lastname = json['lastname'],
@@ -96,7 +99,8 @@ class User {
         sports = getSports(json['sports']);
 
   User.fromJson2(Map<String, dynamic> json)
-      : username = json['username'],
+      : id = json['id'],
+        username = json['username'],
         email = "",
         firstname = json['firstname'],
         lastname = json['lastname'],

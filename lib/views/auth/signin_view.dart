@@ -36,7 +36,7 @@ class _SigninViewState extends State<SigninView> {
   Future<void> submitForm() async {
     if (form!.validate()) {
       form!.save();
-      DialogBuilder(context).showLoadingIndicator('Connexion en cours ...');
+      DialogBuilder(context).showLoadingIndicator('Connexion en cours');
       final response = await Provider.of<AuthProvider>(context, listen: false)
           .signin(signinForm);
       await Provider.of<UserProvider>(context, listen: false)

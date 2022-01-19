@@ -14,14 +14,23 @@ class MessageHomeView extends StatelessWidget {
         color: Colors.white,
         child: Stack(
           children: [
-            tabBarMenu2(listContentTab: [
+            tabBarMenu2Icon(listContentTab: [
               MessageSportsmenView(),
               MessageGroupsView(),
               MessageActivityView(),
             ], listTab: [
-              "Sportifs",
-              "Groupes",
-              "Activités"
+              Icon(
+                Icons.person,
+                size: 30,
+              ),
+              Icon(
+                Icons.people_alt,
+                size: 30,
+              ),
+              Icon(
+                Icons.directions_run,
+                size: 30,
+              ),
             ], length: 3),
             //Todo : add filter here;
           ],

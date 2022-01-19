@@ -4,6 +4,7 @@ import 'package:yorgo/models/data/friend_model.dart';
 import 'package:yorgo/models/data/user_model.dart';
 import 'package:yorgo/providers/user_provider.dart';
 import 'package:yorgo/routes.dart';
+import 'package:yorgo/views/activity/my_activity_view.dart';
 import 'package:yorgo/views/friend/friend_home_view.dart';
 import 'package:yorgo/views/profile/widget/headerProfile.dart';
 import 'package:yorgo/views/profile/widget/infosProfile.dart';
@@ -39,6 +40,12 @@ class _ProfileViewState extends State<ProfileView> {
                   friendFunction: () {
                     Navigator.pushNamed(context, FriendHomeView.routeName,
                         arguments: FriendArguments(0));
+                  },
+                  activityFunction: () {
+                    Navigator.pushNamed(
+                      context,
+                      MyActivityView.routeName,
+                    );
                   },
                 ),
                 Container(

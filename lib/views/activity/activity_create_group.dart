@@ -44,7 +44,7 @@ class _ActivityCreateGroupViewState extends State<ActivityCreateGroupView> {
     form!.validate();
     if (formValidate) {
       form!.save();
-      DialogBuilder(context).showLoadingIndicator('Ajout en cours...');
+      DialogBuilder(context).showLoadingIndicator('Ajout en cours');
       final response =
           await Provider.of<ActivityProvider>(context, listen: false)
               .activityAddGroup(activityAddGroupForm);

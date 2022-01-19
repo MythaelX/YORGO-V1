@@ -106,7 +106,7 @@ class _tabBarMenu2State extends State<tabBarMenu2> {
           children: <Widget>[
             Material(
               color: Theme.of(context).primaryColor,
-              elevation: 5,
+              elevation: 2,
               child: Container(
                 child: DecoratedBox(
                   //This is responsible for the background of the tabbar, does the magic
@@ -212,21 +212,24 @@ class tabBarMenu2Icon extends StatefulWidget {
   final List<Widget> listContentTab;
   final List<Icon> listTab;
   final int length;
+  final int tabIndex;
 
   const tabBarMenu2Icon({
     Key? key,
     required this.listContentTab,
     required this.listTab,
     required this.length,
+    this.tabIndex = 0,
   }) : super(key: key);
 
   @override
-  State<tabBarMenu2Icon> createState() => _tabBarMenu2IconState();
+  State<tabBarMenu2Icon> createState() => _tabBarMenu2IconState(tabIndex);
 }
 
 class _tabBarMenu2IconState extends State<tabBarMenu2Icon> {
   int _tabIndex = 0;
 
+  _tabBarMenu2IconState(this._tabIndex);
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -237,7 +240,7 @@ class _tabBarMenu2IconState extends State<tabBarMenu2Icon> {
           children: <Widget>[
             Material(
               color: Theme.of(context).primaryColor,
-              elevation: 5,
+              elevation: 2,
               child: Container(
                 child: DecoratedBox(
                   //This is responsible for the background of the tabbar, does the magic

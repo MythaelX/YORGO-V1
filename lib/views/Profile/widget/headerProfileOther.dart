@@ -495,7 +495,8 @@ class _headerProfileOtherState extends State<headerProfileOther> {
             onPressed: () async {
               var tokenAccess =
                   Provider.of<AuthProvider>(context, listen: false).tokenAccess;
-              DialogBuilder(context).showLoadingIndicator('Chargement...');
+              DialogBuilder(context)
+                  .showLoadingIndicator('Chargement en cours');
               var room_id = await Provider.of<NotificationProvider>(context,
                       listen: false)
                   .getOrCreateRoomFriend(widget.account);

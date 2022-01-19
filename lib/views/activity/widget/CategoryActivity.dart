@@ -90,7 +90,7 @@ class CategoryActivity extends StatelessWidget {
                             ),
                             Container(
                               height: 130,
-                              width: 1,
+                              width: (activityByDate.keys.last == key) ? 0 : 2,
                               color: Colors.black,
                             ),
                           ],

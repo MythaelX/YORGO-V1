@@ -40,7 +40,7 @@ class _ProfileSportEditViewState extends State<ProfileSportEditView> {
   Future<void> submitForm() async {
     if (form!.validate()) {
       form!.save();
-      DialogBuilder(context).showLoadingIndicator('Envoi en cours ...');
+      DialogBuilder(context).showLoadingIndicator('Envoi en cours');
       final error = await Provider.of<UserProvider>(context, listen: false)
           .profileSportCreate(profileSportForm);
       DialogBuilder(context).hideOpenDialog();

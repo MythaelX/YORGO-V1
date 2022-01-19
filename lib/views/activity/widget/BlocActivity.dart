@@ -4,9 +4,11 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yorgo/models/data/activity_model.dart';
+import 'package:yorgo/providers/activity_provider.dart';
 import 'package:yorgo/providers/sport_provider.dart';
 import 'package:yorgo/routes.dart';
 import 'package:yorgo/views/activity/activity_details.dart';
+import 'package:yorgo/widgets/progressor/dialog_progressor.dart';
 
 class BlocActivity extends StatelessWidget {
   final Activity activity;
@@ -16,16 +18,17 @@ class BlocActivity extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
+    int activity_id = activity.id;
     final Map imageSports = Provider.of<SportProvider>(context).imageSports;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5.0),
       child: Material(
         elevation: 3,
         color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderRadius: BorderRadius.all(Radius.circular(5)),
         child: Container(
           height: 190,
-          width: 180,
+          width: 200,
           child: Stack(
             children: [
               Column(
@@ -34,7 +37,7 @@ class BlocActivity extends StatelessWidget {
                     height: 160,
                     decoration: BoxDecoration(
                         borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(10)),
+                            BorderRadius.vertical(top: Radius.circular(5)),
                         image: DecorationImage(
                           image: AssetImage(imageSports[activity.sport]),
                           fit: BoxFit.cover,
@@ -87,7 +90,7 @@ class BlocActivity extends StatelessWidget {
                     child: Container(),
                   ),
                   Container(
-                    width: 180,
+                    width: 200,
                     height: 50,
                     color: Colors.black.withOpacity(0.4),
                     child: Center(
@@ -133,12 +136,22 @@ class BlocActivity extends StatelessWidget {
                 ),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(10),
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      ActivityDetailsView.routeName,
-                      arguments: ActivityArguments(activity.id, activity),
-                    );
+                  onTap: () async {
+                    DialogBuilder(context)
+                        .showLoadingIndicator('chargement en cours');
+                    Activity? activity_data =
+                        await Provider.of<ActivityProvider>(context,
+                                listen: false)
+                            .getActivityGroupByID(activity_id);
+                    DialogBuilder(context).hideOpenDialog();
+                    if (activity_data != null) {
+                      Navigator.pushNamed(
+                        context,
+                        ActivityDetailsView.routeName,
+                        arguments:
+                            ActivityArguments(activity_id, activity_data),
+                      );
+                    }
                   },
                 ),
               ),
@@ -166,13 +179,14 @@ class BlocActivity2 extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
+    int activity_id = activity.id;
     final Map imageSports = Provider.of<SportProvider>(context).imageSports;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10),
       child: Material(
         elevation: 3,
         color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderRadius: BorderRadius.all(Radius.circular(5)),
         child: Container(
           height: 210,
           child: Stack(
@@ -183,7 +197,7 @@ class BlocActivity2 extends StatelessWidget {
                     height: 170,
                     decoration: BoxDecoration(
                         borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(10)),
+                            BorderRadius.vertical(top: Radius.circular(5)),
                         image: DecorationImage(
                           image: AssetImage(imageSports[activity.sport]),
                           fit: BoxFit.cover,
@@ -285,8 +299,16 @@ class BlocActivity2 extends StatelessWidget {
                 ),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(10),
-                  onTap: () {
-                    print("ouiii");
+                  onTap: () async {
+                    Activity activity_data =
+                        await Provider.of<ActivityProvider>(context,
+                                listen: false)
+                            .getActivityGroupByID(activity_id);
+                    Navigator.pushNamed(
+                      context,
+                      ActivityDetailsView.routeName,
+                      arguments: ActivityArguments(activity_id, activity_data),
+                    );
                   },
                 ),
               ),

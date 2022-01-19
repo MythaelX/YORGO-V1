@@ -56,7 +56,7 @@ class MessageNewSportsmenButton extends StatelessWidget {
             padding: EdgeInsets.zero,
             elevation: 0),
         onPressed: () async {
-          DialogBuilder(context).showLoadingIndicator('Chargement...');
+          DialogBuilder(context).showLoadingIndicator('Chargement en cours');
           var room_id =
               await Provider.of<NotificationProvider>(context, listen: false)
                   .getOrCreateRoomFriend(friend);

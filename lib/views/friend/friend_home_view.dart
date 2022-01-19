@@ -22,13 +22,26 @@ class FriendHomeView extends StatelessWidget {
       ),
       body: Container(
         color: Colors.white,
-        child: tabBarMenu2(
+        child: tabBarMenu2Icon(
           listContentTab: [
             FriendSearchView(),
             FriendMapView(),
             FriendAskView(),
           ],
-          listTab: ["Recherche", "Carte", "Demande"],
+          listTab: [
+            Icon(
+              Icons.person_search_sharp,
+              size: 30,
+            ),
+            Icon(
+              Icons.map_outlined,
+              size: 30,
+            ),
+            Icon(
+              Icons.person_add,
+              size: 30,
+            ),
+          ],
           length: 3,
           tabIndex: (tabIndex != null) ? tabIndex! : 0,
         ),

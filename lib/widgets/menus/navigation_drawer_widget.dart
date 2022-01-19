@@ -10,6 +10,7 @@ import 'package:yorgo/views/group/group_view.dart';
 import 'package:yorgo/views/home/home_views.dart';
 import 'package:yorgo/views/local_sportmen/local_sportmen_view.dart';
 import 'package:yorgo/views/setting/settingMenuView.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
   @override
@@ -37,10 +38,16 @@ class NavigationDrawerWidget extends StatelessWidget {
             buildMenuItem(
               text: 'Protection Des Données',
               icon: Icons.shield,
+              onClicked: () {
+                launch('https://www.google.com/');
+              },
             ),
             buildMenuItem(
               text: 'Conditions Générales',
               icon: Icons.auto_stories,
+              onClicked: () {
+                launch('https://www.google.com/');
+              },
             ),
             buildMenuItem(
               text: 'Paramètres',

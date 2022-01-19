@@ -35,7 +35,7 @@ class _ActivityCreateAloneViewState extends State<ActivityCreateAloneView> {
     form!.validate();
     if (formValidate) {
       form!.save();
-      DialogBuilder(context).showLoadingIndicator('Ajout en court...');
+      DialogBuilder(context).showLoadingIndicator('Ajout en cours');
       final response =
           await Provider.of<ActivityProvider>(context, listen: false)
               .activityAddAlone(activityAddAloneForm);

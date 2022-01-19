@@ -24,12 +24,16 @@ class ButtonActivityOrga extends StatelessWidget {
               Container(
                 width: 10,
               ),
-              ClipOval(child: GetImageProfile(imageUrl: activity!.userImage)),
+              ClipOval(
+                  child: GetImageProfile(
+                imageUrl: activity!.userImage,
+                size: 55,
+              )),
               Container(
                 width: 10,
               ),
               Text(
-                activity!.username,
+                activity!.username!,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               Expanded(

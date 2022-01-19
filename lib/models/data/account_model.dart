@@ -116,4 +116,9 @@ class Account {
         address_long = getDouble(json['address_long']),
         address_lat = getDouble(json['address_lat']),
         is_friend = json['is_friend'];
+
+  Account.fromJson3(Map<String, dynamic> json)
+      : id = json['id'],
+        username = json['username'],
+        profile_image = getImageUser2(json['profile_image']);
 }

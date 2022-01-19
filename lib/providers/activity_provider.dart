@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:yorgo/models/data/activity_model.dart';
 import 'package:yorgo/models/form/activity_add_alone_form_model.dart';
 import 'package:yorgo/models/form/activity_add_group_form_model.dart';
 import 'package:yorgo/providers/auth_provider.dart';
@@ -34,7 +35,7 @@ class ActivityProvider with ChangeNotifier {
       body: json.encode(activityAddAloneForm.toJson()),
     );
 
-   // var data = utf8.decode(response.bodyBytes);
+    // var data = utf8.decode(response.bodyBytes);
     if (response.statusCode == 201) {
       return null;
     }
@@ -78,7 +79,7 @@ class ActivityProvider with ChangeNotifier {
       //On récupère les 3 premieres valeur des globalCategory
       var pageNumber = 1;
       globalCategoryActivity = [];
-      for (var i = 0; i < 3; i++) {
+      for (var i = 0; i < 1; i++) {
         Map category = globalCategory![i];
         String key = category.keys.elementAt(0);
         int idCategory = category[key];
@@ -115,6 +116,94 @@ class ActivityProvider with ChangeNotifier {
       var data = json.decode(utf8.decode(response.bodyBytes));
       globalCategoryActivity!.add(data);
       notifyListeners();
+      return null;
+    }
+    return "error";
+  }
+
+  Future<dynamic> getActivityGroupByID(int activity_id) async {
+    String urlString = "$host/api/activity/group/" + activity_id.toString();
+
+    Uri url = Uri.parse(urlString);
+
+    http.Response response = await http.get(
+      url,
+      headers: {
+        'Content-type': 'application/json',
+        'authorization': 'Bearer ${authProvider.tokenAccess}'
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var data = json.decode(utf8.decode(response.bodyBytes));
+      Activity activity = Activity.fromJson2(data);
+      return activity;
+    }
+    return null;
+  }
+
+  Future<dynamic> joinUserActivityGroupByID(int activity_id) async {
+    String urlString =
+        "$host/api/activity/group/" + activity_id.toString() + "/";
+    Uri url = Uri.parse(urlString);
+    Map data = {};
+    data["action"] = "add_user";
+
+    http.Response response = await http.post(
+      url,
+      headers: {
+        'Content-type': 'application/json',
+        'authorization': 'Bearer ${authProvider.tokenAccess}'
+      },
+      body: json.encode(data),
+    );
+
+    if (response.statusCode == 200) {
+      return null;
+    }
+    return "error";
+  }
+
+  Future<dynamic> removeUserActivityGroupByID(int activity_id) async {
+    String urlString =
+        "$host/api/activity/group/" + activity_id.toString() + "/";
+    Uri url = Uri.parse(urlString);
+    Map data = {};
+    data["action"] = "remove_user";
+
+    http.Response response = await http.post(
+      url,
+      headers: {
+        'Content-type': 'application/json',
+        'authorization': 'Bearer ${authProvider.tokenAccess}'
+      },
+      body: json.encode(data),
+    );
+
+    if (response.statusCode == 200) {
+      return null;
+    }
+    return "error";
+  }
+
+  Future<dynamic> removeActivityGroupByID(int activity_id) async {
+    String urlString =
+        "$host/api/activity/group/" + activity_id.toString() + "/";
+    Uri url = Uri.parse(urlString);
+    Map data = {};
+    data["action"] = "remove_activity";
+    data["activity_id"] = activity_id;
+
+    http.Response response = await http.post(
+      url,
+      headers: {
+        'Content-type': 'application/json',
+        'authorization': 'Bearer ${authProvider.tokenAccess}'
+      },
+      body: json.encode(data),
+    );
+
+    if (response.statusCode == 200) {
       return null;
     }
     return "error";

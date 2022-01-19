@@ -77,11 +77,11 @@ class _HomeMainViewState extends State<HomeMainView> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: HeaderAppBar(
-        text: "Yorgo",
+        text: "YORGO",
         config: (currentIndex == 4 || currentIndex == 1) ? true : false,
         configRouteName: getConfigRouteName(currentIndex),
         configIcon: getConfigIcon(currentIndex),
-        elevation: (currentIndex == 3 || currentIndex == 4) ? true : false,
+        elevation: false,
       ),
       drawer: NavigationDrawerWidget(),
       bottomNavigationBar: NavigationBottomBarWidget(

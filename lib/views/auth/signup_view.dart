@@ -35,7 +35,7 @@ class _SignupViewState extends State<SignupView> {
   Future<void> submitForm() async {
     if (form!.validate()) {
       form!.save();
-      DialogBuilder(context).showLoadingIndicator('Inscription en cours ...');
+      DialogBuilder(context).showLoadingIndicator('Inscription en cours');
       final error = await Provider.of<AuthProvider>(context, listen: false)
           .signup(signupForm);
       if (error == null) {
