@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:yorgo/models/data/account_model.dart';
+import 'package:yorgo/models/data/activity_model.dart';
 import 'package:yorgo/models/data/friend_model.dart';
 import 'package:yorgo/models/form/profile_form_model.dart';
 import 'package:yorgo/models/form/profile_sport_form_model.dart';
@@ -14,6 +15,9 @@ class UserProvider with ChangeNotifier {
   User? user;
   Account? account;
   List<Friend>? listFriend;
+  Map<String, List<Activity>>? activityFuture;
+  Map<String, List<Activity>>? activityPast;
+  int numberActivity = 0;
   List? friendRequests;
   bool isLoading = false;
   late AuthProvider authProvider;
@@ -31,6 +35,7 @@ class UserProvider with ChangeNotifier {
       if (user == null && authProvider.isLoggedin!) {
         fetchCurrentUser();
         getFriends();
+        getActivity();
       }
     }
   }
@@ -163,6 +168,49 @@ class UserProvider with ChangeNotifier {
 
       return response.body;
     }
+  }
+
+  Future getActivity() async {
+    DateTime dateNow = DateTime.now();
+    Uri url = Uri.parse("$host/api/activity/myActivity/");
+    http.Response response = await http.get(
+      url,
+      headers: {'authorization': 'Bearer ${authProvider.tokenAccess}'},
+    );
+    if (response.statusCode == 200) {
+      Map data = json.decode(utf8.decode(response.bodyBytes));
+      List<Activity> activityFuture = [];
+      List<Activity> activityPast = [];
+      List activityGroup = data['activityGroup'];
+      for (var item in activityGroup) {
+        Activity activity = Activity.fromJson(item);
+        if (activity.start!.isAfter(dateNow)) {
+          activityFuture.add(activity);
+        } else {
+          activityPast.add(activity);
+        }
+      }
+      this.activityFuture = getActivityByDate(activityFuture);
+      this.activityPast = getActivityByDate(activityPast);
+      numberActivity = data['numberActivity'];
+
+      notifyListeners();
+      return response.body;
+    }
+    return null;
+  }
+
+  Map<String, List<Activity>> getActivityByDate(List activityList) {
+    Map<String, List<Activity>> activityByDate = {};
+    for (var i = 0; i < activityList.length; i++) {
+      Activity activity = activityList.elementAt(i);
+      String key = activity.getDateStartYYYYMMJJ();
+      if (!activityByDate.containsKey(key)) {
+        activityByDate[key] = [];
+      }
+      activityByDate[key]!.add(activity);
+    }
+    return activityByDate;
   }
 
   Future friendRequestDecline(int friend_request_id) async {

@@ -210,7 +210,7 @@ class TabsView extends StatelessWidget {
 
 class tabBarMenu2Icon extends StatefulWidget {
   final List<Widget> listContentTab;
-  final List<Icon> listTab;
+  final List<Widget> listTab;
   final int length;
   final int tabIndex;
 
@@ -283,7 +283,7 @@ class _tabBarMenu2IconState extends State<tabBarMenu2Icon> {
     );
   }
 
-  getTabs(List<Icon> listTab) {
+  getTabs(List<Widget> listTab) {
     List<Widget> list = [];
     for (var i = 0; i < listTab.length; i++) {
       list.add(

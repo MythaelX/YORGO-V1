@@ -29,6 +29,7 @@ class _ProfileViewState extends State<ProfileView> {
     if (listFriends != null) {
       numberOfFriends = listFriends.length;
     }
+
     return Container(
       color: Colors.white,
       child: user != null
@@ -37,6 +38,8 @@ class _ProfileViewState extends State<ProfileView> {
                 headerProfile(
                   user,
                   numberOfFriends: numberOfFriends,
+                  numberOfActivity:
+                      Provider.of<UserProvider>(context).numberActivity,
                   friendFunction: () {
                     Navigator.pushNamed(context, FriendHomeView.routeName,
                         arguments: FriendArguments(0));

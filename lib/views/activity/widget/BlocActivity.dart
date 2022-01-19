@@ -277,7 +277,6 @@ class BlocActivity2 extends StatelessWidget {
                       Icon(Icons.person, color: Colors.white, size: 28),
                       Text(
                         activity.numberOfParticipant.toString() +
-                            "/" +
                             getNumberOfParticipantLimit(
                                 activity.numberOfLimitParticipant),
                         style: TextStyle(
@@ -300,10 +299,13 @@ class BlocActivity2 extends StatelessWidget {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(10),
                   onTap: () async {
+                    DialogBuilder(context)
+                        .showLoadingIndicator('chargement en cours');
                     Activity activity_data =
                         await Provider.of<ActivityProvider>(context,
                                 listen: false)
                             .getActivityGroupByID(activity_id);
+                    DialogBuilder(context).hideOpenDialog();
                     Navigator.pushNamed(
                       context,
                       ActivityDetailsView.routeName,
@@ -321,9 +323,9 @@ class BlocActivity2 extends StatelessWidget {
 
   String getNumberOfParticipantLimit(int? numberOfParticipantLimit) {
     if (numberOfParticipantLimit != -1 && numberOfParticipantLimit != 0) {
-      return numberOfParticipantLimit.toString();
+      return "/" + numberOfParticipantLimit.toString();
     } else {
-      return "∞";
+      return "";
     }
   }
 }

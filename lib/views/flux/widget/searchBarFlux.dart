@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class SearchBarFlux extends StatefulWidget {
@@ -22,7 +24,7 @@ class SearchBarFlux extends StatefulWidget {
 
 class _SearchBarFluxState extends State<SearchBarFlux> {
   var _controller = TextEditingController();
-
+  DateTime tapTIME = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -80,11 +82,18 @@ class _SearchBarFluxState extends State<SearchBarFlux> {
                     size: 30,
                   ),
           ),
+          onEditingComplete: () {},
           onChanged: (value) {
             setState(() {});
-            if (widget.onChanged != null) {
-              widget.onChanged!(value);
-            }
+            tapTIME = DateTime.now();
+            Future.delayed(const Duration(seconds: 1), () {
+              var dateNow = DateTime.now();
+              if (tapTIME.isBefore(dateNow.subtract(Duration(seconds: 1)))) {
+                if (widget.onChanged != null) {
+                  widget.onChanged!(value);
+                }
+              }
+            });
           },
           onTap: widget.onTap,
         ),

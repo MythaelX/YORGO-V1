@@ -7,6 +7,7 @@ import 'package:yorgo/widgets/colorTexts/textBlue.dart';
 
 class headerProfile extends StatelessWidget {
   final int? numberOfFriends;
+  final int? numberOfActivity;
   final User user;
   final void Function()? friendFunction;
   final void Function()? activityFunction;
@@ -15,6 +16,7 @@ class headerProfile extends StatelessWidget {
     this.user, {
     Key? key,
     this.numberOfFriends,
+    this.numberOfActivity,
     this.friendFunction,
     this.activityFunction,
     this.followFunction,
@@ -63,7 +65,9 @@ class headerProfile extends StatelessWidget {
                       onPressed: activityFunction,
                       child: Align(
                         child: TextBlue(
-                          text: "0\n Activités",
+                          text: (numberOfActivity != null)
+                              ? numberOfActivity.toString() + "\n Activités"
+                              : "0\n Activités",
                           textFontsize: 20,
                           textAlign: TextAlign.center,
                         ),
