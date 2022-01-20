@@ -336,7 +336,7 @@ class _headerProfileOtherState extends State<headerProfileOther> {
                         onPressed: widget.followFunction,
                         child: Align(
                           child: TextBlue(
-                            text: "X\n Abonnés",
+                            text: "0\n Abonnés",
                             textFontsize: 20,
                             textAlign: TextAlign.center,
                           ),

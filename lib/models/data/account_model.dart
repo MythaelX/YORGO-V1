@@ -21,7 +21,7 @@ class Account {
   bool? is_friend;
   bool? is_self;
   int? pending_friend_request_id;
-
+  int? number_activity;
   Account({
     required this.id,
     this.username,
@@ -41,6 +41,7 @@ class Account {
     this.is_friend,
     this.is_self,
     this.pending_friend_request_id,
+    this.number_activity,
   });
 
   getGenderString() {
@@ -106,6 +107,7 @@ class Account {
         request_sent = json['request_sent'],
         is_friend = json['is_friend'],
         is_self = json['is_self'],
+        number_activity = json['number_activity'],
         pending_friend_request_id = json['pending_friend_request_id'];
 
   Account.fromJson2(Map<String, dynamic> json)

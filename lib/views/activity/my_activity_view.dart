@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yorgo/models/data/activity_model.dart';
 import 'package:yorgo/providers/user_provider.dart';
-import 'package:yorgo/views/activity/widget/BlocActivity.dart';
 import 'package:yorgo/views/activity/widget/BlocActivityDate.dart';
 import 'package:yorgo/widgets/header_app_bar_widget.dart';
 import 'package:yorgo/widgets/menus/tabBarMenu.dart';
