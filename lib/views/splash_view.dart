@@ -38,7 +38,6 @@ class SplashView extends StatelessWidget {
     //on attend init de User
     if (user != null) {
       Provider.of<SportProvider>(context, listen: false);
-
       if (user.is_profile_complete == true) {
         Provider.of<NotificationProvider>(context, listen: false)
             .update(Provider.of<AuthProvider>(context, listen: false));
